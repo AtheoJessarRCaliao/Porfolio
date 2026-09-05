@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atheo Jessar Caliao — Software Developer & IT Engineer</title>
+    <meta name="description" content="Personal portfolio of Atheo Jessar Caliao, dedicated software developer and 4th Year IT student at Bukidnon State University specializing in fullstack web development and resilient systems.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Sticky Site Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container nav-container">
+            <a href="#about" class="logo" aria-label="Atheo Jessar Caliao home">
+                <span class="logo-symbol">A</span>
+                <span>Atheo Jessar Caliao</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="nav-links" aria-label="Main Navigation">
+                <a href="#about" class="nav-link active">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#journey" class="nav-link">Journey</a>
+                <a href="#interests" class="nav-link">Interests</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open mobile navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+        <div class="mobile-nav-list">
+            <a href="#about" class="mobile-nav-link active">About</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+            <a href="#journey" class="mobile-nav-link">Journey</a>
+            <a href="#interests" class="mobile-nav-link">Interests</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero & Profile Section -->
+        <section class="section hero-section" id="about">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="status-badge">
+                            <span class="status-pulse"></span>
+                            <span>Available for Software Engineering Roles</span>
+                        </div>
+
+                        <h1 class="hero-title">
+                            Hello, I'm <br>
+                            <span class="highlight">Atheo Jessar Caliao</span>
+                        </h1>
+
+                        <div class="hero-subtitle">
+                            <span>Software Developer</span>
+                            <span class="dot">•</span>
+                            <span>4th Year IT Student</span>
+                            <span class="dot">•</span>
+                            <span>Bukidnon State University</span>
+                        </div>
+
+                        <p class="hero-bio">
+                            I am a software developer and Information Technology senior focused on engineering robust web applications, decoupled API backends, and user-centered systems. My passion lies in transforming architectural challenges into clean, performant, and maintainable software.
+                        </p>
+
+                        <!-- Key Highlights / Competencies -->
+                        <div class="hero-competencies">
+                            <span class="competency-tag">
+                                <i class="fas fa-language"></i> English (TOEIC 945)
+                            </span>
+                            <span class="competency-tag">
+                                <i class="fas fa-torii-gate"></i> Japanese (JLPT N2)
+                            </span>
+                            <span class="competency-tag">
+                                <i class="fas fa-layer-group"></i> Fullstack Engineering
+                            </span>
+                            <span class="competency-tag">
+                                <i class="fas fa-network-wired"></i> Distributed APIs
+                            </span>
+                        </div>
+
+                        <!-- CTA Actions -->
+                        <div class="hero-actions">
+                            <a href="#projects" class="btn btn-primary">
+                                <i class="fas fa-folder-open"></i> Explore Work
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">
+                                <i class="fas fa-paper-plane"></i> Get in Touch
+                            </a>
+                        </div>
+
+                        <!-- Social Handles -->
+                        <div class="hero-socials">
+                            <a href="https://github.com/AtheoJessarRCaliao" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub Profile" aria-label="GitHub Profile">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook" aria-label="Facebook Profile">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/itsurboiyax/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Instagram" aria-label="Instagram Profile">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="mailto:ajtheo176@gmail.com" class="social-icon-btn" title="Email Direct" aria-label="Email Direct">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Profile Portrait Card -->
+                    <div class="hero-portrait-wrapper">
+                        <div class="portrait-card">
+                            <div class="portrait-image-box">
+                                <img src="assets/images/prof.jpg" alt="Atheo Jessar Caliao portrait">
+                            </div>
+                            <div class="portrait-meta">
+                                <div>
+                                    <h2 class="portrait-name">Atheo Jessar Caliao</h2>
+                                    <p class="portrait-role">BS Information Technology</p>
+                                </div>
+                                <span class="portrait-location-pill">
+                                    <i class="fas fa-map-pin" style="color: var(--accent);"></i> Bukidnon, PH
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects & Engineering Experience -->
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">
+                        <i class="fas fa-terminal"></i> Engineering Experience
+                    </span>
+                    <h2 class="section-title">Technical Projects & Architecture</h2>
+                    <p class="section-desc">
+                        Production applications, real-time tracking systems, and distributed platforms engineered with a focus on reliability, performance, and clean code.
+                    </p>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card">
+                        <div>
+                            <div class="project-top">
+                                <div class="project-icon">
+                                    <i class="fas fa-laptop-medical"></i>
+                                </div>
+                                <span class="project-role-badge">Lead Fullstack Developer</span>
+                            </div>
+                            <h3 class="project-title">Smart Health Integration (AI-DSUHIS)</h3>
+                            <p class="project-desc">
+                                AI-Driven Unified Health Information System for Malaybalay City local health units, integrating maternal care, epidemiological monitoring, and immunization datasets.
+                            </p>
+                            <ul class="project-bullets">
+                                <li>Architected decoupled Laravel REST backend serving a dynamic React SPA.</li>
+                                <li>Built a native Android client in Java for field-level health worker data intake.</li>
+                                <li>Designed an offline-to-online SQLite/MySQL data synchronization protocol.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="project-tech-stack">
+                                <span class="tech-pill">Laravel</span>
+                                <span class="tech-pill">React.js</span>
+                                <span class="tech-pill">Java</span>
+                                <span class="tech-pill">SQL</span>
+                                <span class="tech-pill">AI Sync</span>
+                            </div>
+                            <div class="project-actions">
+                                <button type="button" class="project-link-btn project-modal-trigger" data-project="health">
+                                    <span>View Architecture Details</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card">
+                        <div>
+                            <div class="project-top">
+                                <div class="project-icon">
+                                    <i class="fas fa-hotel"></i>
+                                </div>
+                                <span class="project-role-badge">Fullstack Developer</span>
+                            </div>
+                            <h3 class="project-title">LGU Tourism Accommodation Portal</h3>
+                            <p class="project-desc">
+                                Multi-tenant web platform streamlining accommodation bookings, property inventories, and analytics for the Department of Tourism and property hosts.
+                            </p>
+                            <ul class="project-bullets">
+                                <li>Normalized relational database schemas to manage user credentials and transactions.</li>
+                                <li>Implemented dynamic Role-Based Access Control (RBAC) isolating admin, vendor, and guest portals.</li>
+                                <li>Created automated reporting dashboards for local municipal revenue audits.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="project-tech-stack">
+                                <span class="tech-pill">MERN Stack</span>
+                                <span class="tech-pill">Laravel</span>
+                                <span class="tech-pill">RBAC</span>
+                                <span class="tech-pill">MySQL</span>
+                            </div>
+                            <div class="project-actions">
+                                <button type="button" class="project-link-btn project-modal-trigger" data-project="tourism">
+                                    <span>View Architecture Details</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="project-card">
+                        <div>
+                            <div class="project-top">
+                                <div class="project-icon">
+                                    <i class="fas fa-file-waveform"></i>
+                                </div>
+                                <span class="project-role-badge">Fullstack Developer</span>
+                            </div>
+                            <h3 class="project-title">BHW Digital Recording System</h3>
+                            <p class="project-desc">
+                                Centralized digital record-keeping system transitioning Barangay Health Workers (BHW) from legacy paper files to instant, search-indexed clinical records.
+                            </p>
+                            <ul class="project-bullets">
+                                <li>Optimized database queries for fast patient lookup during high-traffic clinic sessions.</li>
+                                <li>Built comprehensive CRUD workflows and sanitized validation schemas for vital records.</li>
+                                <li>Reduced patient triage check-in times by approximately 60%.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="project-tech-stack">
+                                <span class="tech-pill">PHP</span>
+                                <span class="tech-pill">Relational DB</span>
+                                <span class="tech-pill">Web Tech</span>
+                                <span class="tech-pill">Security</span>
+                            </div>
+                            <div class="project-actions">
+                                <button type="button" class="project-link-btn project-modal-trigger" data-project="bhw">
+                                    <span>View Architecture Details</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 4 -->
+                    <article class="project-card">
+                        <div>
+                            <div class="project-top">
+                                <div class="project-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <span class="project-role-badge">Fullstack Developer</span>
+                            </div>
+                            <h3 class="project-title">Real-Time Intramurals Tally System</h3>
+                            <p class="project-desc">
+                                University tournament scoring and medal-tracking platform deployed during university-wide sports and socio-cultural competitions.
+                            </p>
+                            <ul class="project-bullets">
+                                <li>Employed non-blocking asynchronous Fetch/AJAX polling for instantaneous scoreboard feeds.</li>
+                                <li>Implemented automated tie-breaker algorithms and real-time division standings.</li>
+                                <li>Delivered zero-downtime performance across hundreds of concurrent live campus viewers.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="project-tech-stack">
+                                <span class="tech-pill">React.js</span>
+                                <span class="tech-pill">Backend API</span>
+                                <span class="tech-pill">AJAX / Fetch</span>
+                                <span class="tech-pill">Analytics</span>
+                            </div>
+                            <div class="project-actions">
+                                <button type="button" class="project-link-btn project-modal-trigger" data-project="tally">
+                                    <span>View Architecture Details</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Matrix -->
+        <section class="section" id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">
+                        <i class="fas fa-cubes"></i> Core Competencies
+                    </span>
+                    <h2 class="section-title">Technical Skills Profile</h2>
+                    <p class="section-desc">
+                        A categorized breakdown of programming languages, libraries, databases, and engineering tools I leverage for fullstack software creation.
+                    </p>
+                </div>
+
+                <!-- Category Filter Tabs -->
+                <div class="skills-filter-nav">
+                    <button type="button" class="filter-btn active" data-filter="all">All Disciplines</button>
+                    <button type="button" class="filter-btn" data-filter="languages">Languages</button>
+                    <button type="button" class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button type="button" class="filter-btn" data-filter="backend">Backend & APIs</button>
+                    <button type="button" class="filter-btn" data-filter="databases">Databases & Cloud</button>
+                    <button type="button" class="filter-btn" data-filter="ai">AI / ML</button>
+                    <button type="button" class="filter-btn" data-filter="tools">Tools & Systems</button>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Languages -->
+                    <div class="skill-category-card" data-category="languages">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="category-title">Languages</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">Java</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">TypeScript</span>
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">PHP</span>
+                            <span class="skill-badge">C</span>
+                            <span class="skill-badge">Dart</span>
+                            <span class="skill-badge">SQL</span>
+                            <span class="skill-badge">HTML5 / CSS3</span>
+                        </div>
+                    </div>
+
+                    <!-- Frontend -->
+                    <div class="skill-category-card" data-category="frontend">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="category-title">Frontend</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">React.js</span>
+                            <span class="skill-badge">Vite</span>
+                            <span class="skill-badge">Tailwind CSS</span>
+                            <span class="skill-badge">Alpine.js</span>
+                            <span class="skill-badge">Sass</span>
+                            <span class="skill-badge">Bootstrap</span>
+                            <span class="skill-badge">Responsive UI/UX</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Frameworks -->
+                    <div class="skill-category-card" data-category="backend">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h3 class="category-title">Backend & APIs</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">Laravel</span>
+                            <span class="skill-badge">Django</span>
+                            <span class="skill-badge">Node.js</span>
+                            <span class="skill-badge">Express.js</span>
+                            <span class="skill-badge">RESTful APIs</span>
+                            <span class="skill-badge">WordPress</span>
+                            <span class="skill-badge">Apache</span>
+                        </div>
+                    </div>
+
+                    <!-- Databases & Cloud -->
+                    <div class="skill-category-card" data-category="databases">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3 class="category-title">Databases & Cloud</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">MySQL</span>
+                            <span class="skill-badge">MongoDB</span>
+                            <span class="skill-badge">Firebase</span>
+                            <span class="skill-badge">Relational Schemas</span>
+                            <span class="skill-badge">Vercel</span>
+                            <span class="skill-badge">Render</span>
+                        </div>
+                    </div>
+
+                    <!-- AI / ML -->
+                    <div class="skill-category-card" data-category="ai">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="category-title">AI / ML</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">PyTorch</span>
+                            <span class="skill-badge">TensorFlow</span>
+                            <span class="skill-badge">NumPy</span>
+                            <span class="skill-badge">OpenCV</span>
+                            <span class="skill-badge">Model Integration</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Architecture -->
+                    <div class="skill-category-card" data-category="tools">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-wrench"></i>
+                            </div>
+                            <h3 class="category-title">Tools & Design</h3>
+                        </div>
+                        <div class="skills-badge-list">
+                            <span class="skill-badge">Git & GitHub</span>
+                            <span class="skill-badge">OOP & Data Structures</span>
+                            <span class="skill-badge">MVC Pattern</span>
+                            <span class="skill-badge">Figma</span>
+                            <span class="skill-badge">Cisco</span>
+                            <span class="skill-badge">Raspberry Pi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey, Education & Achievements -->
+        <section class="section" id="journey">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">
+                        <i class="fas fa-graduation-cap"></i> Milestones
+                    </span>
+                    <h2 class="section-title">Education & Achievements</h2>
+                    <p class="section-desc">
+                        Academic progression, university recognition, and continuous dedication to software engineering excellence.
+                    </p>
+                </div>
+
+                <div class="timeline-grid">
+                    <!-- Academic Track -->
+                    <div>
+                        <h3 class="timeline-column-title">
+                            <i class="fas fa-university"></i> Academic Progression
+                        </h3>
+                        <div class="timeline-list">
+                            <div class="timeline-entry">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-date">2021 — Present</div>
+                                <h4 class="timeline-heading">Bachelor of Science in Information Technology</h4>
+                                <div class="timeline-subheading">Bukidnon State University • 4th Year Senior</div>
+                                <p class="timeline-body">
+                                    Specializing in Software Development, Database Architecture, and Distributed Information Systems. Leading capstone initiatives in local healthcare and municipal digitization.
+                                </p>
+                            </div>
+
+                            <div class="timeline-entry">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-date">Foundations</div>
+                                <h4 class="timeline-heading">High School Technical Track</h4>
+                                <div class="timeline-subheading">Early Programming & Algorithms</div>
+                                <p class="timeline-body">
+                                    Began coding journey exploring fundamental computer science algorithms, logic building, and early web scripting experiments that ignited a lifelong passion.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Honors & Distinctions -->
+                    <div>
+                        <h3 class="timeline-column-title">
+                            <i class="fas fa-award"></i> Honors & Distinctions
+                        </h3>
+                        <div class="timeline-list">
+                            <div class="timeline-entry">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-date">2023</div>
+                                <h4 class="timeline-heading">Dean's Lister</h4>
+                                <div class="timeline-subheading">Bukidnon State University</div>
+                                <p class="timeline-body">
+                                    Awarded Dean's List distinction in recognition of outstanding academic performance and valuable technical research contributions.
+                                </p>
+                            </div>
+
+                            <div class="timeline-entry">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-date">2022</div>
+                                <h4 class="timeline-heading">With High Honor Student</h4>
+                                <div class="timeline-subheading">Top 5 Academic Ranking</div>
+                                <p class="timeline-body">
+                                    Consistently ranked in the top 5 of the class through rigorous software engineering, data structures, and collegiate coursework.
+                                </p>
+                            </div>
+
+                            <div class="timeline-entry">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-date">2021</div>
+                                <h4 class="timeline-heading">Honor Student</h4>
+                                <div class="timeline-subheading">Academic Excellence</div>
+                                <p class="timeline-body">
+                                    Maintained an overall general point average exceeding 96%, reflecting discipline and academic commitment.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests & Focus Section -->
+        <section class="section" id="interests">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">
+                        <i class="fas fa-compass"></i> Beyond The Terminal
+                    </span>
+                    <h2 class="section-title">Interests & Pursuits</h2>
+                    <p class="section-desc">
+                        Creative pursuits and technical interests that keep curiosity sharp and problem-solving fresh.
+                    </p>
+                </div>
+
+                <!-- Hobbies Grid -->
+                <div class="hobbies-grid">
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-laptop-code"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Coding</h3>
+                            <p class="hobby-desc">Experimenting with new web frameworks, automation scripts, and side projects.</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-person-hiking"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Hiking</h3>
+                            <p class="hobby-desc">Exploring trails, ridges, and the mountainous landscapes of Bukidnon.</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-camera"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Photography</h3>
+                            <p class="hobby-desc">Capturing honest moments, landscape light, and travel scenery.</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-book-open"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Reading</h3>
+                            <p class="hobby-desc">Deep-diving into software engineering literature and science fiction.</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-gamepad"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Gaming</h3>
+                            <p class="hobby-desc">Engaging in strategic role-playing and competitive analytical games.</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i class="fas fa-music"></i></div>
+                        <div>
+                            <h3 class="hobby-title">Music</h3>
+                            <p class="hobby-desc">Playing acoustic guitar and relaxing to indie and acoustic playlists.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location Section -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">
+                        <i class="fas fa-envelope-open-text"></i> Connectivity
+                    </span>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-desc">
+                        Whether you are looking to collaborate on a software project, have an opportunity available, or simply want to connect, feel free to reach out.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Contact Direct & Location -->
+                    <div class="contact-info-card">
+                        <div>
+                            <div class="contact-direct-list">
+                                <!-- Email -->
+                                <div class="contact-direct-item">
+                                    <div class="direct-meta">
+                                        <div class="direct-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <div class="direct-label">Email Address</div>
+                                            <div class="direct-value">ajtheo176@gmail.com</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="copy-btn" data-copy="ajtheo176@gmail.com" title="Copy email address" aria-label="Copy email address">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="contact-direct-item">
+                                    <div class="direct-meta">
+                                        <div class="direct-icon">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div>
+                                            <div class="direct-label">Phone / WhatsApp</div>
+                                            <div class="direct-value">+63 992 490 8157</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="copy-btn" data-copy="+639924908157" title="Copy phone number" aria-label="Copy phone number">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location & Map -->
+                        <div class="location-box">
+                            <iframe 
+                                class="location-map-frame"
+                                title="Map location of Dangcagan, Bukidnon"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31601.45486462429!2d124.8103845!3d7.6139146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ff1a1d6fc6bd7d%3A0xf3c0c7d5c1a4a0e0!2sDangcagan%2C%20Bukidnon!5e0!3m2!1sen!2sph!4v1654321234567!5m2!1sen!2sph" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="location-box-footer">
+                                <div>
+                                    <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
+                                    <strong style="color: var(--text-primary);">Dangcagan, Bukidnon</strong>
+                                </div>
+                                <span>Purok-4 Poblacion Dagohoy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Contact Form -->
+                    <div class="contact-form-card">
+                        <form class="contact-form" id="contactForm">
+                            <h3 style="font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
+                                Send a Message
+                            </h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                                Send me a direct note and I'll get back to you promptly.
+                            </p>
+
+                            <div class="form-group">
+                                <label for="formName" class="form-label">Your Name</label>
+                                <input type="text" id="formName" class="form-input" placeholder="e.g. Maria Santos" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formEmail" class="form-label">Your Email</label>
+                                <input type="email" id="formEmail" class="form-input" placeholder="e.g. maria@example.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formSubject" class="form-label">Subject</label>
+                                <input type="text" id="formSubject" class="form-input" placeholder="e.g. Software Engineering Opportunity" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formMessage" class="form-label">Message</label>
+                                <textarea id="formMessage" class="form-textarea" placeholder="Write your message here..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-credits">
+                <span>© 2026 Atheo Jessar Caliao.</span>
+                <span>Crafted with clean HTML5, CSS3 & JavaScript.</span>
+            </div>
+            <div>
+                <a href="#about" style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.4rem;" aria-label="Back to top">
+                    <span>Back to Top</span>
+                    <i class="fas fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-label="Project Details Modal">
+        <div class="modal-dialog">
+            <button type="button" class="modal-close-btn" id="projectModalClose" aria-label="Close modal window">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="projectModalBody">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Bundle -->
+    <script src="js/main.js"></script>
+</body>
+</html>

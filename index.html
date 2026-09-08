@@ -19,51 +19,106 @@
 </head>
 <body>
 
-    <!-- Sticky Site Header -->
-    <header class="site-header" id="siteHeader">
-        <div class="container nav-container">
-            <a href="#about" class="logo" aria-label="Atheo Jessar Caliao home">
-                <span class="logo-symbol">A</span>
-                <span>Atheo Jessar Caliao</span>
-            </a>
-
-            <!-- Desktop Navigation Links -->
-            <nav class="nav-links" aria-label="Main Navigation">
-                <a href="#about" class="nav-link active">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#journey" class="nav-link">Journey</a>
-                <a href="#interests" class="nav-link">Interests</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-
-            <!-- Header Actions -->
-            <div class="nav-actions">
-                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
-                    <i class="fas fa-sun"></i>
-                </button>
-                <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open mobile navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+    <!-- Mobile Topbar (< 992px) -->
+    <header class="mobile-topbar" id="mobileTopbar">
+        <a href="#about" class="mobile-brand" aria-label="Atheo Jessar Caliao home">
+            <span class="logo-symbol">A</span>
+            <span class="mobile-brand-name">Atheo Jessar Caliao</span>
+        </a>
+        <div class="mobile-topbar-actions">
+            <button type="button" class="theme-toggle-btn mobile-theme-btn" id="mobileThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button type="button" class="mobile-hamburger-btn" id="mobileMenuBtn" aria-label="Open navigation menu" title="Open navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <!-- Mobile Navigation Drawer -->
-    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
-        <div class="mobile-nav-list">
-            <a href="#about" class="mobile-nav-link active">About</a>
-            <a href="#projects" class="mobile-nav-link">Projects</a>
-            <a href="#skills" class="mobile-nav-link">Skills</a>
-            <a href="#journey" class="mobile-nav-link">Journey</a>
-            <a href="#interests" class="mobile-nav-link">Interests</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
+    <!-- Sidebar Navigation Backdrop (Mobile Drawer) -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+    <!-- Main Sidebar (Desktop & Mobile Drawer) -->
+    <aside class="site-sidebar" id="siteSidebar" aria-label="Main Navigation">
+        <!-- Close button on mobile drawer -->
+        <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close navigation menu">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Sidebar Profile Header -->
+        <div class="sidebar-header">
+            <div class="sidebar-avatar-wrapper">
+                <img src="assets/images/sidebar-avatar.png" alt="Atheo Jessar Caliao" class="sidebar-avatar">
+                <span class="avatar-status-dot" title="Available for engineering roles"></span>
+            </div>
+            <h2 class="sidebar-name">Atheo Jessar Caliao</h2>
+            <p class="sidebar-role">Software Developer</p>
+            <div class="sidebar-status-pill">
+                <span class="status-pulse"></span>
+                <span>Available for Roles</span>
+            </div>
         </div>
-    </div>
+
+        <!-- Sidebar Navigation Tabs -->
+        <nav class="sidebar-nav" aria-label="Primary Navigation">
+            <a href="#about" class="sidebar-nav-link active">
+                <span class="nav-icon"><i class="fas fa-user-circle"></i></span>
+                <span class="nav-label">About</span>
+            </a>
+            <a href="#projects" class="sidebar-nav-link">
+                <span class="nav-icon"><i class="fas fa-layer-group"></i></span>
+                <span class="nav-label">Projects</span>
+            </a>
+            <a href="#skills" class="sidebar-nav-link">
+                <span class="nav-icon"><i class="fas fa-cubes"></i></span>
+                <span class="nav-label">Skills</span>
+            </a>
+            <a href="#journey" class="sidebar-nav-link">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span class="nav-label">Journey</span>
+            </a>
+            <a href="#interests" class="sidebar-nav-link">
+                <span class="nav-icon"><i class="fas fa-compass"></i></span>
+                <span class="nav-label">Interests</span>
+            </a>
+            <a href="#contact" class="sidebar-nav-link">
+                <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                <span class="nav-label">Contact</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Footer Actions -->
+        <div class="sidebar-footer">
+            <div class="sidebar-socials">
+                <a href="https://github.com/AtheoJessarRCaliao" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="Facebook Profile" aria-label="Facebook Profile">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/itsurboiyax/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="Instagram Profile" aria-label="Instagram Profile">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:ajtheo176@gmail.com" class="sidebar-social-link" title="Email Direct" aria-label="Email Direct">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
+            <button type="button" class="theme-toggle-btn sidebar-theme-btn" id="sidebarThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
+                <i class="fas fa-sun"></i>
+                <span class="theme-label-text">Toggle Theme</span>
+            </button>
+
+            <p class="sidebar-copyright">© 2026 Atheo Jessar Caliao</p>
+        </div>
+    </aside>
+
+    <!-- Page Content Wrapper (Contains all tabs/sections on 1 page) -->
+    <div class="page-content-wrapper">
 
     <main>
-        <!-- Hero & Profile Section -->
-        <section class="section hero-section" id="about">
+        <!-- Hero & Profile Section (Tab 1: About) -->
+        <section class="section hero-section tab-panel active" id="about">
             <div class="container">
                 <div class="hero-grid">
                     <div class="hero-content">
@@ -132,29 +187,16 @@
                         </div>
                     </div>
 
-                    <!-- Profile Portrait Card -->
+                    <!-- Standalone Profile Portrait (No Card) -->
                     <div class="hero-portrait-wrapper">
-                        <div class="portrait-card">
-                            <div class="portrait-image-box">
-                                <img src="assets/images/prof.jpg" alt="Atheo Jessar Caliao portrait">
-                            </div>
-                            <div class="portrait-meta">
-                                <div>
-                                    <h2 class="portrait-name">Atheo Jessar Caliao</h2>
-                                    <p class="portrait-role">BS Information Technology</p>
-                                </div>
-                                <span class="portrait-location-pill">
-                                    <i class="fas fa-map-pin" style="color: var(--accent);"></i> Bukidnon, PH
-                                </span>
-                            </div>
-                        </div>
+                        <img src="assets/images/about-portrait.png" alt="Atheo Jessar Caliao" class="hero-standalone-photo">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Projects & Engineering Experience -->
-        <section class="section" id="projects">
+        <!-- Featured Projects & Engineering Experience (Tab 2: Projects) -->
+        <section class="section tab-panel" id="projects">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">
@@ -311,8 +353,8 @@
             </div>
         </section>
 
-        <!-- Technical Skills Matrix -->
-        <section class="section" id="skills">
+        <!-- Technical Skills Matrix (Tab 3: Skills) -->
+        <section class="section tab-panel" id="skills">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">
@@ -451,8 +493,8 @@
             </div>
         </section>
 
-        <!-- Journey, Education & Achievements -->
-        <section class="section" id="journey">
+        <!-- Journey, Education & Achievements (Tab 4: Journey) -->
+        <section class="section tab-panel" id="journey">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">
@@ -534,8 +576,8 @@
             </div>
         </section>
 
-        <!-- Interests & Focus Section -->
-        <section class="section" id="interests">
+        <!-- Interests & Focus Section (Tab 5: Interests) -->
+        <section class="section tab-panel" id="interests">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">
@@ -600,8 +642,8 @@
             </div>
         </section>
 
-        <!-- Contact & Location Section -->
-        <section class="section" id="contact">
+        <!-- Contact & Location Section (Tab 6: Contact) -->
+        <section class="section tab-panel" id="contact">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">
@@ -674,21 +716,23 @@
                     <!-- Interactive Contact Form -->
                     <div class="contact-form-card">
                         <form class="contact-form" id="contactForm">
-                            <h3 style="font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
+                            <h3 class="contact-form-title">
                                 Send a Message
                             </h3>
-                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                            <p class="contact-form-desc">
                                 Send me a direct note and I'll get back to you promptly.
                             </p>
 
-                            <div class="form-group">
-                                <label for="formName" class="form-label">Your Name</label>
-                                <input type="text" id="formName" class="form-input" placeholder="e.g. Maria Santos" required>
-                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="formName" class="form-label">Your Name</label>
+                                    <input type="text" id="formName" class="form-input" placeholder="e.g. Maria Santos" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="formEmail" class="form-label">Your Email</label>
-                                <input type="email" id="formEmail" class="form-input" placeholder="e.g. maria@example.com" required>
+                                <div class="form-group">
+                                    <label for="formEmail" class="form-label">Your Email</label>
+                                    <input type="email" id="formEmail" class="form-input" placeholder="e.g. maria@example.com" required>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -701,7 +745,7 @@
                                 <textarea id="formMessage" class="form-textarea" placeholder="Write your message here..." required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">
+                            <button type="submit" class="btn btn-primary contact-submit-btn">
                                 <i class="fas fa-paper-plane"></i> Send Message
                             </button>
                         </form>
@@ -726,6 +770,7 @@
             </div>
         </div>
     </footer>
+    </div> <!-- /.page-content-wrapper -->
 
     <!-- Project Details Modal -->
     <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-label="Project Details Modal">

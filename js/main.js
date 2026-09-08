@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
    1. Theme Management (Dark / Light Mode)
    ========================================================================== */
 function initTheme() {
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    if (!themeToggleBtn) return;
+    const themeButtons = document.querySelectorAll('.theme-toggle-btn');
+    if (!themeButtons.length) return;
 
     // Check localStorage or system preference
     const savedTheme = localStorage.getItem('theo-portfolio-theme');
@@ -27,11 +27,13 @@ function initTheme() {
     const activeTheme = savedTheme || (systemPrefersDark ? 'dark' : 'dark');
     applyTheme(activeTheme);
 
-    themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-        localStorage.setItem('theo-portfolio-theme', newTheme);
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theo-portfolio-theme', newTheme);
+        });
     });
 
     // Listen for OS preference changes if not explicitly set
@@ -44,87 +46,148 @@ function initTheme() {
 
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    if (themeToggleBtn) {
-        const icon = themeToggleBtn.querySelector('i');
-        if (icon) {
-            if (theme === 'light') {
-                icon.className = 'fas fa-moon';
-                themeToggleBtn.setAttribute('title', 'Switch to dark theme');
-                themeToggleBtn.setAttribute('aria-label', 'Switch to dark theme');
-            } else {
-                icon.className = 'fas fa-sun';
-                themeToggleBtn.setAttribute('title', 'Switch to light theme');
-                themeToggleBtn.setAttribute('aria-label', 'Switch to light theme');
-            }
+    const themeButtons = document.querySelectorAll('.theme-toggle-btn');
+    
+    themeButtons.forEach(btn => {
+        const icon = btn.querySelector('i');
+        const label = btn.querySelector('.theme-label-text');
+        
+        if (theme === 'light') {
+            if (icon) icon.className = 'fas fa-moon';
+            btn.setAttribute('title', 'Switch to dark theme');
+            btn.setAttribute('aria-label', 'Switch to dark theme');
+            if (label) label.textContent = 'Dark Theme';
+        } else {
+            if (icon) icon.className = 'fas fa-sun';
+            btn.setAttribute('title', 'Switch to light theme');
+            btn.setAttribute('aria-label', 'Switch to light theme');
+            if (label) label.textContent = 'Light Theme';
         }
-    }
+    });
 }
 
 /* ==========================================================================
-   2. Sticky Navigation & Scroll Spy
+   2. Tabbed Navigation & Mobile Drawer (Independent Category Views)
    ========================================================================== */
 function initNavigation() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    const sections = document.querySelectorAll('section[id]');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    const siteSidebar = document.getElementById('siteSidebar');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const navLinks = document.querySelectorAll('.sidebar-nav-link');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    const validTabs = ['about', 'projects', 'skills', 'journey', 'interests', 'contact'];
 
-    // Mobile menu toggle
-    if (mobileMenuBtn && mobileNavDrawer) {
-        mobileMenuBtn.addEventListener('click', () => {
-            const isOpen = mobileNavDrawer.classList.toggle('open');
-            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-            const icon = mobileMenuBtn.querySelector('i');
-            if (icon) {
-                icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            }
+    function openSidebar() {
+        if (!siteSidebar) return;
+        siteSidebar.classList.add('open');
+        if (sidebarBackdrop) sidebarBackdrop.classList.add('open');
+        if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        if (!siteSidebar) return;
+        siteSidebar.classList.remove('open');
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove('open');
+        if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', openSidebar);
+    }
+
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+    }
+
+    // Close mobile drawer upon pressing ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && siteSidebar && siteSidebar.classList.contains('open')) {
+            closeSidebar();
+        }
+    });
+
+    /**
+     * Switch active tab view
+     * @param {string} tabId - ID of the tab to display
+     * @param {boolean} updateHistory - Whether to push state to browser history
+     */
+    function switchTab(tabId, updateHistory = true) {
+        const cleanId = (tabId || '').replace(/^#/, '');
+        const targetTab = validTabs.includes(cleanId) ? cleanId : 'about';
+        const targetPanel = document.getElementById(targetTab);
+
+        if (!targetPanel) return;
+
+        // Hide all tab panels and activate the chosen one
+        tabPanels.forEach(panel => {
+            panel.classList.remove('active');
+        });
+        targetPanel.classList.add('active');
+
+        // Update active class on sidebar navigation links
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            link.classList.toggle('active', linkHref === `#${targetTab}`);
         });
 
-        // Close on link click
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNavDrawer.classList.remove('open');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon) icon.className = 'fas fa-bars';
+        // Close mobile drawer if open
+        if (window.innerWidth <= 1024) {
+            closeSidebar();
+        }
+
+        // Scroll back to top of content smoothly (both window and page wrapper)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        const contentWrapper = document.querySelector('.page-content-wrapper');
+        if (contentWrapper) {
+            contentWrapper.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        });
+        }
 
-        // Close on outside click
-        document.addEventListener('click', (e) => {
-            if (!mobileNavDrawer.contains(e.target) && !mobileMenuBtn.contains(e.target) && mobileNavDrawer.classList.contains('open')) {
-                mobileNavDrawer.classList.remove('open');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon) icon.className = 'fas fa-bars';
-            }
-        });
+        // Update browser URL hash
+        if (updateHistory && history.pushState) {
+            history.pushState({ tab: targetTab }, '', `#${targetTab}`);
+        }
     }
 
-    // Scroll spy for active link indicator
-    function onScroll() {
-        const scrollY = window.pageYOffset + 120;
+    // Intercept clicks on any hash links matching valid tabs (sidebar + in-page CTAs)
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
 
-        sections.forEach(section => {
-            const sectionHeight = section.offsetHeight;
-            const sectionTop = section.offsetTop;
-            const sectionId = section.getAttribute('id');
+        const href = link.getAttribute('href');
+        const tabId = href ? href.substring(1) : '';
 
-            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
-                });
-                mobileNavLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
-                });
-            }
-        });
+        if (validTabs.includes(tabId)) {
+            e.preventDefault();
+            switchTab(tabId);
+        }
+    });
+
+    // Handle browser Back and Forward navigation
+    window.addEventListener('popstate', () => {
+        const currentHash = window.location.hash.substring(1) || 'about';
+        switchTab(currentHash, false);
+    });
+
+    // Initialize initial tab on page load based on URL hash
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash && validTabs.includes(initialHash)) {
+        switchTab(initialHash, false);
+    } else {
+        switchTab('about', false);
     }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 }
 
 /* ==========================================================================

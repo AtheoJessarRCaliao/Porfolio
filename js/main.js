@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initNavigation();
     initSkillsFilter();
+    initMilestonesFilter();
     initProjectModals();
     initClipboardCopy();
     initContactForm();
@@ -227,7 +228,43 @@ function initSkillsFilter() {
 }
 
 /* ==========================================================================
-   4. Project Details Modal (Architecture & Deep Dive)
+   4. Milestones / Journey Category Filter
+   ========================================================================== */
+function initMilestonesFilter() {
+    const filterButtons = document.querySelectorAll('.milestone-filter-btn');
+    const milestoneCards = document.querySelectorAll('.milestone-card');
+
+    if (!filterButtons.length || !milestoneCards.length) return;
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            milestoneCards.forEach(card => {
+                const category = card.getAttribute('data-milestone');
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 20);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(8px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 180);
+                }
+            });
+        });
+    });
+}
+
+/* ==========================================================================
+   5. Project Details Modal (Architecture & Deep Dive)
    ========================================================================== */
 const projectData = {
     'health': {

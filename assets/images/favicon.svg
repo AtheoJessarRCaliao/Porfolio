@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="1.8"/>
+
+  <!-- Code Bracket Left -->
+  <path d="M 19 23 L 11 32 L 19 41" fill="none" stroke="url(#brandGrad)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Code Bracket Right -->
+  <path d="M 45 23 L 53 32 L 45 41" fill="none" stroke="url(#cyanGrad)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Monogram A -->
+  <path d="M 25 43 L 32 19 L 39 43" fill="none" stroke="#ffffff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 27.5 35.5 L 36.5 35.5" fill="none" stroke="url(#brandGrad)" stroke-width="3.2" stroke-linecap="round"/>
+  
+  <!-- Accent Apex Dot -->
+  <circle cx="32" cy="18.5" r="1.8" fill="#38bdf8"/>
+</svg>

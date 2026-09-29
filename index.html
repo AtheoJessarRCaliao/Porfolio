@@ -216,14 +216,22 @@
                     </p>
                 </div>
 
+                <!-- Atmospheric backdrop overlay for focused project -->
+                <div class="projects-spotlight-backdrop" id="projectsSpotlightBackdrop" aria-hidden="true"></div>
+
                 <div class="projects-grid">
                     <!-- Project 1 -->
-                    <article class="project-card">
+                    <article class="project-card has-media">
                         <div>
+                            <div class="project-card-media">
+                                <img src="assets/images/smart-health-integration.png" alt="Smart Health Integration AI-DSUHIS Platform Preview" class="project-card-image" loading="lazy">
+                                <span class="project-media-badge"><i class="fas fa-circle-check"></i> Deployed System</span>
+                            </div>
                             <div class="project-top">
                                 <div class="project-icon">
                                     <i class="fas fa-laptop-medical"></i>
                                 </div>
+                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                                 <span class="project-role-badge">Lead Fullstack Developer</span>
                             </div>
                             <h3 class="project-title">Smart Health Integration (AI-DSUHIS)</h3>
@@ -260,6 +268,7 @@
                                 <div class="project-icon">
                                     <i class="fas fa-hotel"></i>
                                 </div>
+                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                                 <span class="project-role-badge">Fullstack Developer</span>
                             </div>
                             <h3 class="project-title">LGU Tourism Accommodation Portal</h3>
@@ -295,6 +304,7 @@
                                 <div class="project-icon">
                                     <i class="fas fa-file-waveform"></i>
                                 </div>
+                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                                 <span class="project-role-badge">Fullstack Developer</span>
                             </div>
                             <h3 class="project-title">BHW Digital Recording System</h3>
@@ -330,6 +340,7 @@
                                 <div class="project-icon">
                                     <i class="fas fa-trophy"></i>
                                 </div>
+                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                                 <span class="project-role-badge">Fullstack Developer</span>
                             </div>
                             <h3 class="project-title">Real-Time Intramurals Tally System</h3>
@@ -369,21 +380,10 @@
                         <i class="fas fa-cubes"></i> Core Competencies
                     </span>
                     <h2 class="section-title">Technical Skills Profile</h2>
-                    <p class="section-desc">
-                        A categorized breakdown of programming languages, libraries, databases, and engineering tools I leverage for fullstack software creation.
-                    </p>
                 </div>
 
-                <!-- Category Filter Ta                <!-- Category Filter Tabs -->
-                <div class="skills-filter-nav">
-                    <button type="button" class="filter-btn active" data-filter="all">All Disciplines</button>
-                    <button type="button" class="filter-btn" data-filter="languages">Languages</button>
-                    <button type="button" class="filter-btn" data-filter="frontend">Frontend & Mobile</button>
-                    <button type="button" class="filter-btn" data-filter="backend">Backend & APIs</button>
-                    <button type="button" class="filter-btn" data-filter="databases">Databases & Cloud</button>
-                    <button type="button" class="filter-btn" data-filter="systems">AI & Systems</button>
-                    <button type="button" class="filter-btn" data-filter="professional">Professional Skills</button>
-                </div>
+                <!-- Atmospheric backdrop overlay for focused skills profile -->
+                <div class="skills-spotlight-backdrop" id="skillsSpotlightBackdrop" aria-hidden="true"></div>
 
                 <div class="skills-grid">
                     <!-- Languages -->
@@ -393,17 +393,18 @@
                                 <i class="fas fa-code"></i>
                             </div>
                             <h3 class="category-title">Languages</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">Java</span>
-                            <span class="skill-badge">JavaScript</span>
-                            <span class="skill-badge">TypeScript</span>
-                            <span class="skill-badge">Python</span>
-                            <span class="skill-badge">PHP</span>
-                            <span class="skill-badge">C</span>
-                            <span class="skill-badge">Dart</span>
-                            <span class="skill-badge">SQL</span>
-                            <span class="skill-badge">HTML5 / CSS3</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/java.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Java</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/javascript.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">JavaScript</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/typescript.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">TypeScript</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/python.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Python</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/php.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">PHP</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/c.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">C</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/dart.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Dart</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/database.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">SQL</span></span>
+                            <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon" src="assets/icons/skills/html5.svg" alt="" aria-hidden="true" width="24" height="24"><img class="skill-icon" src="assets/icons/skills/css3.svg" alt="" aria-hidden="true" width="24" height="24"></span><span class="skill-label">HTML5 / CSS3</span></span>
                         </div>
                     </div>
 
@@ -414,16 +415,17 @@
                                 <i class="fas fa-laptop-code"></i>
                             </div>
                             <h3 class="category-title">Frontend & Mobile</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">React.js</span>
-                            <span class="skill-badge">Flutter</span>
-                            <span class="skill-badge">Vite</span>
-                            <span class="skill-badge">Tailwind CSS</span>
-                            <span class="skill-badge">Alpine.js</span>
-                            <span class="skill-badge">Sass</span>
-                            <span class="skill-badge">Bootstrap</span>
-                            <span class="skill-badge">Responsive UI/UX</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/react.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">React.js</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/flutter.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Flutter</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vitejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Vite</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tailwindcss.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Tailwind CSS</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/alpinejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Alpine.js</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/sass.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Sass</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/bootstrap.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Bootstrap</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/responsive.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Responsive UI/UX</span></span>
                         </div>
                     </div>
 
@@ -434,15 +436,16 @@
                                 <i class="fas fa-server"></i>
                             </div>
                             <h3 class="category-title">Backend & APIs</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">Laravel</span>
-                            <span class="skill-badge">Django</span>
-                            <span class="skill-badge">Node.js</span>
-                            <span class="skill-badge">Express.js</span>
-                            <span class="skill-badge">RESTful APIs</span>
-                            <span class="skill-badge">WordPress</span>
-                            <span class="skill-badge">Apache</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/laravel.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Laravel</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/django.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Django</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/nodejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Node.js</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/express.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Express.js</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/api.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">RESTful APIs</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/wordpress.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">WordPress</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/apache.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Apache</span></span>
                         </div>
                     </div>
 
@@ -453,14 +456,15 @@
                                 <i class="fas fa-database"></i>
                             </div>
                             <h3 class="category-title">Databases & Cloud</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">MySQL</span>
-                            <span class="skill-badge">MongoDB</span>
-                            <span class="skill-badge">Firebase</span>
-                            <span class="skill-badge">Relational Schemas</span>
-                            <span class="skill-badge">Vercel</span>
-                            <span class="skill-badge">Render</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mysql.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">MySQL</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mongodb.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">MongoDB</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/firebase.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Firebase</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/schema.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Relational Schemas</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vercel.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Vercel</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/render.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Render</span></span>
                         </div>
                     </div>
 
@@ -471,15 +475,16 @@
                                 <i class="fas fa-brain"></i>
                             </div>
                             <h3 class="category-title">AI & Systems</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">PyTorch</span>
-                            <span class="skill-badge">TensorFlow</span>
-                            <span class="skill-badge">OpenCV</span>
-                            <span class="skill-badge">Git & GitHub</span>
-                            <span class="skill-badge">OOP & MVC</span>
-                            <span class="skill-badge">Cisco CCNA</span>
-                            <span class="skill-badge">Raspberry Pi</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/pytorch.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">PyTorch</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tensorflow.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">TensorFlow</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/opencv.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">OpenCV</span></span>
+                            <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon" src="assets/icons/skills/git.svg" alt="" aria-hidden="true" width="24" height="24"><img class="skill-icon" src="assets/icons/skills/github.svg" alt="" aria-hidden="true" width="24" height="24"></span><span class="skill-label">Git &amp; GitHub</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/architecture.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">OOP &amp; MVC</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/network.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Cisco CCNA</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/raspberrypi.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Raspberry Pi</span></span>
                         </div>
                     </div>
 
@@ -490,16 +495,17 @@
                                 <i class="fas fa-users-cog"></i>
                             </div>
                             <h3 class="category-title">Professional & Core</h3>
+                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
                         </div>
                         <div class="skills-badge-list">
-                            <span class="skill-badge">Problem-Solving</span>
-                            <span class="skill-badge">Project Management</span>
-                            <span class="skill-badge">Data Analysis</span>
-                            <span class="skill-badge">Communication</span>
-                            <span class="skill-badge">Adaptability</span>
-                            <span class="skill-badge">Time Management</span>
-                            <span class="skill-badge">Digital Marketing</span>
-                            <span class="skill-badge">Tech Literacy</span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/problem-solving.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Problem-Solving</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/project-management.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Project Management</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/data-analysis.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Data Analysis</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/communication.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Communication</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/adaptability.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Adaptability</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/time-management.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Time Management</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/digital-marketing.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Digital Marketing</span></span>
+                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tech-literacy.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Tech Literacy</span></span>
                         </div>
                     </div>
                 </div>
@@ -515,7 +521,7 @@
                     </span>
                     <h2 class="section-title">Experience & Achievements</h2>
                     <p class="section-desc">
-                        Engineering experience, professional certifications, specialized technical trainings, and academic honors.
+                        Engineering experience, technology competitions, professional certifications, specialized technical trainings, and academic honors.
                     </p>
                 </div>
 
@@ -553,31 +559,91 @@
                                 </div>
                                 <div class="milestone-subtext">Bukidnon State University • 4th Year Senior</div>
                             </div>
+                            <article class="competition-experience">
+                                <a class="competition-photo" href="assets/images/1.jpg" target="_blank" rel="noopener noreferrer" aria-label="View Prompt Pulse competition photo (opens in a new tab)">
+                                    <img src="assets/images/1.jpg" alt="Group photo from the Bukidnon Inter-Campus Technology Prompt Pulse competition" width="1536" height="2048" loading="lazy" decoding="async">
+                                    <span class="competition-photo-label">View competition photo <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="competition-details">
+                                    <span class="competition-placement"><i class="fas fa-trophy" aria-hidden="true"></i> 2nd Place</span>
+                                    <h4 class="competition-title">Bukidnon Inter-Campus Technology</h4>
+                                    <p class="competition-category">Prompt Pulse &bull; Campus Category</p>
+                                </div>
+                            </article>
                         </div>
                     </div>
 
                     <!-- 2. Certifications & Licenses -->
-                    <div class="milestone-card" data-milestone="certifications">
+                    <div class="milestone-card milestone-certifications" data-milestone="certifications">
                         <div class="milestone-header">
                             <div class="milestone-title-group">
                                 <div class="milestone-icon"><i class="fas fa-certificate"></i></div>
                                 <h3 class="milestone-title">Certifications & Licenses</h3>
                             </div>
-                            <span class="milestone-year-badge">2026</span>
+                            <span class="milestone-year-badge">5 certificates</span>
                         </div>
-                        <div class="milestone-list">
-                            <div class="milestone-item">
-                                <div class="milestone-name">CCNA: Switching, Routing, and Wireless Essentials</div>
-                                <div class="milestone-subtext">Cisco Certified Network Associate (CCNA)</div>
-                            </div>
-                            <div class="milestone-item">
-                                <div class="milestone-name">Network Support and Security</div>
-                                <div class="milestone-subtext">Enterprise Infrastructure, Defense & Troubleshooting</div>
-                            </div>
-                            <div class="milestone-item">
-                                <div class="milestone-name">CCNA: Introduction to Networks</div>
-                                <div class="milestone-subtext">Core Network Architecture, Protocols & Operations</div>
-                            </div>
+                        <p class="certificate-intro">Select a certificate to view the original PDF in a new tab.</p>
+                        <div class="certificate-grid">
+                            <article class="certificate-card">
+                                <a class="certificate-preview" href="assets/images/software_engineer%20certificate.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Software Engineer certificate (PDF, opens in a new tab)">
+                                    <img src="assets/images/certificates/software-engineer.jpg" alt="HackerRank Software Engineer certificate awarded to Atheo Jessar R. Caliao" width="1600" height="1220" loading="lazy" decoding="async">
+                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="certificate-details">
+                                    <span class="certificate-type">Certificate of Accomplishment</span>
+                                    <h4 class="certificate-name">Software Engineer</h4>
+                                    <p class="certificate-issuer">HackerRank</p>
+                                    <p class="certificate-date">Earned <time datetime="2026-08-05">5 August 2026</time></p>
+                                </div>
+                            </article>
+                            <article class="certificate-card">
+                                <a class="certificate-preview" href="assets/images/ClassOf2026__issued%20(2).pdf" target="_blank" rel="noopener noreferrer" aria-label="View Introduction to AI Literacy and Responsible Use certificate (PDF, opens in a new tab)">
+                                    <img src="assets/images/certificates/ai-literacy-responsible-use.jpg" alt="Introduction to AI Literacy and Responsible Use certificate of completion awarded to Atheo Jessar Caliao" width="1600" height="1133" loading="lazy" decoding="async">
+                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="certificate-details">
+                                    <span class="certificate-type">Certificate of Completion</span>
+                                    <h4 class="certificate-name">Introduction to AI Literacy and Responsible Use</h4>
+                                    <p class="certificate-issuer">CHED ACHIEVE &bull; Map&uacute;a University</p>
+                                    <p class="certificate-date">Issued <time datetime="2026-09-14">14 September 2026</time></p>
+                                </div>
+                            </article>
+                            <article class="certificate-card">
+                                <a class="certificate-preview" href="assets/images/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_2301102653-student-buksu-edu-ph_764704f3-355b-4220-9c56-49a2f0c7f64c%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View CCNA: Switching, Routing, and Wireless Essentials certificate (PDF, opens in a new tab)">
+                                    <img src="assets/images/certificates/ccna-switching-routing-wireless.jpg" alt="Cisco Networking Academy CCNA: Switching, Routing, and Wireless Essentials course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
+                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="certificate-details">
+                                    <span class="certificate-type">Course Completion</span>
+                                    <h4 class="certificate-name">CCNA: Switching, Routing, and Wireless Essentials</h4>
+                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
+                                    <p class="certificate-date">Completed <time datetime="2025-12-23">23 December 2025</time></p>
+                                </div>
+                            </article>
+                            <article class="certificate-card">
+                                <a class="certificate-preview" href="assets/images/_certificate_2301102653-student-buksu-edu-ph_83796d3f-9e15-49ab-8185-4a1b2179a642%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View Network Support and Security certificate (PDF, opens in a new tab)">
+                                    <img src="assets/images/certificates/network-support-security.jpg" alt="Cisco Networking Academy Network Support and Security course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
+                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="certificate-details">
+                                    <span class="certificate-type">Course Completion</span>
+                                    <h4 class="certificate-name">Network Support and Security</h4>
+                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
+                                    <p class="certificate-date">Completed <time datetime="2025-07-14">14 July 2025</time></p>
+                                </div>
+                            </article>
+                            <article class="certificate-card">
+                                <a class="certificate-preview" href="assets/images/CCNA-_Introduction_to_Networks_certificate_2301102653-student-buksu-edu-ph_a6341ff8-6723-484e-bff0-af5d939c4b6e%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View CCNA: Introduction to Networks certificate (PDF, opens in a new tab)">
+                                    <img src="assets/images/certificates/ccna-introduction-to-networks.jpg" alt="Cisco Networking Academy CCNA: Introduction to Networks course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
+                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                </a>
+                                <div class="certificate-details">
+                                    <span class="certificate-type">Course Completion</span>
+                                    <h4 class="certificate-name">CCNA: Introduction to Networks</h4>
+                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
+                                    <p class="certificate-date">Completed <time datetime="2025-05-16">16 May 2025</time></p>
+                                </div>
+                            </article>
                         </div>
                     </div>
 

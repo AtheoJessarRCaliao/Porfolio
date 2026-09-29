@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initNavigation();
+    initProjectsSpotlight();
     initSkillsFilter();
     initMilestonesFilter();
     initProjectModals();
@@ -192,38 +193,215 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   3. Skills Category Filter
+   2.5. Projects Spotlight & Focus Selection
+   ========================================================================== */
+function initProjectsSpotlight() {
+    const projectCards = document.querySelectorAll('.project-card');
+    const projectsGrid = document.querySelector('.projects-grid');
+    const spotlightBackdrop = document.getElementById('projectsSpotlightBackdrop');
+
+    if (!projectCards.length || !projectsGrid) return;
+
+    let selectedProject = null;
+
+    function setProjectFocus(card, scrollIntoFocus = false) {
+        if (!card || selectedProject === card) {
+            // Deselect and return all cards to normal
+            selectedProject = null;
+            projectsGrid.classList.remove('has-selected');
+            if (spotlightBackdrop) spotlightBackdrop.classList.remove('active');
+
+            projectCards.forEach(c => {
+                c.classList.remove('is-selected', 'is-blurred');
+            });
+        } else {
+            // Select this project card
+            selectedProject = card;
+            projectsGrid.classList.add('has-selected');
+            if (spotlightBackdrop) spotlightBackdrop.classList.add('active');
+
+            projectCards.forEach(c => {
+                if (c === card) {
+                    c.classList.add('is-selected');
+                    c.classList.remove('is-blurred');
+                } else {
+                    c.classList.remove('is-selected');
+                    c.classList.add('is-blurred');
+                }
+            });
+
+            if (scrollIntoFocus) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }
+
+    projectCards.forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        const title = card.querySelector('.project-title')?.textContent?.trim() || 'project';
+        card.setAttribute('aria-label', `Select ${title} project`);
+
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.project-modal-trigger')) {
+                return;
+            }
+            setProjectFocus(card);
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.target.closest('.project-modal-trigger')) {
+                return;
+            }
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setProjectFocus(card, true);
+            }
+        });
+    });
+
+    // Clicking the backdrop closes spotlight and unblurs
+    if (spotlightBackdrop) {
+        spotlightBackdrop.addEventListener('click', () => {
+            if (selectedProject) {
+                setProjectFocus(null);
+            }
+        });
+    }
+
+    // Press Escape to dismiss spotlight if modal isn't open
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && selectedProject) {
+            const modalBackdrop = document.getElementById('projectModal');
+            if (!modalBackdrop || !modalBackdrop.classList.contains('open')) {
+                setProjectFocus(null);
+            }
+        }
+    });
+}
+
+/* ==========================================================================
+   3. Skills Category Spotlight & Profile Selection
    ========================================================================== */
 function initSkillsFilter() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const skillCategories = document.querySelectorAll('.skill-category-card');
+    const skillsGrid = document.querySelector('.skills-grid');
+    const spotlightBackdrop = document.getElementById('skillsSpotlightBackdrop');
 
-    if (!filterButtons.length || !skillCategories.length) return;
+    if (!skillCategories.length || !skillsGrid) return;
 
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    let activeFilter = 'all';
 
-            const filter = btn.getAttribute('data-filter');
+    function setCategoryFocus(filter, scrollIntoFocus = false) {
+        activeFilter = filter;
+
+        // Update active state on filter buttons if present
+        if (filterButtons && filterButtons.length) {
+            filterButtons.forEach(btn => {
+                const btnFilter = btn.getAttribute('data-filter');
+                if (btnFilter === filter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        if (filter === 'all') {
+            skillsGrid.classList.remove('has-selected');
+            if (spotlightBackdrop) spotlightBackdrop.classList.remove('active');
 
             skillCategories.forEach(card => {
+                // Clear any inline styles left over from previous state
+                card.style.display = '';
+                card.style.opacity = '';
+                card.style.transform = '';
+                card.classList.remove('is-selected', 'is-blurred');
+            });
+        } else {
+            skillsGrid.classList.add('has-selected');
+            if (spotlightBackdrop) spotlightBackdrop.classList.add('active');
+
+            let selectedCard = null;
+
+            skillCategories.forEach(card => {
+                card.style.display = '';
+                card.style.opacity = '';
+                card.style.transform = '';
+
                 const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 20);
+                if (category === filter) {
+                    card.classList.add('is-selected');
+                    card.classList.remove('is-blurred');
+                    selectedCard = card;
                 } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(10px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 180);
+                    card.classList.remove('is-selected');
+                    card.classList.add('is-blurred');
+                }
+            });
+
+            if (scrollIntoFocus && selectedCard) {
+                selectedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }
+
+    // Filter tab buttons (if present)
+    if (filterButtons && filterButtons.length) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                if (filter !== 'all' && activeFilter === filter) {
+                    setCategoryFocus('all');
+                } else {
+                    setCategoryFocus(filter, true);
                 }
             });
         });
+    }
+
+    // Clicking a category card directly selects / focuses it
+    skillCategories.forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        const category = card.getAttribute('data-category');
+        const title = card.querySelector('.category-title')?.textContent?.trim() || category;
+        card.setAttribute('aria-label', `Select ${title} skills profile`);
+
+        card.addEventListener('click', () => {
+            if (card.classList.contains('is-selected')) {
+                // Clicking the already selected card deselects it
+                setCategoryFocus('all');
+            } else {
+                setCategoryFocus(category, false);
+            }
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (card.classList.contains('is-selected')) {
+                    setCategoryFocus('all');
+                } else {
+                    setCategoryFocus(category, true);
+                }
+            }
+        });
+    });
+
+    // Clicking the backdrop closes the spotlight and unblurs
+    if (spotlightBackdrop) {
+        spotlightBackdrop.addEventListener('click', () => {
+            setCategoryFocus('all');
+        });
+    }
+
+    // Press Escape to dismiss spotlight and reset to all
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && activeFilter !== 'all') {
+            setCategoryFocus('all');
+        }
     });
 }
 
@@ -270,6 +448,7 @@ const projectData = {
     'health': {
         title: 'Smart Health Integration (AI-DSUHIS)',
         role: 'Lead Fullstack Developer',
+        image: 'assets/images/smart-health-integration.png',
         tech: ['Laravel', 'React.js', 'Java (Android)', 'MySQL / SQL', 'RESTful API', 'AI Sync'],
         highlights: [
             'Engineered an AI-Driven Unified Health Information System for Malaybalay City local health units, consolidating maternal healthcare, disease epidemiology monitoring, and community immunization records.',
@@ -336,6 +515,11 @@ function initProjectModals() {
                 <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.25rem;">
                     ${techPills}
                 </div>
+                ${data.image ? `
+                    <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); background-color: #0b1120; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); margin-bottom: 1.25rem;">
+                        <img src="${data.image}" alt="${data.title} Interface Preview" style="width: 100%; height: auto; display: block; object-fit: contain;">
+                    </div>
+                ` : ''}
             </div>
             
             <div style="margin-bottom: 1.5rem;">
@@ -361,7 +545,8 @@ function initProjectModals() {
     }
 
     triggerButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const projectId = btn.getAttribute('data-project');
             openModal(projectId);
         });

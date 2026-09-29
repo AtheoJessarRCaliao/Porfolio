@@ -770,28 +770,145 @@ section[id] {
 }
 
 /* Projects & Engineering Experience */
+.projects-spotlight-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 12, 16, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 50;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects-spotlight-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.55rem;
+    gap: 0.65rem;
+    position: relative;
 }
 
 .project-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.65rem 0.95rem;
+    padding: 0.75rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all var(--transition-normal);
     position: relative;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                background-color 0.3s ease,
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card:hover {
-    border-color: var(--border-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.4);
+/* Hover spotlight when no project is selected */
+@media (hover: hover) {
+    .projects-grid:not(.has-selected):hover > .project-card:not(:hover) {
+        filter: blur(2.5px) brightness(0.85);
+        opacity: 0.55;
+        transform: scale(0.985);
+    }
+
+    .projects-grid:not(.has-selected) > .project-card:hover {
+        transform: translateY(-6px) scale(1.025);
+        z-index: 20;
+        border-color: var(--border-accent);
+        background-color: var(--bg-surface-raised);
+        box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px var(--accent-glow);
+    }
+}
+
+/* Active Project Selection - moves boldly forward towards the user while background blurs */
+.project-card.is-selected {
+    transform: translateY(-8px) scale(1.035);
+    z-index: 60;
+    border-color: var(--accent);
+    background-color: var(--bg-surface-raised);
+    box-shadow: 0 22px 48px -8px rgba(0, 0, 0, 0.65), 
+                0 0 0 1px var(--accent), 
+                0 0 32px var(--accent-glow);
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* Sibling background project cards when a project is selected: blur and recede */
+.projects-grid.has-selected > .project-card.is-blurred {
+    filter: blur(4px) brightness(0.7);
+    opacity: 0.35;
+    transform: scale(0.97);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.projects-grid.has-selected > .project-card.is-blurred:hover {
+    filter: blur(2px) brightness(0.85);
+    opacity: 0.65;
+    transform: scale(0.985);
+}
+
+.project-card-media {
+    position: relative;
+    width: 100%;
+    height: 125px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 0.6rem;
+    border: 1px solid var(--border-subtle);
+    background-color: #0b1120;
+}
+
+.project-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+    transition: transform var(--transition-normal);
+}
+
+.project-card:hover .project-card-image {
+    transform: scale(1.04);
+}
+
+.project-media-badge {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(10, 12, 16, 0.78);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    z-index: 2;
+}
+
+.project-media-badge i {
+    color: var(--accent);
 }
 
 .project-top {
@@ -811,6 +928,33 @@ section[id] {
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* Focus Indicator Badge */
+.project-focus-indicator {
+    margin-left: auto;
+    margin-right: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    background-color: var(--accent-subtle);
+    border: 1px solid var(--border-accent);
+    padding: 0.12rem 0.5rem;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.project-card.is-selected .project-focus-indicator {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .project-role-badge {
@@ -914,18 +1058,47 @@ section[id] {
 }
 
 /* Skills Matrix */
+#skills.tab-panel.active {
+    height: auto;
+    flex: 1 0 auto;
+}
+
+/* Atmospheric spotlight backdrop when a technical skills profile is selected */
+.skills-spotlight-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 12, 16, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 50;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills-spotlight-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
 .skills-filter-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 60;
 }
 
 .filter-btn {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     font-weight: 500;
-    padding: 0.2rem 0.6rem;
+    padding: 0.22rem 0.65rem;
     border-radius: var(--radius-full);
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
@@ -948,28 +1121,79 @@ section[id] {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    position: relative;
 }
 
 .skill-category-card {
+    min-width: 0;
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.65rem 0.9rem;
-    transition: all var(--transition-normal);
+    padding: 0.75rem 0.95rem;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                background-color 0.3s ease,
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.skill-category-card:hover {
-    border-color: var(--border-accent);
-    transform: translateY(-2px);
+/* Hover spotlight when no profile is selected */
+@media (hover: hover) {
+    .skills-grid:not(.has-selected):hover > .skill-category-card:not(:hover) {
+        filter: blur(2.5px) brightness(0.85);
+        opacity: 0.55;
+        transform: scale(0.985);
+    }
+
+    .skills-grid:not(.has-selected) > .skill-category-card:hover {
+        transform: translateY(-6px) scale(1.025);
+        z-index: 20;
+        border-color: var(--border-accent);
+        background-color: var(--bg-surface-raised);
+        box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px var(--accent-glow);
+    }
+}
+
+/* Active Profile Selection - moves boldly forward towards the user while background blurs */
+.skill-category-card.is-selected {
+    transform: translateY(-8px) scale(1.035);
+    z-index: 60;
+    border-color: var(--accent);
+    background-color: var(--bg-surface-raised);
+    box-shadow: 0 22px 48px -8px rgba(0, 0, 0, 0.65), 
+                0 0 0 1px var(--accent), 
+                0 0 32px var(--accent-glow);
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* Sibling background cards when a profile is selected: blur and recede */
+.skills-grid.has-selected > .skill-category-card.is-blurred {
+    filter: blur(4px) brightness(0.7);
+    opacity: 0.35;
+    transform: scale(0.97);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.skills-grid.has-selected > .skill-category-card.is-blurred:hover {
+    filter: blur(2px) brightness(0.85);
+    opacity: 0.65;
+    transform: scale(0.985);
 }
 
 .category-header {
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
 }
 
 .category-icon {
@@ -982,6 +1206,7 @@ section[id] {
     align-items: center;
     justify-content: center;
     font-size: 0.78rem;
+    flex-shrink: 0;
 }
 
 .category-title {
@@ -990,21 +1215,74 @@ section[id] {
     color: var(--text-primary);
 }
 
+/* Focus Indicator Badge */
+.category-focus-indicator {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    background-color: var(--accent-subtle);
+    border: 1px solid var(--border-accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.skill-category-card.is-selected .category-focus-indicator {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 .skills-badge-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.28rem;
+    gap: 0.35rem;
 }
 
 .skill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    max-width: 100%;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    padding: 0.14rem 0.45rem;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    padding: 0.25rem 0.45rem 0.25rem 0.3rem;
     background-color: var(--bg-surface-raised);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
     transition: all var(--transition-fast);
+}
+
+.skill-icon {
+    display: block;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.skill-icon-pair {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 2px;
+}
+
+.skill-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .skill-badge:hover {
@@ -1014,7 +1292,13 @@ section[id] {
     transform: translateY(-1px);
 }
 
-/* Milestones & Journey (4-Quadrant 2x2 Grid) */
+/* Milestones & Journey */
+#journey.tab-panel.active {
+    height: auto;
+    flex: 1 0 auto;
+    justify-content: flex-start;
+}
+
 .milestones-filter-nav {
     display: flex;
     flex-wrap: wrap;
@@ -1159,6 +1443,200 @@ section[id] {
     flex-wrap: wrap;
     gap: 0.25rem;
     margin-top: 0.15rem;
+}
+
+.competition-experience {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.55rem;
+    padding: 0.7rem;
+    background-color: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+}
+
+.competition-photo {
+    display: block;
+    min-width: 0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+}
+
+.competition-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: center 75%;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.competition-photo-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0.6rem 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.76rem;
+    font-weight: 600;
+    transition: background-color var(--transition-fast);
+}
+
+.competition-photo:hover .competition-photo-label,
+.competition-photo:focus-visible .competition-photo-label {
+    background-color: var(--bg-surface-hover);
+}
+
+.competition-photo:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.competition-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+    min-width: 0;
+}
+
+.competition-placement {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    color: var(--accent);
+    background-color: var(--accent-subtle);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.competition-title {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.competition-category {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.milestone-card[data-milestone="experience"],
+.milestone-certifications {
+    grid-column: 1 / -1;
+    min-width: 0;
+}
+
+.milestone-certifications .milestone-header {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.milestone-certifications .milestone-year-badge {
+    white-space: nowrap;
+}
+
+.certificate-intro {
+    margin-bottom: 0.85rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.certificate-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.certificate-card {
+    min-width: 0;
+    background-color: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+}
+
+.certificate-preview {
+    display: block;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background-color: #ffffff;
+}
+
+.certificate-preview img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    padding: 0.45rem;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.certificate-preview-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0.6rem 0.85rem;
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-size: 0.76rem;
+    font-weight: 600;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.certificate-preview:hover .certificate-preview-label,
+.certificate-preview:focus-visible .certificate-preview-label {
+    background-color: var(--bg-surface-hover);
+}
+
+.certificate-preview:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.certificate-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.85rem;
+}
+
+.certificate-type {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.certificate-name {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.certificate-issuer,
+.certificate-date {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.5;
 }
 
 .deans-list-pill {
@@ -1635,7 +2113,7 @@ section[id] {
     }
 
     .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .milestones-grid {
@@ -1667,7 +2145,7 @@ section[id] {
     }
 
     .skills-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .hobbies-grid {
@@ -1678,5 +2156,16 @@ section[id] {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .competition-experience {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.85rem;
+    }
+
+    .certificate-grid {
+        grid-template-columns: minmax(0, 1fr);
     }
 }

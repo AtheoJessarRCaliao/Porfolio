@@ -23,18 +23,29 @@
     <meta name="theme-color" content="#0a0c10">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=2.1">
+    <link rel="stylesheet" href="css/style.css?v=2.2">
 </head>
 <body>
 
-    <!-- Mobile Topbar (< 992px) -->
-    <header class="mobile-topbar" id="mobileTopbar">
-        <a href="#about" class="mobile-brand" aria-label="Atheo Jessar Caliao home">
-            <img src="assets/images/favicon.svg" alt="Atheo Jessar Logo" class="logo-symbol" width="32" height="32">
-            <span class="mobile-brand-name">Atheo Jessar Caliao</span>
-        </a>
-        <div class="mobile-topbar-actions">
-            <button type="button" class="theme-toggle-btn mobile-theme-btn" id="mobileThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
+    <!-- Header Topbar (Desktop Content Header & Mobile Topbar) -->
+    <header class="site-topbar" id="siteTopbar">
+        <div class="topbar-left">
+            <a href="#about" class="topbar-brand" aria-label="Atheo Jessar Caliao home">
+                <img src="assets/images/favicon.svg" alt="Atheo Jessar Logo" class="logo-symbol" width="32" height="32">
+                <span class="topbar-brand-name">Atheo Jessar Caliao</span>
+            </a>
+            <div class="topbar-divider"></div>
+            <div class="topbar-view-indicator" id="topbarViewIndicator">
+                <i class="fas fa-user-circle"></i>
+                <span id="topbarActiveViewName">About</span>
+            </div>
+        </div>
+        <div class="topbar-actions">
+            <div class="topbar-status-badge">
+                <span class="status-pulse"></span>
+                <span>Available for Roles</span>
+            </div>
+            <button type="button" class="theme-toggle-btn topbar-theme-btn" id="topbarThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
                 <i class="fas fa-sun"></i>
             </button>
             <button type="button" class="mobile-hamburger-btn" id="mobileMenuBtn" aria-label="Open navigation menu" title="Open navigation menu">

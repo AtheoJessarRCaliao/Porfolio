@@ -139,32 +139,6 @@ function initNavigation() {
             link.classList.toggle('active', linkHref === `#${targetTab}`);
         });
 
-        // Update active view indicator in topbar
-        const viewIndicatorName = document.getElementById('topbarActiveViewName');
-        const viewIndicatorIcon = document.querySelector('#topbarViewIndicator i');
-        const tabLabels = {
-            'about': 'About',
-            'projects': 'Projects',
-            'skills': 'Skills',
-            'journey': 'Journey',
-            'interests': 'Interests',
-            'contact': 'Contact'
-        };
-        const tabIcons = {
-            'about': 'fa-user-circle',
-            'projects': 'fa-layer-group',
-            'skills': 'fa-cubes',
-            'journey': 'fa-graduation-cap',
-            'interests': 'fa-compass',
-            'contact': 'fa-envelope'
-        };
-        if (viewIndicatorName && tabLabels[targetTab]) {
-            viewIndicatorName.textContent = tabLabels[targetTab];
-        }
-        if (viewIndicatorIcon && tabIcons[targetTab]) {
-            viewIndicatorIcon.className = `fas ${tabIcons[targetTab]}`;
-        }
-
         // Close mobile drawer if open
         if (window.innerWidth <= 1024) {
             closeSidebar();

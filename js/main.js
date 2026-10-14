@@ -1,5 +1,5 @@
 /**
- * Atheo Jessar Caliao - Modern Minimal Portfolio
+ * Atheo Jessar R. Caliao - Modern Minimal Portfolio
  * Interactive Functionality & Theme Manager
  */
 
@@ -12,11 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectModals();
     initClipboardCopy();
     initContactForm();
+    initSiteLiveMatrixBackground();
 });
 
 /* ==========================================================================
-   1. Theme Management (Dark / Light Mode)
+   1. Theme Management (Dark / Light Mode) with Circular Ripple & Micro-Interactions
    ========================================================================== */
+let themeTransitionTimer = null;
+
+function enableThemeTransitionClass() {
+    document.documentElement.classList.add('theme-transitioning');
+    if (themeTransitionTimer) clearTimeout(themeTransitionTimer);
+    themeTransitionTimer = setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+    }, 450);
+}
+
 function initTheme() {
     const themeButtons = document.querySelectorAll('.theme-toggle-btn');
     if (!themeButtons.length) return;
@@ -27,43 +38,119 @@ function initTheme() {
     
     // Default to dark mode if no preference stored
     const activeTheme = savedTheme || (systemPrefersDark ? 'dark' : 'dark');
-    applyTheme(activeTheme);
+    applyTheme(activeTheme, false);
 
     themeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
             const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-            localStorage.setItem('theo-portfolio-theme', newTheme);
+            toggleThemeWithTransition(e, newTheme, btn);
         });
     });
 
     // Listen for OS preference changes if not explicitly set
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem('theo-portfolio-theme')) {
-            applyTheme(e.matches ? 'dark' : 'light');
+            applyTheme(e.matches ? 'dark' : 'light', true);
         }
     });
 }
 
-function applyTheme(theme) {
+function toggleThemeWithTransition(event, newTheme, triggerBtn) {
+    // 1. Play button tactile pulse ring animation
+    if (triggerBtn) {
+        triggerBtn.classList.remove('btn-pulse');
+        void triggerBtn.offsetWidth; // force reflow
+        triggerBtn.classList.add('btn-pulse');
+    }
+
+    // 2. Global smooth CSS transition on colors & surfaces
+    enableThemeTransitionClass();
+
+    // 3. Modern Circular Ripple expansion via View Transitions API
+    const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (document.startViewTransition && !isReducedMotion) {
+        // Calculate origin center of the clicked button
+        let x = window.innerWidth / 2;
+        let y = 0;
+        
+        if (triggerBtn) {
+            const rect = triggerBtn.getBoundingClientRect();
+            x = rect.left + rect.width / 2;
+            y = rect.top + rect.height / 2;
+        } else if (event) {
+            x = event.clientX;
+            y = event.clientY;
+        }
+
+        const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        const transition = document.startViewTransition(() => {
+            applyTheme(newTheme, true);
+            localStorage.setItem('theo-portfolio-theme', newTheme);
+        });
+
+        transition.ready.then(() => {
+            const isDark = newTheme === 'dark';
+            const clipPath = [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`
+            ];
+
+            document.documentElement.animate(
+                {
+                    clipPath: isDark ? [...clipPath].reverse() : clipPath
+                },
+                {
+                    duration: 480,
+                    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)'
+                }
+            );
+        }).catch(() => {
+            applyTheme(newTheme, true);
+            localStorage.setItem('theo-portfolio-theme', newTheme);
+        });
+    } else {
+        // Fallback for browsers without View Transitions
+        applyTheme(newTheme, true);
+        localStorage.setItem('theo-portfolio-theme', newTheme);
+    }
+}
+
+function applyTheme(theme, animateIcon = false) {
     document.documentElement.setAttribute('data-theme', theme);
     const themeButtons = document.querySelectorAll('.theme-toggle-btn');
     
     themeButtons.forEach(btn => {
         const icon = btn.querySelector('i');
-        const label = btn.querySelector('.theme-label-text');
+        const label = btn.querySelector('.theme-label-text, .theme-btn-label');
         
+        if (icon) {
+            if (theme === 'light') {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+            if (animateIcon) {
+                icon.classList.remove('theme-icon-spin');
+                void icon.offsetWidth; // trigger reflow
+                icon.classList.add('theme-icon-spin');
+            }
+        }
+
         if (theme === 'light') {
-            if (icon) icon.className = 'fas fa-moon';
             btn.setAttribute('title', 'Switch to dark theme');
             btn.setAttribute('aria-label', 'Switch to dark theme');
-            if (label) label.textContent = 'Dark Theme';
+            if (label) label.textContent = 'Dark';
         } else {
-            if (icon) icon.className = 'fas fa-sun';
             btn.setAttribute('title', 'Switch to light theme');
             btn.setAttribute('aria-label', 'Switch to light theme');
-            if (label) label.textContent = 'Light Theme';
+            if (label) label.textContent = 'Light';
         }
     });
 }
@@ -74,6 +161,8 @@ function applyTheme(theme) {
 function initNavigation() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
+    const floatingNavToggleBtn = document.getElementById('floatingNavToggleBtn');
     const siteSidebar = document.getElementById('siteSidebar');
     const sidebarBackdrop = document.getElementById('sidebarBackdrop');
     const navLinks = document.querySelectorAll('.sidebar-nav-link');
@@ -96,6 +185,49 @@ function initNavigation() {
         document.body.style.overflow = '';
     }
 
+    // Desktop & Tablet Sidebar Collapse / Expand Controller
+    function toggleDesktopSidebar(forceState) {
+        const isClosed = forceState !== undefined 
+            ? forceState 
+            : !document.body.classList.contains('sidebar-closed');
+
+        if (isClosed) {
+            document.body.classList.add('sidebar-closed');
+            localStorage.setItem('theo-portfolio-sidebar-closed', 'true');
+        } else {
+            document.body.classList.remove('sidebar-closed');
+            localStorage.removeItem('theo-portfolio-sidebar-closed');
+        }
+    }
+
+    // Restore desktop sidebar closed state from localStorage
+    if (window.innerWidth > 1024) {
+        const savedClosed = localStorage.getItem('theo-portfolio-sidebar-closed') === 'true';
+        if (savedClosed) {
+            document.body.classList.add('sidebar-closed');
+        }
+    }
+
+    if (sidebarCollapseBtn) {
+        sidebarCollapseBtn.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) {
+                closeSidebar();
+            } else {
+                toggleDesktopSidebar(true);
+            }
+        });
+    }
+
+    if (floatingNavToggleBtn) {
+        floatingNavToggleBtn.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) {
+                openSidebar();
+            } else {
+                toggleDesktopSidebar(false);
+            }
+        });
+    }
+
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', openSidebar);
     }
@@ -108,15 +240,33 @@ function initNavigation() {
         sidebarBackdrop.addEventListener('click', closeSidebar);
     }
 
-    // Close mobile drawer upon pressing ESC key
+    // Close mobile drawer upon pressing ESC key; Toggle with Ctrl+B / Cmd+B
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && siteSidebar && siteSidebar.classList.contains('open')) {
             closeSidebar();
         }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+            e.preventDefault();
+            if (window.innerWidth <= 1024) {
+                if (siteSidebar && siteSidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            } else {
+                toggleDesktopSidebar();
+            }
+        }
     });
 
+    let currentTabIndex = 0;
+    const initialHashCheck = (window.location.hash || '').replace(/^#/, '');
+    if (initialHashCheck && validTabs.includes(initialHashCheck)) {
+        currentTabIndex = validTabs.indexOf(initialHashCheck);
+    }
+
     /**
-     * Switch active tab view
+     * Switch active tab view with alternate directional transitions
      * @param {string} tabId - ID of the tab to display
      * @param {boolean} updateHistory - Whether to push state to browser history
      */
@@ -127,16 +277,29 @@ function initNavigation() {
 
         if (!targetPanel) return;
 
-        // Hide all tab panels and activate the chosen one
-        tabPanels.forEach(panel => {
-            panel.classList.remove('active');
-        });
-        targetPanel.classList.add('active');
+        const newIndex = validTabs.indexOf(targetTab);
+        const isForward = newIndex >= currentTabIndex;
+        const directionClass = isForward ? 'tab-enter-forward' : 'tab-enter-backward';
+        currentTabIndex = newIndex >= 0 ? newIndex : 0;
 
-        // Update active class on sidebar navigation links
+        // Hide all tab panels and activate chosen one with directional slide
+        tabPanels.forEach(panel => {
+            panel.classList.remove('active', 'tab-enter-forward', 'tab-enter-backward');
+        });
+
+        void targetPanel.offsetWidth; // force reflow for smooth animation replay
+        targetPanel.classList.add('active', directionClass);
+
+        // Update active class and trigger tactile pulse on sidebar navigation links
         navLinks.forEach(link => {
             const linkHref = link.getAttribute('href');
-            link.classList.toggle('active', linkHref === `#${targetTab}`);
+            const isActive = linkHref === `#${targetTab}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.classList.remove('nav-click-pulse');
+                void link.offsetWidth; // force reflow
+                link.classList.add('nav-click-pulse');
+            }
         });
 
         // Close mobile drawer if open
@@ -190,6 +353,198 @@ function initNavigation() {
     } else {
         switchTab('about', false);
     }
+
+    // Initialize Linear/Raycast-style Quick Command Palette
+    initQuickCommandPalette(switchTab);
+}
+
+/* ==========================================================================
+   2.2. Quick Command Palette (Spotlight Navigation & Search)
+   ========================================================================== */
+function initQuickCommandPalette(switchTabFn) {
+    const backdrop = document.getElementById('quickCmdBackdrop');
+    const input = document.getElementById('quickCmdInput');
+    const resultsContainer = document.getElementById('quickCmdResults');
+    const triggerBtn = document.getElementById('sidebarQuickCmdBtn');
+
+    if (!backdrop || !input || !resultsContainer) return;
+
+    const items = [
+        { type: 'page', id: 'about', title: 'About', subtitle: 'Overview, Bio & Background', icon: 'fas fa-user-circle', badge: 'Key 1' },
+        { type: 'page', id: 'projects', title: 'Projects', subtitle: 'Architecture & Engineering Experience', icon: 'fas fa-layer-group', badge: 'Key 2' },
+        { type: 'page', id: 'skills', title: 'Skills', subtitle: 'Languages, Frameworks & Core Stack', icon: 'fas fa-cubes', badge: 'Key 3' },
+        { type: 'page', id: 'journey', title: 'Journey', subtitle: 'Experience, Milestones & Awards', icon: 'fas fa-graduation-cap', badge: 'Key 4' },
+        { type: 'page', id: 'interests', title: 'Interests', subtitle: 'Personal Interests & Explorations', icon: 'fas fa-compass', badge: 'Key 5' },
+        { type: 'page', id: 'contact', title: 'Contact', subtitle: 'Get in Touch & Direct Messaging', icon: 'fas fa-envelope', badge: 'Key 6' },
+        { type: 'project', id: 'health', title: 'Smart Health Integration (AI-DSUHIS)', subtitle: 'Deployed Health System • Laravel / React', icon: 'fas fa-laptop-medical', badge: 'Project' },
+        { type: 'project', id: 'tourism', title: 'LGU Impasug-ong Tourism Portal', subtitle: 'Municipal Booking Platform • MERN / Laravel', icon: 'fas fa-landmark', badge: 'Project' },
+        { type: 'project', id: 'tally', title: 'Real-Time Intramurals Tally System', subtitle: 'Scoreboard Platform • React / Async API', icon: 'fas fa-trophy', badge: 'Project' },
+        { type: 'project', id: 'acadex', title: 'Acadex: Offline Study Companion', subtitle: 'Personal Project • Offline-First React', icon: 'fas fa-graduation-cap', badge: 'Project' }
+    ];
+
+    let selectedIndex = 0;
+    let filteredItems = [...items];
+
+    function openPalette() {
+        backdrop.classList.add('open');
+        input.value = '';
+        renderItems('');
+        setTimeout(() => input.focus(), 60);
+    }
+
+    function closePalette() {
+        backdrop.classList.remove('open');
+    }
+
+    function renderItems(filterText) {
+        const query = (filterText || '').toLowerCase().trim();
+        filteredItems = items.filter(item => 
+            item.title.toLowerCase().includes(query) ||
+            item.subtitle.toLowerCase().includes(query)
+        );
+        selectedIndex = 0;
+
+        if (filteredItems.length === 0) {
+            resultsContainer.innerHTML = `
+                <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                    <i class="fas fa-magnifying-glass" style="font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.4; display: block;"></i>
+                    No matches found for "${query}"
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        let currentType = '';
+
+        filteredItems.forEach((item, index) => {
+            if (item.type !== currentType) {
+                currentType = item.type;
+                const groupTitle = currentType === 'page' ? 'Pages' : 'Featured Projects';
+                html += `<div class="quick-cmd-group-label">${groupTitle}</div>`;
+            }
+
+            const isSelected = index === selectedIndex ? 'selected' : '';
+            html += `
+                <div class="quick-cmd-item ${isSelected}" data-index="${index}" data-type="${item.type}" data-id="${item.id}">
+                    <div class="quick-cmd-item-icon">
+                        <i class="${item.icon}"></i>
+                    </div>
+                    <div class="quick-cmd-item-title">
+                        <div>${item.title}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 400;">${item.subtitle}</div>
+                    </div>
+                    <span class="quick-cmd-item-badge">${item.badge}</span>
+                </div>
+            `;
+        });
+
+        resultsContainer.innerHTML = html;
+
+        resultsContainer.querySelectorAll('.quick-cmd-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const idx = parseInt(el.getAttribute('data-index'), 10);
+                executeItem(filteredItems[idx]);
+            });
+            el.addEventListener('mouseenter', () => {
+                const idx = parseInt(el.getAttribute('data-index'), 10);
+                updateSelection(idx);
+            });
+        });
+    }
+
+    function updateSelection(newIdx) {
+        if (newIdx < 0) newIdx = filteredItems.length - 1;
+        if (newIdx >= filteredItems.length) newIdx = 0;
+        selectedIndex = newIdx;
+
+        const itemsEl = resultsContainer.querySelectorAll('.quick-cmd-item');
+        itemsEl.forEach((el, idx) => {
+            el.classList.toggle('selected', idx === selectedIndex);
+        });
+
+        const activeEl = itemsEl[selectedIndex];
+        if (activeEl) {
+            activeEl.scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    function executeItem(item) {
+        if (!item) return;
+        closePalette();
+
+        if (item.type === 'page') {
+            if (typeof switchTabFn === 'function') {
+                switchTabFn(item.id);
+            }
+        } else if (item.type === 'project') {
+            if (typeof switchTabFn === 'function') {
+                switchTabFn('projects');
+            }
+            setTimeout(() => {
+                if (typeof window.openProjectModal === 'function') {
+                    window.openProjectModal(item.id);
+                }
+            }, 300);
+        }
+    }
+
+    if (triggerBtn) {
+        triggerBtn.addEventListener('click', openPalette);
+    }
+
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closePalette();
+    });
+
+    input.addEventListener('input', (e) => {
+        renderItems(e.target.value);
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            updateSelection(selectedIndex + 1);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            updateSelection(selectedIndex - 1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (filteredItems[selectedIndex]) {
+                executeItem(filteredItems[selectedIndex]);
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closePalette();
+        }
+    });
+
+    // Global keyboard shortcuts (Ctrl+K, 1-6)
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (backdrop.classList.contains('open')) {
+                closePalette();
+            } else {
+                openPalette();
+            }
+        } else if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+            closePalette();
+        } else if (!backdrop.classList.contains('open')) {
+            const activeTag = (document.activeElement && document.activeElement.tagName) || '';
+            const isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT';
+            if (!isTyping && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                const keyNum = parseInt(e.key, 10);
+                if (keyNum >= 1 && keyNum <= 6) {
+                    const tabMap = ['about', 'projects', 'skills', 'journey', 'interests', 'contact'];
+                    const targetTab = tabMap[keyNum - 1];
+                    if (targetTab && typeof switchTabFn === 'function') {
+                        switchTabFn(targetTab);
+                    }
+                }
+            }
+        }
+    });
 }
 
 /* ==========================================================================
@@ -459,30 +814,22 @@ const projectData = {
         overview: 'This flagship healthcare project solves the persistent fragmentation of patient data across rural barangays. Through role-based security, field workers can log maternal vitals and vaccination status even in zero-reception areas, automatically syncing records with central municipal hospital databases.'
     },
     'tourism': {
-        title: 'LGU Tourism Accommodation Portal',
+        title: 'LGU Impasug-ong Tourism Accommodation Portal',
         role: 'Fullstack Developer',
+        image: 'assets/images/LGU.webp',
         tech: ['MERN Stack', 'Laravel', 'RBAC Security', 'Relational Schemas', 'Express.js', 'React'],
         highlights: [
-            'Developed a multi-tenant booking and accommodation management system for the Department of Tourism, hotel operators, and visitors.',
+            'Developed a multi-tenant booking and accommodation management system for the Municipality of Impasug-ong Tourism Office, hotel/inn operators, and visitors.',
             'Designed and normalized complex relational database schemas for handling room availability, date reservations, and customer billing histories.',
-            'Implemented granular Role-Based Access Control (RBAC) to ensure absolute data isolation across municipality administrators, property merchants, and guests.'
+            'Implemented granular Role-Based Access Control (RBAC) to ensure absolute data isolation across municipality administrators, property merchants, and guests.',
+            'Created automated reporting dashboards and financial summaries for Impasug-ong municipal revenue and tourist volume audits.'
         ],
-        overview: 'Created to digitize the regional tourism sector by providing property managers with automated room inventory controls while granting local government units real-time visibility into tourism analytics and municipal tax compliance.'
-    },
-    'bhw': {
-        title: 'BHW Digital Recording System',
-        role: 'Fullstack Developer',
-        tech: ['Web Technologies', 'PHP', 'Relational SQL', 'CRUD Ops', 'Form Sanitization'],
-        highlights: [
-            'Digitized decades of legacy paper registers for Barangay Health Workers (BHW) into an instant search-indexed web repository.',
-            'Optimized relational database indexes and queries to provide near-instant retrieval times during high-volume triage and consultation periods.',
-            'Implemented comprehensive validation and sanitization filters across critical clinical input forms to guarantee patient data fidelity.'
-        ],
-        overview: 'A community-focused software solution that eliminated record loss, reduced patient intake check-in wait times by over 60%, and enabled health workers to generate accurate statistical morbidity reports in seconds.'
+        overview: 'Created to digitize the regional tourism sector for the Municipality of Impasug-ong, Bukidnon by providing local property managers with automated room inventory controls while granting local government units real-time visibility into tourism analytics and municipal tax compliance.'
     },
     'tally': {
         title: 'Real-Time Intramurals Tally System',
         role: 'Fullstack Developer',
+        image: 'assets/images/TALLY.png',
         tech: ['React.js', 'JavaScript (Fetch API/AJAX)', 'Backend REST', 'Real-Time Analytics'],
         highlights: [
             'Engineered an event scoring and tallying dashboard deployed during university-wide sports and socio-cultural intramural competitions.',
@@ -490,6 +837,19 @@ const projectData = {
             'Architected automated tie-breaking algorithms and overall championship medal tally aggregators.'
         ],
         overview: 'Delivered an interactive, zero-latency tournament management experience during Bukidnon State University intramurals, keeping thousands of students, faculty, and athletes updated on tournament rankings in real-time.'
+    },
+    'acadex': {
+        title: 'Acadex: Offline Study Companion',
+        role: 'Personal Project',
+        image: 'assets/images/ACADEX.png',
+        tech: ['JavaScript / React', 'Offline-First Architecture', 'Client Storage / IndexedDB', 'Pomodoro Timer', 'Productivity Analytics'],
+        highlights: [
+            'Engineered an all-in-one offline academic productivity companion empowering students to organize coursework, manage assignment deadlines, and track exam readiness with zero internet dependency.',
+            'Implemented an integrated Pomodoro study timer with automated focus sessions, customizable intervals, and daily focus tracking metrics.',
+            'Architected client-side local persistence (IndexedDB / LocalStorage) guaranteeing instant response times, offline resilience, and zero data leakage.',
+            'Designed dynamic exam countdown widgets, automated task prioritization queues, and historical study score analytics.'
+        ],
+        overview: 'Developed as a dedicated personal project to help students excel academically even without reliable internet connectivity. Acadex combines course organization, Pomodoro study timing, task management, and focus performance metrics into a distraction-free offline experience.'
     }
 };
 
@@ -516,7 +876,7 @@ function initProjectModals() {
                     ${techPills}
                 </div>
                 ${data.image ? `
-                    <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); background-color: #0b1120; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); margin-bottom: 1.25rem;">
+                    <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); background-color: #000000; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); margin-bottom: 1.25rem;">
                         <img src="${data.image}" alt="${data.title} Interface Preview" style="width: 100%; height: auto; display: block; object-fit: contain;">
                     </div>
                 ` : ''}
@@ -543,6 +903,8 @@ function initProjectModals() {
         modalBackdrop.classList.remove('open');
         document.body.style.overflow = '';
     }
+
+    window.openProjectModal = openModal;
 
     triggerButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -677,4 +1039,229 @@ function initContactForm() {
             }, 1200);
         }
     });
+}
+
+/* ==========================================================================
+   8. Live Dynamic Interactive Matrix Canvas Background (All Pages & Navbar)
+   ========================================================================== */
+function initSiteLiveMatrixBackground() {
+    const canvasIds = ['siteMatrixCanvas', 'sidebarMatrixCanvas'];
+    const instances = [];
+
+    // Global mouse state
+    const mouse = {
+        x: -9999,
+        y: -9999,
+        targetX: -9999,
+        targetY: -9999,
+        radius: 175
+    };
+
+    let isVisible = true;
+    let time = 0;
+    let animationFrameId = null;
+
+    canvasIds.forEach(id => {
+        const canvas = document.getElementById(id);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        instances.push({
+            id,
+            canvas,
+            ctx,
+            width: 0,
+            height: 0,
+            points: [],
+            spacing: id === 'sidebarMatrixCanvas' ? 26 : 34,
+            isSidebar: id === 'sidebarMatrixCanvas'
+        });
+    });
+
+    if (instances.length === 0) return;
+
+    const sidebar = document.getElementById('siteSidebar');
+
+    function resizeInstance(inst) {
+        let w, h;
+        if (inst.isSidebar && sidebar) {
+            const rect = sidebar.getBoundingClientRect();
+            w = Math.max(rect.width || 280, 240);
+            h = Math.max(sidebar.scrollHeight || 0, rect.height || window.innerHeight, 600);
+        } else {
+            w = window.innerWidth;
+            h = window.innerHeight;
+        }
+
+        inst.width = w;
+        inst.height = h;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        inst.canvas.width = Math.floor(w * dpr);
+        inst.canvas.height = Math.floor(h * dpr);
+        inst.canvas.style.width = `${w}px`;
+        inst.canvas.style.height = `${h}px`;
+
+        inst.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        inst.ctx.scale(dpr, dpr);
+
+        buildGrid(inst);
+    }
+
+    function buildGrid(inst) {
+        inst.points = [];
+        const spacing = inst.spacing;
+        const cols = Math.ceil(inst.width / spacing) + 2;
+        const rows = Math.ceil(inst.height / spacing) + 2;
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const isAccent = (c * 7 + r * 11) % 11 === 0;
+                inst.points.push({
+                    baseX: c * spacing,
+                    baseY: r * spacing,
+                    x: c * spacing,
+                    y: r * spacing,
+                    size: isAccent ? (inst.isSidebar ? 1.75 : 1.7) : (inst.isSidebar ? 1.15 : 1.1),
+                    phase: (c * 0.28) + (r * 0.35),
+                    alpha: isAccent ? (inst.isSidebar ? 0.48 : 0.42) : (inst.isSidebar ? 0.24 : 0.18)
+                });
+            }
+        }
+    }
+
+    function resizeAll() {
+        instances.forEach(resizeInstance);
+    }
+
+    function onMouseMove(e) {
+        mouse.targetX = e.clientX;
+        mouse.targetY = e.clientY;
+    }
+
+    function onMouseLeave() {
+        mouse.targetX = -9999;
+        mouse.targetY = -9999;
+    }
+
+    window.addEventListener('resize', resizeAll, { passive: true });
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mouseleave', onMouseLeave, { passive: true });
+
+    // Track sidebar expansion/collapse transitions and scrolling
+    if (sidebar) {
+        sidebar.addEventListener('transitionend', () => {
+            const sbInst = instances.find(i => i.isSidebar);
+            if (sbInst) resizeInstance(sbInst);
+        });
+        sidebar.addEventListener('scroll', () => {
+            // Re-render will naturally sync canvasMouseY with scrollTop
+        }, { passive: true });
+    }
+
+    function render() {
+        if (!isVisible) {
+            animationFrameId = requestAnimationFrame(render);
+            return;
+        }
+
+        time += 0.022;
+
+        // Smooth mouse damping
+        mouse.x += (mouse.targetX - mouse.x) * 0.1;
+        mouse.y += (mouse.targetY - mouse.y) * 0.1;
+
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const baseRgb = isLight ? '0, 0, 0' : '255, 255, 255';
+
+        const instCount = instances.length;
+        for (let k = 0; k < instCount; k++) {
+            const inst = instances[k];
+            const ctx = inst.ctx;
+            const points = inst.points;
+            const len = points.length;
+
+            ctx.clearRect(0, 0, inst.width, inst.height);
+
+            // Compute relative mouse coordinates for this canvas
+            let canvasMouseX = mouse.x;
+            let canvasMouseY = mouse.y;
+
+            if (inst.isSidebar && sidebar) {
+                const sbRect = sidebar.getBoundingClientRect();
+                canvasMouseX = mouse.x - sbRect.left;
+                canvasMouseY = mouse.y - sbRect.top + sidebar.scrollTop;
+            }
+
+            // Determine if mouse is in proximity of this canvas
+            const isMouseActive = inst.isSidebar
+                ? (canvasMouseX >= -60 && canvasMouseX <= inst.width + 60 && mouse.x > -500)
+                : (mouse.x > -500);
+
+            for (let i = 0; i < len; i++) {
+                const p = points[i];
+
+                // 2D undulating wave mechanics
+                const waveY = Math.sin(time + p.phase) * (inst.isSidebar ? 2.4 : 3);
+                const waveX = Math.cos(time * 0.75 + p.phase) * (inst.isSidebar ? 1.6 : 2);
+                const targetX = p.baseX + waveX;
+                const targetY = p.baseY + waveY;
+
+                // Distance to mouse pointer
+                const dx = p.x - canvasMouseX;
+                const dy = p.y - canvasMouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < mouse.radius && isMouseActive) {
+                    const force = (1 - dist / mouse.radius);
+                    const angle = Math.atan2(dy, dx);
+                    p.x += Math.cos(angle) * force * (inst.isSidebar ? 9 : 12);
+                    p.y += Math.sin(angle) * force * (inst.isSidebar ? 9 : 12);
+                }
+
+                // Spring return to wave harmonic position
+                p.x += (targetX - p.x) * 0.085;
+                p.y += (targetY - p.y) * 0.085;
+
+                // Interactive lighting & size scaling
+                let ptAlpha = p.alpha;
+                let ptSize = p.size;
+
+                if (dist < mouse.radius && isMouseActive) {
+                    const proximity = 1 - (dist / mouse.radius);
+                    ptAlpha = Math.min(0.95, p.alpha + proximity * 0.65);
+                    ptSize = p.size + proximity * 1.6;
+
+                    // Glowing fine filaments to nearby active points
+                    if (i % 2 === 0 && proximity > 0.3) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(canvasMouseX, canvasMouseY);
+                        ctx.strokeStyle = `rgba(${baseRgb}, ${proximity * (inst.isSidebar ? 0.28 : 0.2)})`;
+                        ctx.lineWidth = 0.75;
+                        ctx.stroke();
+                    }
+                }
+
+                // Draw matrix dot
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, ptSize, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${baseRgb}, ${ptAlpha})`;
+                ctx.fill();
+            }
+        }
+
+        animationFrameId = requestAnimationFrame(render);
+    }
+
+    // Battery-friendly pause when tab is minimized or hidden
+    document.addEventListener('visibilitychange', () => {
+        isVisible = !document.hidden;
+    });
+
+    setTimeout(() => {
+        resizeAll();
+        render();
+    }, 40);
 }

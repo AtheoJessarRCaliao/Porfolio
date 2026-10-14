@@ -1,908 +1,1287 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atheo Jessar Caliao — Software Engineer & IT Specialist</title>
-    <meta name="description" content="Personal portfolio of Atheo Jessar Caliao, dedicated software engineer and 4th Year IT student at Bukidnon State University specializing in fullstack web development, mobile engineering, and resilient systems.">
-    
+    <title>Atheo Jessar R. Caliao — Data Analyst & AI Software Engineer</title>
+    <meta name="description"
+        content="Personal portfolio of Atheo Jessar R. Caliao, dedicated 4th Year IT student at Bukidnon State University specializing in Data Analytics, AI Software Engineering, and data-driven systems.">
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Favicon / Web Icon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
-    <meta name="theme-color" content="#0a0c10">
-    
+    <meta name="theme-color" content="#000000">
+
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=2.3">
+    <link rel="stylesheet" href="css/style.css?v=4.2">
 </head>
+
 <body>
 
-    <!-- Mobile Topbar (< 992px) -->
+    <!-- Floating Dark/Light Mode Toggle (Top Right) -->
+    <button type="button" class="theme-toggle-btn floating-theme-btn" id="floatingThemeToggleBtn"
+        aria-label="Toggle dark/light theme" title="Toggle dark/light theme">
+        <i class="fas fa-sun"></i>
+        <span class="theme-btn-label">Theme</span>
+    </button>
+
+    <!-- Floating Navbar Open Trigger (Top Left - appears when navbar is closed) -->
+    <button type="button" class="floating-nav-btn" id="floatingNavToggleBtn" aria-label="Open navigation menu"
+        title="Open navigation (Ctrl+B)">
+        <i class="fas fa-bars-staggered"></i>
+        <span class="floating-nav-label">Menu</span>
+    </button>
+
+    <!-- Mobile Topbar (< 1024px) -->
     <header class="mobile-topbar" id="mobileTopbar">
-        <a href="#about" class="mobile-brand" aria-label="Atheo Jessar Caliao home">
-            <img src="assets/images/favicon.svg" alt="Atheo Jessar Logo" class="logo-symbol" width="32" height="32">
-            <span class="mobile-brand-name">Atheo Jessar Caliao</span>
+        <a href="#about" class="mobile-brand" aria-label="Atheo Jessar R. Caliao home">
+            <span class="mobile-brand-icon"><i class="fas fa-terminal"></i></span>
+            <span class="mobile-brand-name">Atheo Jessar</span>
         </a>
         <div class="mobile-topbar-actions">
-            <button type="button" class="theme-toggle-btn mobile-theme-btn" id="mobileThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
-                <i class="fas fa-sun"></i>
-            </button>
-            <button type="button" class="mobile-hamburger-btn" id="mobileMenuBtn" aria-label="Open navigation menu" title="Open navigation menu">
+            <button type="button" class="mobile-hamburger-btn" id="mobileMenuBtn" aria-label="Open navigation menu"
+                title="Open navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Sidebar Navigation Backdrop (Mobile Drawer) -->
+    <!-- Sidebar Navigation Backdrop (Mobile Drawer & Expanded Overlay) -->
     <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
     <!-- Main Sidebar (Desktop & Mobile Drawer) -->
     <aside class="site-sidebar" id="siteSidebar" aria-label="Main Navigation">
+        <!-- Live Dynamic Interactive Matrix Canvas for Navbar -->
+        <canvas id="sidebarMatrixCanvas" class="sidebar-matrix-canvas" aria-hidden="true"></canvas>
+
         <!-- Close button on mobile drawer -->
         <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close navigation menu">
             <i class="fas fa-times"></i>
         </button>
 
-        <!-- Sidebar Profile Header -->
+        <!-- Sidebar Top Brand & Controls -->
         <div class="sidebar-header">
-            <div class="sidebar-avatar-wrapper">
-                <img src="assets/images/sidebar-avatar.png" alt="Atheo Jessar Caliao" class="sidebar-avatar">
-                <span class="avatar-status-dot" title="Available for engineering roles"></span>
+            <div class="sidebar-brand-row">
+                <a href="#about" class="sidebar-brand-link" aria-label="Atheo Jessar R. Caliao">
+                    <span class="sidebar-brand-symbol">
+                        <i class="fas fa-terminal"></i>
+                    </span>
+                    <div class="sidebar-brand-meta">
+                        <span class="sidebar-brand-title">Atheo Jessar</span>
+                        <span class="sidebar-brand-status"><span class="status-dot-mini"></span> Available for
+                            roles</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Close navigation"
+                    title="Collapse Navbar (Ctrl+B)">
+                    <i class="fas fa-bars-staggered"></i>
+                </button>
             </div>
-            <h2 class="sidebar-name">Atheo Jessar Caliao</h2>
-            <p class="sidebar-role">Software Engineer</p>
-            <div class="sidebar-status-pill">
-                <span class="status-pulse"></span>
-                <span>Available for Roles</span>
-            </div>
+
+            <!-- Quick Command Palette Trigger -->
+            <button type="button" class="sidebar-quick-cmd" id="sidebarQuickCmdBtn"
+                aria-label="Quick jump command palette" title="Quick Jump (Ctrl+K)">
+                <i class="fas fa-magnifying-glass"></i>
+                <span class="quick-cmd-placeholder">Quick Jump...</span>
+                <span class="quick-cmd-kbd">⌘K</span>
+            </button>
         </div>
 
-        <!-- Sidebar Navigation Tabs -->
+        <!-- Sidebar Navigation Sections -->
         <nav class="sidebar-nav" aria-label="Primary Navigation">
-            <a href="#about" class="sidebar-nav-link active">
+            <div class="nav-section-label">WORKSPACE</div>
+            <a href="#about" class="sidebar-nav-link active" data-tab="about">
                 <span class="nav-icon"><i class="fas fa-user-circle"></i></span>
                 <span class="nav-label">About</span>
+                <span class="nav-kbd">1</span>
             </a>
-            <a href="#projects" class="sidebar-nav-link">
+            <a href="#projects" class="sidebar-nav-link" data-tab="projects">
                 <span class="nav-icon"><i class="fas fa-layer-group"></i></span>
                 <span class="nav-label">Projects</span>
+                <span class="nav-kbd">2</span>
             </a>
-            <a href="#skills" class="sidebar-nav-link">
+            <a href="#skills" class="sidebar-nav-link" data-tab="skills">
                 <span class="nav-icon"><i class="fas fa-cubes"></i></span>
                 <span class="nav-label">Skills</span>
+                <span class="nav-kbd">3</span>
             </a>
-            <a href="#journey" class="sidebar-nav-link">
+            <a href="#journey" class="sidebar-nav-link" data-tab="journey">
                 <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
                 <span class="nav-label">Journey</span>
+                <span class="nav-kbd">4</span>
             </a>
-            <a href="#interests" class="sidebar-nav-link">
+
+            <div class="nav-section-label nav-section-secondary">CONNECT</div>
+            <a href="#interests" class="sidebar-nav-link" data-tab="interests">
                 <span class="nav-icon"><i class="fas fa-compass"></i></span>
                 <span class="nav-label">Interests</span>
+                <span class="nav-kbd">5</span>
             </a>
-            <a href="#contact" class="sidebar-nav-link">
+            <a href="#contact" class="sidebar-nav-link" data-tab="contact">
                 <span class="nav-icon"><i class="fas fa-envelope"></i></span>
                 <span class="nav-label">Contact</span>
+                <span class="nav-kbd">6</span>
             </a>
         </nav>
 
         <!-- Sidebar Footer Actions -->
         <div class="sidebar-footer">
             <div class="sidebar-socials">
-                <a href="https://github.com/AtheoJessarRCaliao" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                <a href="https://github.com/AtheoJessarRCaliao" target="_blank" rel="noopener noreferrer"
+                    class="sidebar-social-link" title="GitHub Profile" aria-label="GitHub Profile">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="Facebook Profile" aria-label="Facebook Profile">
+                <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer"
+                    class="sidebar-social-link" title="Facebook Profile" aria-label="Facebook Profile">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/itsurboiyax/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" title="Instagram Profile" aria-label="Instagram Profile">
+                <a href="https://www.instagram.com/itsurboiyax/" target="_blank" rel="noopener noreferrer"
+                    class="sidebar-social-link" title="Instagram Profile" aria-label="Instagram Profile">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="mailto:ajtheo176@gmail.com" class="sidebar-social-link" title="Email Direct" aria-label="Email Direct">
+                <a href="mailto:ajtheo176@gmail.com" class="sidebar-social-link" title="Email Direct"
+                    aria-label="Email Direct">
                     <i class="fas fa-envelope"></i>
                 </a>
             </div>
 
-            <button type="button" class="theme-toggle-btn sidebar-theme-btn" id="sidebarThemeToggleBtn" aria-label="Toggle dark/light theme" title="Toggle theme">
-                <i class="fas fa-sun"></i>
-                <span class="theme-label-text">Toggle Theme</span>
-            </button>
-
-            <p class="sidebar-copyright">© 2026 Atheo Jessar Caliao</p>
+            <div class="sidebar-meta-row">
+                <span class="meta-location"><i class="fas fa-location-dot"></i> Bukidnon, PH</span>
+                <span class="meta-version">v2.6</span>
+            </div>
         </div>
     </aside>
 
     <!-- Page Content Wrapper (Contains all tabs/sections on 1 page) -->
     <div class="page-content-wrapper">
+        <!-- Live Dynamic Interactive Matrix Canvas Background (Active Across All Pages) -->
+        <canvas id="siteMatrixCanvas" class="site-matrix-canvas" aria-hidden="true"></canvas>
 
-    <main>
-        <!-- Hero & Profile Section (Tab 1: About) -->
-        <section class="section hero-section tab-panel active" id="about">
-            <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-content">
-                        <div class="status-badge">
-                            <span class="status-pulse"></span>
-                            <span>Available for Software Engineering Roles</span>
+        <main>
+            <!-- Hero & Profile Section (Tab 1: About) -->
+            <section class="section hero-section tab-panel active" id="about">
+                <div class="container hero-container-relative">
+                    <div class="hero-split-layout">
+                        <!-- Left: Rounded Portrait Frame with Live Pill Badge -->
+                        <div class="hero-portrait-card">
+                            <div class="hero-portrait-media">
+                                <img src="assets/images/about-portrait.png" alt="Atheo Jessar R. Caliao"
+                                    class="hero-card-img" loading="eager">
+                            </div>
+                            <!-- Bottom Status Pill inside Portrait Card -->
+                            <div class="hero-card-status-badge">
+                                <span class="status-pulse-dot"></span>
+                                <span class="status-badge-text">available for projects</span>
+                            </div>
                         </div>
 
-                        <h1 class="hero-title">
-                            Hello, I'm <br>
-                            <span class="highlight">Atheo Jessar Caliao</span>
-                        </h1>
+                        <!-- Right: Content & Actions -->
+                        <div class="hero-details-pane">
+                            <!-- Eyebrow Header -->
+                            <div class="hero-eyebrow-tag">
+                                <span>DATA ANALYST &amp; AI SOFTWARE ENGINEER</span>
+                                <span class="eyebrow-sep">•</span>
+                                <span>PHILIPPINES</span>
+                            </div>
 
-                        <div class="hero-subtitle">
-                            <span>Software Engineer</span>
-                            <span class="dot">•</span>
-                            <span>4th Year IT Student</span>
-                            <span class="dot">•</span>
-                            <span>Bukidnon State University</span>
-                        </div>
+                            <!-- Giant Display Name -->
+                            <h1 class="hero-giant-name">Atheo Jessar R. Caliao</h1>
 
-                        <p class="hero-bio">
-                            I am a software engineer and Information Technology senior focused on engineering robust web applications, decoupled API backends, and user-centered systems. My passion lies in transforming architectural challenges into clean, performant, and maintainable software.
-                        </p>
+                            <!-- Secondary Monospace Subtitle -->
+                            <div class="hero-role-title">Data Analyst &bull; Full-Stack Developer &bull; AI Software
+                                Engineer</div>
 
-                        <!-- Key Highlights / Competencies -->
-                        <div class="hero-competencies">
-                            <span class="competency-tag">
-                                <i class="fas fa-language"></i> English (TOEIC 945)
-                            </span>
-                            <span class="competency-tag">
-                                <i class="fas fa-torii-gate"></i> Japanese (JLPT N2)
-                            </span>
-                            <span class="competency-tag">
-                                <i class="fas fa-layer-group"></i> Fullstack Engineering
-                            </span>
-                            <span class="competency-tag">
-                                <i class="fas fa-network-wired"></i> Distributed APIs
-                            </span>
-                        </div>
+                            <!-- Institution / Subhead -->
+                            <div class="hero-subhead-pill">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>4TH YEAR BSIT • BUKIDNON STATE UNIVERSITY</span>
+                            </div>
 
-                        <!-- CTA Actions -->
-                        <div class="hero-actions">
-                            <a href="#projects" class="btn btn-primary">
-                                <i class="fas fa-folder-open"></i> Explore Work
-                            </a>
-                            <a href="#contact" class="btn btn-secondary">
-                                <i class="fas fa-paper-plane"></i> Get in Touch
-                            </a>
-                        </div>
-
-                        <!-- Social Handles -->
-                        <div class="hero-socials">
-                            <a href="https://github.com/AtheoJessarRCaliao" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub Profile" aria-label="GitHub Profile">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook" aria-label="Facebook Profile">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://www.instagram.com/itsurboiyax/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Instagram" aria-label="Instagram Profile">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="mailto:ajtheo176@gmail.com" class="social-icon-btn" title="Email Direct" aria-label="Email Direct">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Standalone Profile Portrait (No Card) -->
-                    <div class="hero-portrait-wrapper">
-                        <img src="assets/images/about-portrait.png" alt="Atheo Jessar Caliao" class="hero-standalone-photo">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Projects & Engineering Experience (Tab 2: Projects) -->
-        <section class="section tab-panel" id="projects">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">
-                        <i class="fas fa-terminal"></i> Engineering Experience
-                    </span>
-                    <h2 class="section-title">Technical Projects & Architecture</h2>
-                    <p class="section-desc">
-                        Production applications, real-time tracking systems, and distributed platforms engineered with a focus on reliability, performance, and clean code.
-                    </p>
-                </div>
-
-                <!-- Atmospheric backdrop overlay for focused project -->
-                <div class="projects-spotlight-backdrop" id="projectsSpotlightBackdrop" aria-hidden="true"></div>
-
-                <div class="projects-grid">
-                    <!-- Project 1 -->
-                    <article class="project-card has-media">
-                        <div class="project-card-media project-modal-trigger" data-project="health" role="button" tabindex="0" title="Click to view full preview and architecture details" style="cursor: pointer; aspect-ratio: 1920 / 897; width: 100%; display: flex; align-items: center; justify-content: center; background-color: #060b16; overflow: hidden;">
-                            <img src="assets/images/smart-health-integration.png" alt="Smart Health Integration AI-DSUHIS Platform Preview" class="project-card-image" style="width: 100%; height: auto; max-height: 100%; object-fit: contain !important; object-position: center !important; display: block;" loading="lazy">
-                            <span class="project-media-badge"><i class="fas fa-circle-check"></i> Deployed System</span>
-                        </div>
-                        <div class="project-card-body">
-                            <div>
-                                <div class="project-top">
-                                    <div class="project-icon">
-                                        <i class="fas fa-laptop-medical"></i>
-                                    </div>
-                                    <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                                    <span class="project-role-badge">Lead Fullstack Developer</span>
-                                </div>
-                                <h3 class="project-title">Smart Health Integration (AI-DSUHIS)</h3>
-                                <p class="project-desc">
-                                    AI-Driven Unified Health Information System for Malaybalay City local health units, integrating maternal care, epidemiological monitoring, and immunization datasets.
+                            <!-- Descriptive Statement Paragraphs -->
+                            <div class="hero-statement-copy">
+                                <p>
+                                    I build software with a clear purpose: solving problems that matter. My experience
+                                    spans full-stack development, decoupled APIs, and data-driven systems, working on
+                                    solutions for businesses and organizations across different industries.
                                 </p>
-                                <ul class="project-bullets">
-                                    <li>Architected decoupled Laravel REST backend serving a dynamic React SPA.</li>
-                                    <li>Built a native Android client in Java for field-level health worker data intake.</li>
-                                    <li>Designed an offline-to-online SQLite/MySQL data synchronization protocol.</li>
-                                </ul>
+                                <p>
+                                    I care about more than making software work. I focus on why it's built, how it's
+                                    used, and the value it creates. I combine modern web standards, rigorous database
+                                    design, and clean architecture while keeping engineering decisions, quality, and
+                                    maintainability firmly at the core.
+                                </p>
                             </div>
-                            <div>
-                                <div class="project-tech-stack">
-                                    <span class="tech-pill">Laravel</span>
-                                    <span class="tech-pill">React.js</span>
-                                    <span class="tech-pill">Java</span>
-                                    <span class="tech-pill">SQL</span>
-                                    <span class="tech-pill">AI Sync</span>
-                                </div>
-                                <div class="project-actions">
-                                    <button type="button" class="project-link-btn project-modal-trigger" data-project="health">
-                                        <span>View Architecture Details</span>
-                                        <i class="fas fa-arrow-right"></i>
-                                    </button>
+
+                            <!-- Action Links Row with Arrow Badges -->
+                            <div class="hero-action-nav-row">
+                                <a href="#projects" class="hero-nav-action-cell" title="Explore Technical Projects">
+                                    <span class="action-cell-title">VIEW WORK</span>
+                                    <span class="action-cell-arrow"><i class="fas fa-arrow-down-right"></i></span>
+                                </a>
+                                <a href="#journey" class="hero-nav-action-cell" title="View Experience &amp; Education">
+                                    <span class="action-cell-title">TECHNICAL JOURNEY</span>
+                                    <span class="action-cell-arrow"><i class="fas fa-arrow-down-right"></i></span>
+                                </a>
+                                <a href="#skills" class="hero-nav-action-cell" title="View Skills &amp; Competencies">
+                                    <span class="action-cell-title">EXPLORE SKILLS</span>
+                                    <span class="action-cell-arrow"><i class="fas fa-arrow-down-right"></i></span>
+                                </a>
+                            </div>
+
+                            <!-- Bottom Socials & Inquire Action Bar -->
+                            <div class="hero-bottom-actions-bar">
+                                <div class="hero-social-circles">
+                                    <a href="https://github.com/AtheoJessarRCaliao" target="_blank"
+                                        rel="noopener noreferrer" class="social-circle-btn" title="GitHub Profile"
+                                        aria-label="GitHub Profile">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="https://www.facebook.com/me/" target="_blank" rel="noopener noreferrer"
+                                        class="social-circle-btn" title="Facebook Profile"
+                                        aria-label="Facebook Profile">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/itsurboiyax/" target="_blank"
+                                        rel="noopener noreferrer" class="social-circle-btn" title="Instagram Profile"
+                                        aria-label="Instagram Profile">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="mailto:ajtheo176@gmail.com" class="social-circle-btn" title="Direct Email"
+                                        aria-label="Direct Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </article>
+                    </div>
 
-                    <!-- Project 2 -->
-                    <article class="project-card">
-                        <div>
-                            <div class="project-top">
-                                <div class="project-icon">
-                                    <i class="fas fa-hotel"></i>
-                                </div>
-                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                                <span class="project-role-badge">Fullstack Developer</span>
-                            </div>
-                            <h3 class="project-title">LGU Tourism Accommodation Portal</h3>
-                            <p class="project-desc">
-                                Multi-tenant web platform streamlining accommodation bookings, property inventories, and analytics for the Department of Tourism and property hosts.
+                    <!-- Core Engineering Focus & Value Propositions -->
+                    <div class="about-pillars-section">
+                        <div class="about-pillars-header">
+                            <h2 class="about-pillars-title">
+                                <i class="fas fa-terminal"></i> Technical Focus & Engineering Principles
+                            </h2>
+                            <p class="about-pillars-desc">
+                                Specialized domains, system architecture priorities, and production philosophies.
                             </p>
-                            <ul class="project-bullets">
-                                <li>Normalized relational database schemas to manage user credentials and transactions.</li>
-                                <li>Implemented dynamic Role-Based Access Control (RBAC) isolating admin, vendor, and guest portals.</li>
-                                <li>Created automated reporting dashboards for local municipal revenue audits.</li>
-                            </ul>
                         </div>
-                        <div>
-                            <div class="project-tech-stack">
-                                <span class="tech-pill">MERN Stack</span>
-                                <span class="tech-pill">Laravel</span>
-                                <span class="tech-pill">RBAC</span>
-                                <span class="tech-pill">MySQL</span>
-                            </div>
-                            <div class="project-actions">
-                                <button type="button" class="project-link-btn project-modal-trigger" data-project="tourism">
-                                    <span>View Architecture Details</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
 
-                    <!-- Project 3 -->
-                    <article class="project-card">
-                        <div>
-                            <div class="project-top">
-                                <div class="project-icon">
-                                    <i class="fas fa-file-waveform"></i>
+                        <div class="about-pillars-grid">
+                            <!-- Card 1 -->
+                            <div class="about-pillar-card">
+                                <div class="about-pillar-icon">
+                                    <i class="fas fa-laptop-code"></i>
                                 </div>
-                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                                <span class="project-role-badge">Fullstack Developer</span>
-                            </div>
-                            <h3 class="project-title">BHW Digital Recording System</h3>
-                            <p class="project-desc">
-                                Centralized digital record-keeping system transitioning Barangay Health Workers (BHW) from legacy paper files to instant, search-indexed clinical records.
-                            </p>
-                            <ul class="project-bullets">
-                                <li>Optimized database queries for fast patient lookup during high-traffic clinic sessions.</li>
-                                <li>Built comprehensive CRUD workflows and sanitized validation schemas for vital records.</li>
-                                <li>Reduced patient triage check-in times by approximately 60%.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="project-tech-stack">
-                                <span class="tech-pill">PHP</span>
-                                <span class="tech-pill">Relational DB</span>
-                                <span class="tech-pill">Web Tech</span>
-                                <span class="tech-pill">Security</span>
-                            </div>
-                            <div class="project-actions">
-                                <button type="button" class="project-link-btn project-modal-trigger" data-project="bhw">
-                                    <span>View Architecture Details</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 4 -->
-                    <article class="project-card">
-                        <div>
-                            <div class="project-top">
-                                <div class="project-icon">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                                <span class="project-role-badge">Fullstack Developer</span>
-                            </div>
-                            <h3 class="project-title">Real-Time Intramurals Tally System</h3>
-                            <p class="project-desc">
-                                University tournament scoring and medal-tracking platform deployed during university-wide sports and socio-cultural competitions.
-                            </p>
-                            <ul class="project-bullets">
-                                <li>Employed non-blocking asynchronous Fetch/AJAX polling for instantaneous scoreboard feeds.</li>
-                                <li>Implemented automated tie-breaker algorithms and real-time division standings.</li>
-                                <li>Delivered zero-downtime performance across hundreds of concurrent live campus viewers.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="project-tech-stack">
-                                <span class="tech-pill">React.js</span>
-                                <span class="tech-pill">Backend API</span>
-                                <span class="tech-pill">AJAX / Fetch</span>
-                                <span class="tech-pill">Analytics</span>
-                            </div>
-                            <div class="project-actions">
-                                <button type="button" class="project-link-btn project-modal-trigger" data-project="tally">
-                                    <span>View Architecture Details</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Skills Matrix (Tab 3: Skills) -->
-        <section class="section tab-panel" id="skills">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">
-                        <i class="fas fa-cubes"></i> Core Competencies
-                    </span>
-                    <h2 class="section-title">Technical Skills Profile</h2>
-                </div>
-
-                <!-- Atmospheric backdrop overlay for focused skills profile -->
-                <div class="skills-spotlight-backdrop" id="skillsSpotlightBackdrop" aria-hidden="true"></div>
-
-                <div class="skills-grid">
-                    <!-- Languages -->
-                    <div class="skill-category-card" data-category="languages">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3 class="category-title">Languages</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/java.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Java</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/javascript.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">JavaScript</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/typescript.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">TypeScript</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/python.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Python</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/php.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">PHP</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/c.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">C</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/dart.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Dart</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/database.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">SQL</span></span>
-                            <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon" src="assets/icons/skills/html5.svg" alt="" aria-hidden="true" width="24" height="24"><img class="skill-icon" src="assets/icons/skills/css3.svg" alt="" aria-hidden="true" width="24" height="24"></span><span class="skill-label">HTML5 / CSS3</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Frontend & Mobile -->
-                    <div class="skill-category-card" data-category="frontend">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <h3 class="category-title">Frontend & Mobile</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/react.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">React.js</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/flutter.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Flutter</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vitejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Vite</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tailwindcss.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Tailwind CSS</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/alpinejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Alpine.js</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/sass.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Sass</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/bootstrap.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Bootstrap</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/responsive.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Responsive UI/UX</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Backend & Frameworks -->
-                    <div class="skill-category-card" data-category="backend">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <h3 class="category-title">Backend & APIs</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/laravel.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Laravel</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/django.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Django</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/nodejs.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Node.js</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/express.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Express.js</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/api.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">RESTful APIs</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/wordpress.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">WordPress</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/apache.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Apache</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Databases & Cloud -->
-                    <div class="skill-category-card" data-category="databases">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <h3 class="category-title">Databases & Cloud</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mysql.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">MySQL</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mongodb.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">MongoDB</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/firebase.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Firebase</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/schema.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Relational Schemas</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vercel.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Vercel</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/render.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Render</span></span>
-                        </div>
-                    </div>
-
-                    <!-- AI / ML & Systems -->
-                    <div class="skill-category-card" data-category="systems">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h3 class="category-title">AI & Systems</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/pytorch.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">PyTorch</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tensorflow.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">TensorFlow</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/opencv.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">OpenCV</span></span>
-                            <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon" src="assets/icons/skills/git.svg" alt="" aria-hidden="true" width="24" height="24"><img class="skill-icon" src="assets/icons/skills/github.svg" alt="" aria-hidden="true" width="24" height="24"></span><span class="skill-label">Git &amp; GitHub</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/architecture.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">OOP &amp; MVC</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/network.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Cisco CCNA</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/raspberrypi.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Raspberry Pi</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Professional & Core Competencies -->
-                    <div class="skill-category-card" data-category="professional">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-users-cog"></i>
-                            </div>
-                            <h3 class="category-title">Professional & Core</h3>
-                            <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
-                        </div>
-                        <div class="skills-badge-list">
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/problem-solving.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Problem-Solving</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/project-management.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Project Management</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/data-analysis.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Data Analysis</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/communication.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Communication</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/adaptability.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Adaptability</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/time-management.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Time Management</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/digital-marketing.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Digital Marketing</span></span>
-                            <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/tech-literacy.svg" alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Tech Literacy</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Journey, Experience & Milestones (Tab 4: Journey) -->
-        <section class="section tab-panel" id="journey">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">
-                        <i class="fas fa-graduation-cap"></i> Milestones & Career
-                    </span>
-                    <h2 class="section-title">Experience & Achievements</h2>
-                    <p class="section-desc">
-                        Engineering experience, technology competitions, professional certifications, specialized technical trainings, and academic honors.
-                    </p>
-                </div>
-
-                <!-- Milestone Category Filter Tabs -->
-                <div class="milestones-filter-nav">
-                    <button type="button" class="milestone-filter-btn active" data-filter="all">All Milestones</button>
-                    <button type="button" class="milestone-filter-btn" data-filter="experience">Experience & Education</button>
-                    <button type="button" class="milestone-filter-btn" data-filter="certifications">Certifications & Licenses</button>
-                    <button type="button" class="milestone-filter-btn" data-filter="trainings">Seminars & Trainings</button>
-                    <button type="button" class="milestone-filter-btn" data-filter="awards">Awards & Honors</button>
-                </div>
-
-                <div class="milestones-grid">
-                    <!-- 1. Experience & Education -->
-                    <div class="milestone-card" data-milestone="experience">
-                        <div class="milestone-header">
-                            <div class="milestone-title-group">
-                                <div class="milestone-icon"><i class="fas fa-briefcase"></i></div>
-                                <h3 class="milestone-title">Experience & Education</h3>
-                            </div>
-                            <span class="milestone-year-badge">Career</span>
-                        </div>
-                        <div class="milestone-list">
-                            <div class="milestone-item">
-                                <div class="milestone-item-header">
-                                    <h4 class="milestone-name">Mobile Developer — Excelerate</h4>
-                                    <span class="milestone-date">Jun 29, 2026</span>
-                                </div>
-                                <div class="milestone-subtext">International Virtual Mobile Engineering</div>
-                            </div>
-                            <div class="milestone-item">
-                                <div class="milestone-item-header">
-                                    <h4 class="milestone-name">BS in Information Technology</h4>
-                                    <span class="milestone-date">2021 — Present</span>
-                                </div>
-                                <div class="milestone-subtext">Bukidnon State University • 4th Year Senior</div>
-                            </div>
-                            <article class="competition-experience">
-                                <a class="competition-photo" href="assets/images/1.jpg" target="_blank" rel="noopener noreferrer" aria-label="View Prompt Pulse competition photo (opens in a new tab)">
-                                    <img src="assets/images/1.jpg" alt="Group photo from the Bukidnon Inter-Campus Technology Prompt Pulse competition" width="1536" height="2048" loading="lazy" decoding="async">
-                                    <span class="competition-photo-label">View competition photo <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="competition-details">
-                                    <span class="competition-placement"><i class="fas fa-trophy" aria-hidden="true"></i> 2nd Place</span>
-                                    <h4 class="competition-title">Bukidnon Inter-Campus Technology</h4>
-                                    <p class="competition-category">Prompt Pulse &bull; Campus Category</p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-
-                    <!-- 2. Certifications & Licenses -->
-                    <div class="milestone-card milestone-certifications" data-milestone="certifications">
-                        <div class="milestone-header">
-                            <div class="milestone-title-group">
-                                <div class="milestone-icon"><i class="fas fa-certificate"></i></div>
-                                <h3 class="milestone-title">Certifications & Licenses</h3>
-                            </div>
-                            <span class="milestone-year-badge">5 certificates</span>
-                        </div>
-                        <p class="certificate-intro">Select a certificate to view the original PDF in a new tab.</p>
-                        <div class="certificate-grid">
-                            <article class="certificate-card">
-                                <a class="certificate-preview" href="assets/images/software_engineer%20certificate.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Software Engineer certificate (PDF, opens in a new tab)">
-                                    <img src="assets/images/certificates/software-engineer.jpg" alt="HackerRank Software Engineer certificate awarded to Atheo Jessar R. Caliao" width="1600" height="1220" loading="lazy" decoding="async">
-                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="certificate-details">
-                                    <span class="certificate-type">Certificate of Accomplishment</span>
-                                    <h4 class="certificate-name">Software Engineer</h4>
-                                    <p class="certificate-issuer">HackerRank</p>
-                                    <p class="certificate-date">Earned <time datetime="2026-08-05">5 August 2026</time></p>
-                                </div>
-                            </article>
-                            <article class="certificate-card">
-                                <a class="certificate-preview" href="assets/images/ClassOf2026__issued%20(2).pdf" target="_blank" rel="noopener noreferrer" aria-label="View Introduction to AI Literacy and Responsible Use certificate (PDF, opens in a new tab)">
-                                    <img src="assets/images/certificates/ai-literacy-responsible-use.jpg" alt="Introduction to AI Literacy and Responsible Use certificate of completion awarded to Atheo Jessar Caliao" width="1600" height="1133" loading="lazy" decoding="async">
-                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="certificate-details">
-                                    <span class="certificate-type">Certificate of Completion</span>
-                                    <h4 class="certificate-name">Introduction to AI Literacy and Responsible Use</h4>
-                                    <p class="certificate-issuer">CHED ACHIEVE &bull; Map&uacute;a University</p>
-                                    <p class="certificate-date">Issued <time datetime="2026-09-14">14 September 2026</time></p>
-                                </div>
-                            </article>
-                            <article class="certificate-card">
-                                <a class="certificate-preview" href="assets/images/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_2301102653-student-buksu-edu-ph_764704f3-355b-4220-9c56-49a2f0c7f64c%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View CCNA: Switching, Routing, and Wireless Essentials certificate (PDF, opens in a new tab)">
-                                    <img src="assets/images/certificates/ccna-switching-routing-wireless.jpg" alt="Cisco Networking Academy CCNA: Switching, Routing, and Wireless Essentials course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
-                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="certificate-details">
-                                    <span class="certificate-type">Course Completion</span>
-                                    <h4 class="certificate-name">CCNA: Switching, Routing, and Wireless Essentials</h4>
-                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
-                                    <p class="certificate-date">Completed <time datetime="2025-12-23">23 December 2025</time></p>
-                                </div>
-                            </article>
-                            <article class="certificate-card">
-                                <a class="certificate-preview" href="assets/images/_certificate_2301102653-student-buksu-edu-ph_83796d3f-9e15-49ab-8185-4a1b2179a642%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View Network Support and Security certificate (PDF, opens in a new tab)">
-                                    <img src="assets/images/certificates/network-support-security.jpg" alt="Cisco Networking Academy Network Support and Security course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
-                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="certificate-details">
-                                    <span class="certificate-type">Course Completion</span>
-                                    <h4 class="certificate-name">Network Support and Security</h4>
-                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
-                                    <p class="certificate-date">Completed <time datetime="2025-07-14">14 July 2025</time></p>
-                                </div>
-                            </article>
-                            <article class="certificate-card">
-                                <a class="certificate-preview" href="assets/images/CCNA-_Introduction_to_Networks_certificate_2301102653-student-buksu-edu-ph_a6341ff8-6723-484e-bff0-af5d939c4b6e%20(1).pdf" target="_blank" rel="noopener noreferrer" aria-label="View CCNA: Introduction to Networks certificate (PDF, opens in a new tab)">
-                                    <img src="assets/images/certificates/ccna-introduction-to-networks.jpg" alt="Cisco Networking Academy CCNA: Introduction to Networks course completion certificate awarded to Atheo Jessar Caliao" width="1600" height="1084" loading="lazy" decoding="async">
-                                    <span class="certificate-preview-label">View certificate <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-                                </a>
-                                <div class="certificate-details">
-                                    <span class="certificate-type">Course Completion</span>
-                                    <h4 class="certificate-name">CCNA: Introduction to Networks</h4>
-                                    <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State University</p>
-                                    <p class="certificate-date">Completed <time datetime="2025-05-16">16 May 2025</time></p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-
-                    <!-- 3. Seminars & Trainings -->
-                    <div class="milestone-card" data-milestone="trainings">
-                        <div class="milestone-header">
-                            <div class="milestone-title-group">
-                                <div class="milestone-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                                <h3 class="milestone-title">Seminars & Trainings</h3>
-                            </div>
-                            <span class="milestone-year-badge">Trainings</span>
-                        </div>
-                        <div class="milestone-list">
-                            <div class="milestone-item">
-                                <div class="milestone-item-header">
-                                    <h4 class="milestone-name">Mobile App Dev with Flutter Virtual Internship</h4>
-                                    <span class="milestone-date">2025</span>
-                                </div>
-                                <div class="milestone-subtext">28 Days Intensive Mobile Engineering Program</div>
-                            </div>
-                            <div class="milestone-item">
-                                <div class="milestone-item-header">
-                                    <h4 class="milestone-name">DevCon Philippines 2026</h4>
-                                    <span class="milestone-date">2026</span>
-                                </div>
-                                <div class="milestone-subtext">3-Day National Developer Conference</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 4. Awards & Honors -->
-                    <div class="milestone-card" data-milestone="awards">
-                        <div class="milestone-header">
-                            <div class="milestone-title-group">
-                                <div class="milestone-icon"><i class="fas fa-award"></i></div>
-                                <h3 class="milestone-title">Awards & Honors</h3>
-                            </div>
-                            <span class="milestone-year-badge">Honors</span>
-                        </div>
-                        <div class="milestone-list">
-                            <div class="milestone-item">
-                                <div class="milestone-name">Dean's Lister (5 Semesters)</div>
-                                <div class="milestone-badges-list">
-                                    <span class="deans-list-pill highlight">AY 24-25 1st Sem</span>
-                                    <span class="deans-list-pill highlight">AY 24-25 2nd Sem</span>
-                                    <span class="deans-list-pill highlight">AY 25-26 1st Sem</span>
-                                    <span class="deans-list-pill highlight">AY 25-26 2nd Sem</span>
-                                    <span class="deans-list-pill highlight">AY 26-27 1st Sem</span>
+                                <h3 class="about-pillar-name">Full-Stack Web & Mobile Engineering</h3>
+                                <p class="about-pillar-text">
+                                    Developing responsive, accessible, and high-performance digital platforms using
+                                    modular vanilla JavaScript, CSS architectures, PHP/Laravel, and modern API-driven
+                                    client frameworks.
+                                </p>
+                                <div class="about-pillar-tags">
+                                    <span class="about-pillar-pill">JavaScript</span>
+                                    <span class="about-pillar-pill">PHP / Laravel</span>
+                                    <span class="about-pillar-pill">HTML5 / CSS3</span>
+                                    <span class="about-pillar-pill">Flutter</span>
                                 </div>
                             </div>
-                            <div class="milestone-item">
-                                <div class="milestone-item-header">
-                                    <div class="milestone-name">Academic Honors & Distinctions</div>
-                                    <span class="milestone-date">Top 5</span>
+
+                            <!-- Card 2 -->
+                            <div class="about-pillar-card">
+                                <div class="about-pillar-icon">
+                                    <i class="fas fa-server"></i>
                                 </div>
-                                <div class="milestone-subtext">With High Honor Student (2022) • Honor Student (2021)</div>
+                                <h3 class="about-pillar-name">Decoupled APIs & Data Modeling</h3>
+                                <p class="about-pillar-text">
+                                    Structuring normalized relational schemas and document databases with MySQL and
+                                    MongoDB. Architecting RESTful API endpoints with secure session management, input
+                                    validation, and high query efficiency.
+                                </p>
+                                <div class="about-pillar-tags">
+                                    <span class="about-pillar-pill">RESTful APIs</span>
+                                    <span class="about-pillar-pill">MySQL</span>
+                                    <span class="about-pillar-pill">Database Normalization</span>
+                                    <span class="about-pillar-pill">Security</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="about-pillar-card">
+                                <div class="about-pillar-icon">
+                                    <i class="fas fa-building-columns"></i>
+                                </div>
+                                <h3 class="about-pillar-name">Institutional & Municipal Systems</h3>
+                                <p class="about-pillar-text">
+                                    Direct experience translating complex organizational and municipal workflows into
+                                    practical digital platforms—including asset tracking for LGU Impasugong and clinical
+                                    healthcare portals.
+                                </p>
+                                <div class="about-pillar-tags">
+                                    <span class="about-pillar-pill">LGU Systems</span>
+                                    <span class="about-pillar-pill">Real-Time Tracking</span>
+                                    <span class="about-pillar-pill">Data Integrity</span>
+                                    <span class="about-pillar-pill">Process Automation</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="about-pillar-card">
+                                <div class="about-pillar-icon">
+                                    <i class="fas fa-compass-drafting"></i>
+                                </div>
+                                <h3 class="about-pillar-name">Quality, Scalability & Continuous Learning</h3>
+                                <p class="about-pillar-text">
+                                    Upholding maintainable codebase structures, comprehensive documentation, and
+                                    proactive technical research. Continuously refining engineering approaches to build
+                                    reliable, long-lasting software.
+                                </p>
+                                <div class="about-pillar-tags">
+                                    <span class="about-pillar-pill">Clean Code</span>
+                                    <span class="about-pillar-pill">System Documentation</span>
+                                    <span class="about-pillar-pill">UI/UX Empathy</span>
+                                    <span class="about-pillar-pill">Fast Execution</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Interests & Focus Section (Tab 5: Interests) -->
-        <section class="section tab-panel" id="interests">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">
-                        <i class="fas fa-compass"></i> Beyond The Terminal
-                    </span>
-                    <h2 class="section-title">Interests & Pursuits</h2>
-                    <p class="section-desc">
-                        Creative pursuits and technical interests that keep curiosity sharp and problem-solving fresh.
-                    </p>
-                </div>
-
-                <!-- Hobbies Grid -->
-                <div class="hobbies-grid">
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-laptop-code"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Coding</h3>
-                            <p class="hobby-desc">Experimenting with new web frameworks, automation scripts, and side projects.</p>
-                        </div>
+            <!-- Featured Projects & Engineering Experience (Tab 2: Projects) -->
+            <section class="section tab-panel" id="projects">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">
+                            <i class="fas fa-terminal"></i> Engineering Experience
+                        </span>
+                        <h2 class="section-title">Technical Projects & Architecture</h2>
+                        <p class="section-desc">
+                            Production applications, real-time tracking systems, and distributed platforms engineered
+                            with a focus on reliability, performance, and clean code.
+                        </p>
                     </div>
 
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-person-hiking"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Hiking</h3>
-                            <p class="hobby-desc">Exploring trails, ridges, and the mountainous landscapes of Bukidnon.</p>
-                        </div>
-                    </div>
+                    <!-- Atmospheric backdrop overlay for focused project -->
+                    <div class="projects-spotlight-backdrop" id="projectsSpotlightBackdrop" aria-hidden="true"></div>
 
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-camera"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Photography</h3>
-                            <p class="hobby-desc">Capturing honest moments, landscape light, and travel scenery.</p>
-                        </div>
-                    </div>
-
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-book-open"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Reading</h3>
-                            <p class="hobby-desc">Deep-diving into software engineering literature and science fiction.</p>
-                        </div>
-                    </div>
-
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-gamepad"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Gaming</h3>
-                            <p class="hobby-desc">Engaging in strategic role-playing and competitive analytical games.</p>
-                        </div>
-                    </div>
-
-                    <div class="hobby-card">
-                        <div class="hobby-icon"><i class="fas fa-music"></i></div>
-                        <div>
-                            <h3 class="hobby-title">Music</h3>
-                            <p class="hobby-desc">Playing acoustic guitar and relaxing to indie and acoustic playlists.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact & Location Section (Tab 6: Contact) -->
-        <section class="section tab-panel" id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">
-                        <i class="fas fa-envelope-open-text"></i> Connectivity
-                    </span>
-                    <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-desc">
-                        Whether you are looking to collaborate on a software project, have an opportunity available, or simply want to connect, feel free to reach out.
-                    </p>
-                </div>
-
-                <div class="contact-grid">
-                    <!-- Contact Direct & Location -->
-                    <div class="contact-info-card">
-                        <div>
-                            <div class="contact-direct-list">
-                                <!-- Email -->
-                                <div class="contact-direct-item">
-                                    <div class="direct-meta">
-                                        <div class="direct-icon">
-                                            <i class="fas fa-envelope"></i>
-                                        </div>
-                                        <div>
-                                            <div class="direct-label">Email Address</div>
-                                            <div class="direct-value">ajtheo176@gmail.com</div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="copy-btn" data-copy="ajtheo176@gmail.com" title="Copy email address" aria-label="Copy email address">
-                                        <i class="fas fa-copy"></i> Copy
-                                    </button>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="contact-direct-item">
-                                    <div class="direct-meta">
-                                        <div class="direct-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <div>
-                                            <div class="direct-label">Phone / WhatsApp</div>
-                                            <div class="direct-value">+63 992 490 8157</div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="copy-btn" data-copy="+639924908157" title="Copy phone number" aria-label="Copy phone number">
-                                        <i class="fas fa-copy"></i> Copy
-                                    </button>
-                                </div>
+                    <div class="projects-grid">
+                        <!-- Project 1 -->
+                        <article class="project-card has-media">
+                            <div class="project-card-media project-modal-trigger" data-project="health" role="button"
+                                tabindex="0" title="Click to view full preview and architecture details">
+                                <img src="assets/images/smart-health-integration.png"
+                                    alt="Smart Health Integration AI-DSUHIS Platform Preview" class="project-card-image"
+                                    loading="lazy">
+                                <span class="project-media-badge"><i class="fas fa-circle-check"></i> Deployed
+                                    System</span>
+                                <span class="project-zoom-badge"><i class="fas fa-expand"></i> Enlarge</span>
                             </div>
-                        </div>
-
-                        <!-- Location & Map -->
-                        <div class="location-box">
-                            <iframe 
-                                class="location-map-frame"
-                                title="Map location of Dangcagan, Bukidnon"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31601.45486462429!2d124.8103845!3d7.6139146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ff1a1d6fc6bd7d%3A0xf3c0c7d5c1a4a0e0!2sDangcagan%2C%20Bukidnon!5e0!3m2!1sen!2sph!4v1654321234567!5m2!1sen!2sph" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                            <div class="location-box-footer">
+                            <div class="project-card-body">
                                 <div>
-                                    <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
-                                    <strong style="color: var(--text-primary);">Dangcagan, Bukidnon</strong>
+                                    <div class="project-top">
+                                        <div class="project-icon">
+                                            <i class="fas fa-laptop-medical"></i>
+                                        </div>
+                                        <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In
+                                            Focus</span>
+                                        <span class="project-role-badge">Lead Fullstack Developer</span>
+                                    </div>
+                                    <h3 class="project-title">Smart Health Integration (AI-DSUHIS)</h3>
+                                    <p class="project-desc">
+                                        AI-Driven Unified Health Information System for Malaybalay City local health
+                                        units, integrating maternal care, epidemiological monitoring, and immunization
+                                        datasets.
+                                    </p>
+                                    <ul class="project-bullets">
+                                        <li>Architected decoupled Laravel REST backend serving a dynamic React SPA.</li>
+                                        <li>Built a native Android client in Java for field-level health worker data
+                                            intake.</li>
+                                        <li>Designed an offline-to-online SQLite/MySQL data synchronization protocol.
+                                        </li>
+                                    </ul>
                                 </div>
-                                <span>Purok-4 Poblacion Dagohoy</span>
+                                <div>
+                                    <div class="project-tech-stack">
+                                        <span class="tech-pill">Laravel</span>
+                                        <span class="tech-pill">React.js</span>
+                                        <span class="tech-pill">Java</span>
+                                        <span class="tech-pill">SQL</span>
+                                        <span class="tech-pill">AI Sync</span>
+                                    </div>
+                                    <div class="project-actions">
+                                        <button type="button" class="project-link-btn project-modal-trigger"
+                                            data-project="health">
+                                            <span>View Architecture Details</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 2: LGU Impasug-ong Tourism Accommodation Portal -->
+                        <article class="project-card has-media">
+                            <div class="project-card-media project-modal-trigger" data-project="tourism" role="button"
+                                tabindex="0" title="Click to view full preview and architecture details">
+                                <img src="assets/images/LGU.webp"
+                                    alt="LGU Impasug-ong Tourism Accommodation Portal Platform Preview"
+                                    class="project-card-image" loading="lazy">
+                                <span class="project-media-badge"><i class="fas fa-landmark"></i> LGU Impasug-ong</span>
+                                <span class="project-zoom-badge"><i class="fas fa-expand"></i> Enlarge</span>
+                            </div>
+                            <div class="project-card-body">
+                                <div>
+                                    <div class="project-top">
+                                        <div class="project-icon">
+                                            <i class="fas fa-hotel"></i>
+                                        </div>
+                                        <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In
+                                            Focus</span>
+                                        <span class="project-role-badge">Fullstack Developer</span>
+                                    </div>
+                                    <h3 class="project-title">LGU Impasug-ong Tourism Portal</h3>
+                                    <p class="project-desc">
+                                        Multi-tenant web platform streamlining accommodation bookings, property
+                                        inventories, and municipal tourism analytics for the Local Government Unit of
+                                        Impasug-ong and local hosts.
+                                    </p>
+                                    <ul class="project-bullets">
+                                        <li>Normalized relational database schemas to manage user credentials, property
+                                            rooms, and booking transactions.</li>
+                                        <li>Implemented dynamic Role-Based Access Control (RBAC) isolating admin,
+                                            vendor, and guest portals with strict security.</li>
+                                        <li>Created automated reporting dashboards and financial summaries for
+                                            Impasug-ong municipal revenue audits.</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div class="project-tech-stack">
+                                        <span class="tech-pill">MERN Stack</span>
+                                        <span class="tech-pill">Laravel</span>
+                                        <span class="tech-pill">RBAC</span>
+                                        <span class="tech-pill">MySQL</span>
+                                    </div>
+                                    <div class="project-actions">
+                                        <button type="button" class="project-link-btn project-modal-trigger"
+                                            data-project="tourism">
+                                            <span>View Architecture Details</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 3 -->
+                        <article class="project-card has-media">
+                            <div class="project-card-media project-modal-trigger" data-project="tally" role="button"
+                                tabindex="0" title="Click to view full preview and architecture details">
+                                <img src="assets/images/TALLY.png"
+                                    alt="Real-Time Intramurals Tally System Dashboard Preview"
+                                    class="project-card-image" loading="lazy">
+                                <span class="project-media-badge"><i class="fas fa-trophy"></i> Live Platform</span>
+                                <span class="project-zoom-badge"><i class="fas fa-expand"></i> Enlarge</span>
+                            </div>
+                            <div class="project-card-body">
+                                <div>
+                                    <div class="project-top">
+                                        <div class="project-icon">
+                                            <i class="fas fa-trophy"></i>
+                                        </div>
+                                        <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In
+                                            Focus</span>
+                                        <span class="project-role-badge">Fullstack Developer</span>
+                                    </div>
+                                    <h3 class="project-title">Real-Time Intramurals Tally System</h3>
+                                    <p class="project-desc">
+                                        University tournament scoring and medal-tracking platform deployed during
+                                        university-wide sports and socio-cultural competitions.
+                                    </p>
+                                    <ul class="project-bullets">
+                                        <li>Employed non-blocking asynchronous Fetch/AJAX polling for instantaneous
+                                            scoreboard feeds.</li>
+                                        <li>Implemented automated tie-breaker algorithms and real-time division
+                                            standings.</li>
+                                        <li>Delivered zero-downtime performance across hundreds of concurrent live
+                                            campus viewers.</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div class="project-tech-stack">
+                                        <span class="tech-pill">React.js</span>
+                                        <span class="tech-pill">Backend API</span>
+                                        <span class="tech-pill">AJAX / Fetch</span>
+                                        <span class="tech-pill">Analytics</span>
+                                    </div>
+                                    <div class="project-actions">
+                                        <button type="button" class="project-link-btn project-modal-trigger"
+                                            data-project="tally">
+                                            <span>View Architecture Details</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 4: Acadex (Personal Project) -->
+                        <article class="project-card has-media">
+                            <div class="project-card-media project-modal-trigger" data-project="acadex" role="button"
+                                tabindex="0" title="Click to view full preview and architecture details">
+                                <img src="assets/images/ACADEX.png"
+                                    alt="Acadex: Offline Study Companion Platform Preview" class="project-card-image"
+                                    loading="lazy">
+                                <span class="project-media-badge"><i class="fas fa-user-gear"></i> Personal
+                                    Project</span>
+                                <span class="project-zoom-badge"><i class="fas fa-expand"></i> Enlarge</span>
+                            </div>
+                            <div class="project-card-body">
+                                <div>
+                                    <div class="project-top">
+                                        <div class="project-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <span class="project-focus-indicator"><i class="fas fa-crosshairs"></i> In
+                                            Focus</span>
+                                        <span class="project-role-badge">Personal Project</span>
+                                    </div>
+                                    <h3 class="project-title">Acadex: Offline Study Companion</h3>
+                                    <p class="project-desc">
+                                        All-in-one offline academic and productivity platform empowering students to
+                                        organize coursework, track assignments, and run focus timers with zero internet
+                                        reliance.
+                                    </p>
+                                    <ul class="project-bullets">
+                                        <li>Architected offline-first local data layer ensuring instant load performance
+                                            and uninterrupted study sessions.</li>
+                                        <li>Built integrated Pomodoro study timers with customizable focus intervals and
+                                            session analytics.</li>
+                                        <li>Designed exam countdown trackers and automated task prioritization queues.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div class="project-tech-stack">
+                                        <span class="tech-pill">React.js</span>
+                                        <span class="tech-pill">Offline-First</span>
+                                        <span class="tech-pill">IndexedDB</span>
+                                        <span class="tech-pill">Productivity UI</span>
+                                    </div>
+                                    <div class="project-actions">
+                                        <button type="button" class="project-link-btn project-modal-trigger"
+                                            data-project="acadex">
+                                            <span>View Architecture Details</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Skills Matrix (Tab 3: Skills) -->
+            <section class="section tab-panel" id="skills">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">
+                            <i class="fas fa-cubes"></i> Core Competencies
+                        </span>
+                        <h2 class="section-title">Technical Skills Profile</h2>
+                    </div>
+
+                    <!-- Atmospheric backdrop overlay for focused skills profile -->
+                    <div class="skills-spotlight-backdrop" id="skillsSpotlightBackdrop" aria-hidden="true"></div>
+
+                    <div class="skills-grid">
+                        <!-- Languages -->
+                        <div class="skill-category-card" data-category="languages">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h3 class="category-title">Languages</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/java.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Java</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/javascript.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">JavaScript</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/typescript.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">TypeScript</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/python.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Python</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/php.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">PHP</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/c.svg" alt=""
+                                        aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">C</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/dart.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Dart</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/database.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">SQL</span></span>
+                                <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon"
+                                            src="assets/icons/skills/html5.svg" alt="" aria-hidden="true" width="24"
+                                            height="24"><img class="skill-icon" src="assets/icons/skills/css3.svg"
+                                            alt="" aria-hidden="true" width="24" height="24"></span><span
+                                        class="skill-label">HTML5 / CSS3</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Frontend & Mobile -->
+                        <div class="skill-category-card" data-category="frontend">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <h3 class="category-title">Frontend & Mobile</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/react.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">React.js</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/flutter.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Flutter</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vitejs.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Vite</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/tailwindcss.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Tailwind CSS</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/alpinejs.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Alpine.js</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/sass.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Sass</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/bootstrap.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Bootstrap</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/responsive.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Responsive UI/UX</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Backend & Frameworks -->
+                        <div class="skill-category-card" data-category="backend">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h3 class="category-title">Backend & APIs</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/laravel.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Laravel</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/django.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Django</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/nodejs.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Node.js</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/express.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Express.js</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/api.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">RESTful APIs</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/wordpress.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">WordPress</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/apache.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Apache</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Databases & Cloud -->
+                        <div class="skill-category-card" data-category="databases">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h3 class="category-title">Databases & Cloud</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mysql.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">MySQL</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/mongodb.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">MongoDB</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/firebase.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Firebase</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/schema.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Relational Schemas</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/vercel.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Vercel</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/render.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">Render</span></span>
+                            </div>
+                        </div>
+
+                        <!-- AI / ML & Systems -->
+                        <div class="skill-category-card" data-category="systems">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <h3 class="category-title">AI & Systems</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/pytorch.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">PyTorch</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/tensorflow.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">TensorFlow</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/opencv.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span
+                                        class="skill-label">OpenCV</span></span>
+                                <span class="skill-badge"><span class="skill-icon-pair"><img class="skill-icon"
+                                            src="assets/icons/skills/git.svg" alt="" aria-hidden="true" width="24"
+                                            height="24"><img class="skill-icon" src="assets/icons/skills/github.svg"
+                                            alt="" aria-hidden="true" width="24" height="24"></span><span
+                                        class="skill-label">Git &amp; GitHub</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/architecture.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">OOP &amp; MVC</span></span>
+                                <span class="skill-badge"><img class="skill-icon" src="assets/icons/skills/network.svg"
+                                        alt="" aria-hidden="true" width="24" height="24"><span class="skill-label">Cisco
+                                        CCNA</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/raspberrypi.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Raspberry Pi</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Professional & Core Competencies -->
+                        <div class="skill-category-card" data-category="professional">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <h3 class="category-title">Professional & Core</h3>
+                                <span class="category-focus-indicator"><i class="fas fa-crosshairs"></i> In Focus</span>
+                            </div>
+                            <div class="skills-badge-list">
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/problem-solving.svg" alt="" aria-hidden="true"
+                                        width="24" height="24"><span class="skill-label">Problem-Solving</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/project-management.svg" alt="" aria-hidden="true"
+                                        width="24" height="24"><span class="skill-label">Project
+                                        Management</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/data-analysis.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Data Analysis</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/communication.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Communication</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/adaptability.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Adaptability</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/time-management.svg" alt="" aria-hidden="true"
+                                        width="24" height="24"><span class="skill-label">Time Management</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/digital-marketing.svg" alt="" aria-hidden="true"
+                                        width="24" height="24"><span class="skill-label">Digital Marketing</span></span>
+                                <span class="skill-badge"><img class="skill-icon"
+                                        src="assets/icons/skills/tech-literacy.svg" alt="" aria-hidden="true" width="24"
+                                        height="24"><span class="skill-label">Tech Literacy</span></span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Interactive Contact Form -->
-                    <div class="contact-form-card">
-                        <form class="contact-form" id="contactForm">
-                            <h3 class="contact-form-title">
-                                Send a Message
-                            </h3>
-                            <p class="contact-form-desc">
-                                Send me a direct note and I'll get back to you promptly.
-                            </p>
+            <!-- Journey, Experience & Milestones (Tab 4: Journey) -->
+            <section class="section tab-panel" id="journey">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">
+                            <i class="fas fa-graduation-cap"></i> Milestones & Career
+                        </span>
+                        <h2 class="section-title">Experience & Achievements</h2>
+                        <p class="section-desc">
+                            Engineering experience, technology competitions, professional certifications, specialized
+                            technical trainings, and academic honors.
+                        </p>
+                    </div>
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="formName" class="form-label">Your Name</label>
-                                    <input type="text" id="formName" class="form-input" placeholder="e.g. Maria Santos" required>
+                    <!-- Milestone Category Filter Tabs -->
+                    <div class="milestones-filter-nav">
+                        <button type="button" class="milestone-filter-btn active" data-filter="all">All
+                            Milestones</button>
+                        <button type="button" class="milestone-filter-btn" data-filter="experience">Experience &
+                            Education</button>
+                        <button type="button" class="milestone-filter-btn" data-filter="certifications">Certifications &
+                            Licenses</button>
+                        <button type="button" class="milestone-filter-btn" data-filter="trainings">Seminars &
+                            Trainings</button>
+                        <button type="button" class="milestone-filter-btn" data-filter="awards">Awards & Honors</button>
+                    </div>
+
+                    <div class="milestones-grid">
+                        <!-- 1. Experience & Education -->
+                        <div class="milestone-card" data-milestone="experience">
+                            <div class="milestone-header">
+                                <div class="milestone-title-group">
+                                    <div class="milestone-icon"><i class="fas fa-briefcase"></i></div>
+                                    <h3 class="milestone-title">Experience & Education</h3>
                                 </div>
+                                <span class="milestone-year-badge">Career</span>
+                            </div>
+                            <div class="milestone-list">
+                                <div class="milestone-item">
+                                    <div class="milestone-item-header">
+                                        <h4 class="milestone-name">Mobile Developer — Excelerate</h4>
+                                        <span class="milestone-date">Jun 29, 2026</span>
+                                    </div>
+                                    <div class="milestone-subtext">International Virtual Mobile Engineering</div>
+                                </div>
+                                <div class="milestone-item">
+                                    <div class="milestone-item-header">
+                                        <h4 class="milestone-name">BS in Information Technology</h4>
+                                        <span class="milestone-date">2021 — Present</span>
+                                    </div>
+                                    <div class="milestone-subtext">Bukidnon State University • 4th Year Senior</div>
+                                </div>
+                                <article class="competition-experience">
+                                    <a class="competition-photo" href="assets/images/1.jpg" target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="View Prompt Pulse competition photo (opens in a new tab)">
+                                        <img src="assets/images/1.jpg"
+                                            alt="Group photo from the Bukidnon Inter-Campus Technology Prompt Pulse competition"
+                                            width="1536" height="2048" loading="lazy" decoding="async">
+                                        <span class="competition-photo-label">View competition photo <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="competition-details">
+                                        <span class="competition-placement"><i class="fas fa-trophy"
+                                                aria-hidden="true"></i> 2nd Place</span>
+                                        <h4 class="competition-title">Bukidnon Inter-Campus Technology</h4>
+                                        <p class="competition-category">Prompt Pulse &bull; Campus Category</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
 
-                                <div class="form-group">
-                                    <label for="formEmail" class="form-label">Your Email</label>
-                                    <input type="email" id="formEmail" class="form-input" placeholder="e.g. maria@example.com" required>
+                        <!-- 2. Certifications & Licenses -->
+                        <div class="milestone-card milestone-certifications" data-milestone="certifications">
+                            <div class="milestone-header">
+                                <div class="milestone-title-group">
+                                    <div class="milestone-icon"><i class="fas fa-certificate"></i></div>
+                                    <h3 class="milestone-title">Certifications & Licenses</h3>
+                                </div>
+                                <span class="milestone-year-badge">5 certificates</span>
+                            </div>
+                            <p class="certificate-intro">Select a certificate to view the original PDF in a new tab.</p>
+                            <div class="certificate-grid">
+                                <article class="certificate-card">
+                                    <a class="certificate-preview"
+                                        href="assets/images/software_engineer%20certificate.pdf" target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="View Software Engineer certificate (PDF, opens in a new tab)">
+                                        <img src="assets/images/certificates/software-engineer.jpg"
+                                            alt="HackerRank Software Engineer certificate awarded to Atheo Jessar R. Caliao"
+                                            width="1600" height="1220" loading="lazy" decoding="async">
+                                        <span class="certificate-preview-label">View certificate <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="certificate-details">
+                                        <span class="certificate-type">Certificate of Accomplishment</span>
+                                        <h4 class="certificate-name">Software Engineer</h4>
+                                        <p class="certificate-issuer">HackerRank</p>
+                                        <p class="certificate-date">Earned <time datetime="2026-08-05">5 August
+                                                2026</time></p>
+                                    </div>
+                                </article>
+                                <article class="certificate-card">
+                                    <a class="certificate-preview" href="assets/images/ClassOf2026__issued%20(2).pdf"
+                                        target="_blank" rel="noopener noreferrer"
+                                        aria-label="View Introduction to AI Literacy and Responsible Use certificate (PDF, opens in a new tab)">
+                                        <img src="assets/images/certificates/ai-literacy-responsible-use.jpg"
+                                            alt="Introduction to AI Literacy and Responsible Use certificate of completion awarded to Atheo Jessar R. Caliao"
+                                            width="1600" height="1133" loading="lazy" decoding="async">
+                                        <span class="certificate-preview-label">View certificate <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="certificate-details">
+                                        <span class="certificate-type">Certificate of Completion</span>
+                                        <h4 class="certificate-name">Introduction to AI Literacy and Responsible Use
+                                        </h4>
+                                        <p class="certificate-issuer">CHED ACHIEVE &bull; Map&uacute;a University</p>
+                                        <p class="certificate-date">Issued <time datetime="2026-09-14">14 September
+                                                2026</time></p>
+                                    </div>
+                                </article>
+                                <article class="certificate-card">
+                                    <a class="certificate-preview"
+                                        href="assets/images/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_2301102653-student-buksu-edu-ph_764704f3-355b-4220-9c56-49a2f0c7f64c%20(1).pdf"
+                                        target="_blank" rel="noopener noreferrer"
+                                        aria-label="View CCNA: Switching, Routing, and Wireless Essentials certificate (PDF, opens in a new tab)">
+                                        <img src="assets/images/certificates/ccna-switching-routing-wireless.jpg"
+                                            alt="Cisco Networking Academy CCNA: Switching, Routing, and Wireless Essentials course completion certificate awarded to Atheo Jessar R. Caliao"
+                                            width="1600" height="1084" loading="lazy" decoding="async">
+                                        <span class="certificate-preview-label">View certificate <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="certificate-details">
+                                        <span class="certificate-type">Course Completion</span>
+                                        <h4 class="certificate-name">CCNA: Switching, Routing, and Wireless Essentials
+                                        </h4>
+                                        <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State
+                                            University</p>
+                                        <p class="certificate-date">Completed <time datetime="2025-12-23">23 December
+                                                2025</time></p>
+                                    </div>
+                                </article>
+                                <article class="certificate-card">
+                                    <a class="certificate-preview"
+                                        href="assets/images/_certificate_2301102653-student-buksu-edu-ph_83796d3f-9e15-49ab-8185-4a1b2179a642%20(1).pdf"
+                                        target="_blank" rel="noopener noreferrer"
+                                        aria-label="View Network Support and Security certificate (PDF, opens in a new tab)">
+                                        <img src="assets/images/certificates/network-support-security.jpg"
+                                            alt="Cisco Networking Academy Network Support and Security course completion certificate awarded to Atheo Jessar R. Caliao"
+                                            width="1600" height="1084" loading="lazy" decoding="async">
+                                        <span class="certificate-preview-label">View certificate <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="certificate-details">
+                                        <span class="certificate-type">Course Completion</span>
+                                        <h4 class="certificate-name">Network Support and Security</h4>
+                                        <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State
+                                            University</p>
+                                        <p class="certificate-date">Completed <time datetime="2025-07-14">14 July
+                                                2025</time></p>
+                                    </div>
+                                </article>
+                                <article class="certificate-card">
+                                    <a class="certificate-preview"
+                                        href="assets/images/CCNA-_Introduction_to_Networks_certificate_2301102653-student-buksu-edu-ph_a6341ff8-6723-484e-bff0-af5d939c4b6e%20(1).pdf"
+                                        target="_blank" rel="noopener noreferrer"
+                                        aria-label="View CCNA: Introduction to Networks certificate (PDF, opens in a new tab)">
+                                        <img src="assets/images/certificates/ccna-introduction-to-networks.jpg"
+                                            alt="Cisco Networking Academy CCNA: Introduction to Networks course completion certificate awarded to Atheo Jessar R. Caliao"
+                                            width="1600" height="1084" loading="lazy" decoding="async">
+                                        <span class="certificate-preview-label">View certificate <i
+                                                class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                    </a>
+                                    <div class="certificate-details">
+                                        <span class="certificate-type">Course Completion</span>
+                                        <h4 class="certificate-name">CCNA: Introduction to Networks</h4>
+                                        <p class="certificate-issuer">Cisco Networking Academy &bull; Bukidnon State
+                                            University</p>
+                                        <p class="certificate-date">Completed <time datetime="2025-05-16">16 May
+                                                2025</time></p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <!-- 3. Seminars & Trainings -->
+                        <div class="milestone-card" data-milestone="trainings">
+                            <div class="milestone-header">
+                                <div class="milestone-title-group">
+                                    <div class="milestone-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                    <h3 class="milestone-title">Seminars & Trainings</h3>
+                                </div>
+                                <span class="milestone-year-badge">Trainings</span>
+                            </div>
+                            <div class="milestone-list">
+                                <div class="milestone-item">
+                                    <div class="milestone-item-header">
+                                        <h4 class="milestone-name">Mobile App Dev with Flutter Virtual Internship</h4>
+                                        <span class="milestone-date">2025</span>
+                                    </div>
+                                    <div class="milestone-subtext">28 Days Intensive Mobile Engineering Program</div>
+                                </div>
+                                <div class="milestone-item">
+                                    <div class="milestone-item-header">
+                                        <h4 class="milestone-name">DevCon Philippines 2026</h4>
+                                        <span class="milestone-date">2026</span>
+                                    </div>
+                                    <div class="milestone-subtext">3-Day National Developer Conference</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="formSubject" class="form-label">Subject</label>
-                                <input type="text" id="formSubject" class="form-input" placeholder="e.g. Software Engineering Opportunity" required>
+                        <!-- 4. Awards & Honors -->
+                        <div class="milestone-card" data-milestone="awards">
+                            <div class="milestone-header">
+                                <div class="milestone-title-group">
+                                    <div class="milestone-icon"><i class="fas fa-award"></i></div>
+                                    <h3 class="milestone-title">Awards & Honors</h3>
+                                </div>
+                                <span class="milestone-year-badge">Honors</span>
                             </div>
-
-                            <div class="form-group">
-                                <label for="formMessage" class="form-label">Message</label>
-                                <textarea id="formMessage" class="form-textarea" placeholder="Write your message here..." required></textarea>
+                            <div class="milestone-list">
+                                <div class="milestone-item">
+                                    <div class="milestone-name">Dean's Lister (5 Semesters)</div>
+                                    <div class="milestone-badges-list">
+                                        <span class="deans-list-pill highlight">AY 24-25 1st Sem</span>
+                                        <span class="deans-list-pill highlight">AY 24-25 2nd Sem</span>
+                                        <span class="deans-list-pill highlight">AY 25-26 1st Sem</span>
+                                        <span class="deans-list-pill highlight">AY 25-26 2nd Sem</span>
+                                        <span class="deans-list-pill highlight">AY 26-27 1st Sem</span>
+                                    </div>
+                                </div>
+                                <div class="milestone-item">
+                                    <div class="milestone-item-header">
+                                        <div class="milestone-name">Academic Honors & Distinctions</div>
+                                        <span class="milestone-date">Top 5</span>
+                                    </div>
+                                    <div class="milestone-subtext">With High Honor Student (2022) • Honor Student (2021)
+                                    </div>
+                                </div>
                             </div>
-
-                            <button type="submit" class="btn btn-primary contact-submit-btn">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <!-- Site Footer -->
-    <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-credits">
-                <span>© 2026 Atheo Jessar Caliao.</span>
-                <span>Crafted with clean HTML5, CSS3 & JavaScript.</span>
+            <!-- Interests & Focus Section (Tab 5: Interests) -->
+            <section class="section tab-panel" id="interests">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">
+                            <i class="fas fa-compass"></i> Beyond The Terminal
+                        </span>
+                        <h2 class="section-title">Interests & Pursuits</h2>
+                        <p class="section-desc">
+                            Creative pursuits and technical interests that keep curiosity sharp and problem-solving
+                            fresh.
+                        </p>
+                    </div>
+
+                    <!-- Hobbies Grid -->
+                    <div class="hobbies-grid">
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Coding</h3>
+                                <p class="hobby-desc">Experimenting with new web frameworks, automation scripts, and
+                                    side projects.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-person-hiking"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Hiking</h3>
+                                <p class="hobby-desc">Exploring trails, ridges, and the mountainous landscapes of
+                                    Bukidnon.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-camera"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Photography</h3>
+                                <p class="hobby-desc">Capturing honest moments, landscape light, and travel scenery.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-book-open"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Reading</h3>
+                                <p class="hobby-desc">Deep-diving into software engineering literature and science
+                                    fiction.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-gamepad"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Gaming</h3>
+                                <p class="hobby-desc">Engaging in strategic role-playing and competitive analytical
+                                    games.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby-card">
+                            <div class="hobby-icon"><i class="fas fa-music"></i></div>
+                            <div>
+                                <h3 class="hobby-title">Music</h3>
+                                <p class="hobby-desc">Playing acoustic guitar and relaxing to indie and acoustic
+                                    playlists.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact & Location Section (Tab 6: Contact) -->
+            <section class="section tab-panel" id="contact">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">
+                            <i class="fas fa-envelope-open-text"></i> Connectivity
+                        </span>
+                        <h2 class="section-title">Get In Touch</h2>
+                        <p class="section-desc">
+                            Whether you are looking to collaborate on a software project, have an opportunity available,
+                            or simply want to connect, feel free to reach out.
+                        </p>
+                    </div>
+
+                    <div class="contact-grid">
+                        <!-- Contact Direct & Location -->
+                        <div class="contact-info-card">
+                            <div>
+                                <div class="contact-direct-list">
+                                    <!-- Email -->
+                                    <div class="contact-direct-item">
+                                        <div class="direct-meta">
+                                            <div class="direct-icon">
+                                                <i class="fas fa-envelope"></i>
+                                            </div>
+                                            <div>
+                                                <div class="direct-label">Email Address</div>
+                                                <div class="direct-value">ajtheo176@gmail.com</div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="copy-btn" data-copy="ajtheo176@gmail.com"
+                                            title="Copy email address" aria-label="Copy email address">
+                                            <i class="fas fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="contact-direct-item">
+                                        <div class="direct-meta">
+                                            <div class="direct-icon">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div>
+                                                <div class="direct-label">Phone / WhatsApp</div>
+                                                <div class="direct-value">+63 992 490 8157</div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="copy-btn" data-copy="+639924908157"
+                                            title="Copy phone number" aria-label="Copy phone number">
+                                            <i class="fas fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Location & Map -->
+                            <div class="location-box">
+                                <iframe class="location-map-frame" title="Map location of Dangcagan, Bukidnon"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31601.45486462429!2d124.8103845!3d7.6139146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ff1a1d6fc6bd7d%3A0xf3c0c7d5c1a4a0e0!2sDangcagan%2C%20Bukidnon!5e0!3m2!1sen!2sph!4v1654321234567!5m2!1sen!2sph"
+                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                                <div class="location-box-footer">
+                                    <div>
+                                        <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
+                                        <strong style="color: var(--text-primary);">Dangcagan, Bukidnon</strong>
+                                    </div>
+                                    <span>Purok-4 Poblacion Dagohoy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Contact Form -->
+                        <div class="contact-form-card">
+                            <form class="contact-form" id="contactForm">
+                                <h3 class="contact-form-title">
+                                    Send a Message
+                                </h3>
+                                <p class="contact-form-desc">
+                                    Send me a direct note and I'll get back to you promptly.
+                                </p>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="formName" class="form-label">Your Name</label>
+                                        <input type="text" id="formName" class="form-input"
+                                            placeholder="e.g. Maria Santos" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="formEmail" class="form-label">Your Email</label>
+                                        <input type="email" id="formEmail" class="form-input"
+                                            placeholder="e.g. maria@example.com" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="formSubject" class="form-label">Subject</label>
+                                    <input type="text" id="formSubject" class="form-input"
+                                        placeholder="e.g. Project Inquiry or Technical Role" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="formMessage" class="form-label">Message</label>
+                                    <textarea id="formMessage" class="form-textarea"
+                                        placeholder="Write your message here..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary contact-submit-btn">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Site Footer -->
+        <footer class="site-footer">
+            <div class="container footer-container">
+                <div class="footer-credits">
+                    <span>© 2026 Atheo Jessar R. Caliao.</span>
+                    <span>Crafted with clean HTML5, CSS3 & JavaScript.</span>
+                </div>
+                <div>
+                    <a href="#about"
+                        style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.4rem;"
+                        aria-label="Back to top">
+                        <span>Back to Top</span>
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                </div>
             </div>
-            <div>
-                <a href="#about" style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.4rem;" aria-label="Back to top">
-                    <span>Back to Top</span>
-                    <i class="fas fa-arrow-up"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
+        </footer>
     </div> <!-- /.page-content-wrapper -->
 
     <!-- Project Details Modal -->
@@ -917,7 +1296,29 @@
         </div>
     </div>
 
+    <!-- Quick Jump Command Palette (Ctrl+K) -->
+    <div class="quick-cmd-backdrop" id="quickCmdBackdrop" aria-hidden="true">
+        <div class="quick-cmd-dialog" role="dialog" aria-modal="true" aria-label="Quick Jump Menu">
+            <div class="quick-cmd-header">
+                <i class="fas fa-magnifying-glass quick-cmd-search-icon"></i>
+                <input type="text" id="quickCmdInput" class="quick-cmd-input"
+                    placeholder="Jump to section or project... (Esc to close)" autocomplete="off" spellcheck="false">
+                <span class="quick-cmd-esc-badge">ESC</span>
+            </div>
+            <div class="quick-cmd-results" id="quickCmdResults">
+                <!-- Populated dynamically via JS -->
+            </div>
+            <div class="quick-cmd-footer">
+                <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+                <span><kbd>↵</kbd> Select</span>
+                <span><kbd>1-6</kbd> Direct Page Jump</span>
+                <span><kbd>ESC</kbd> Close</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Main JavaScript Bundle -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=3.9"></script>
 </body>
+
 </html>

@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#000000">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=4.3">
+    <link rel="stylesheet" href="css/style.css?v=4.4">
 </head>
 
 <body>
@@ -375,12 +375,32 @@
                         </p>
                     </div>
 
+                    <!-- Interactive Projects Filter Pills Bar -->
+                    <div class="projects-filter-bar" role="tablist" aria-label="Filter Technical Projects">
+                        <button type="button" class="project-filter-pill active" data-filter="all">
+                            <span>All Work</span>
+                            <span class="filter-count">4</span>
+                        </button>
+                        <button type="button" class="project-filter-pill" data-filter="fullstack">
+                            <span>Full-Stack &amp; Web</span>
+                            <span class="filter-count">2</span>
+                        </button>
+                        <button type="button" class="project-filter-pill" data-filter="systems">
+                            <span>Systems &amp; Real-Time</span>
+                            <span class="filter-count">2</span>
+                        </button>
+                        <button type="button" class="project-filter-pill" data-filter="offline">
+                            <span>Offline-First</span>
+                            <span class="filter-count">2</span>
+                        </button>
+                    </div>
+
                     <!-- Atmospheric backdrop overlay for focused project -->
                     <div class="projects-spotlight-backdrop" id="projectsSpotlightBackdrop" aria-hidden="true"></div>
 
                     <div class="projects-grid">
-                        <!-- Project 1 -->
-                        <article class="project-card has-media">
+                        <!-- Project 1: Smart Health Integration -->
+                        <article class="project-card has-media project-modal-trigger" data-project="health" data-category="fullstack systems offline">
                             <div class="project-card-media project-modal-trigger" data-project="health" role="button"
                                 tabindex="0" title="Click to view full preview and architecture details">
                                 <img src="assets/images/smart-health-integration.png"
@@ -434,7 +454,7 @@
                         </article>
 
                         <!-- Project 2: LGU Impasug-ong Tourism Accommodation Portal -->
-                        <article class="project-card has-media">
+                        <article class="project-card has-media project-modal-trigger" data-project="tourism" data-category="fullstack systems">
                             <div class="project-card-media project-modal-trigger" data-project="tourism" role="button"
                                 tabindex="0" title="Click to view full preview and architecture details">
                                 <img src="assets/images/LGU.webp"
@@ -487,7 +507,7 @@
                         </article>
 
                         <!-- Project 3 -->
-                        <article class="project-card has-media">
+                        <article class="project-card has-media project-modal-trigger" data-project="tally" data-category="systems">
                             <div class="project-card-media project-modal-trigger" data-project="tally" role="button"
                                 tabindex="0" title="Click to view full preview and architecture details">
                                 <img src="assets/images/TALLY.png"
@@ -539,7 +559,7 @@
                         </article>
 
                         <!-- Project 4: Acadex (Personal Project) -->
-                        <article class="project-card has-media">
+                        <article class="project-card has-media project-modal-trigger" data-project="acadex" data-category="offline">
                             <div class="project-card-media project-modal-trigger" data-project="acadex" role="button"
                                 tabindex="0" title="Click to view full preview and architecture details">
                                 <img src="assets/images/ACADEX.png"
@@ -1287,6 +1307,7 @@
     <!-- Project Details Modal -->
     <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-label="Project Details Modal">
         <div class="modal-dialog">
+            <div class="modal-swipe-bar" aria-hidden="true"></div>
             <button type="button" class="modal-close-btn" id="projectModalClose" aria-label="Close modal window">
                 <i class="fas fa-times"></i>
             </button>
@@ -1318,7 +1339,7 @@
     </div>
 
     <!-- Main JavaScript Bundle -->
-    <script src="js/main.js?v=3.9"></script>
+    <script src="js/main.js?v=4.4"></script>
 </body>
 
 </html>

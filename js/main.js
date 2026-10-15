@@ -548,91 +548,62 @@ function initQuickCommandPalette(switchTabFn) {
 }
 
 /* ==========================================================================
-   2.5. Projects Spotlight & Focus Selection
+   2.5. Projects Spotlight & Interactive Filter
    ========================================================================== */
 function initProjectsSpotlight() {
     const projectCards = document.querySelectorAll('.project-card');
     const projectsGrid = document.querySelector('.projects-grid');
     const spotlightBackdrop = document.getElementById('projectsSpotlightBackdrop');
+    const filterPills = document.querySelectorAll('.project-filter-pill');
 
     if (!projectCards.length || !projectsGrid) return;
 
-    let selectedProject = null;
+    // Interactive category filter pills with smooth micro-transitions
+    if (filterPills.length) {
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const filter = pill.getAttribute('data-filter');
+                filterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
 
-    function setProjectFocus(card, scrollIntoFocus = false) {
-        if (!card || selectedProject === card) {
-            // Deselect and return all cards to normal
-            selectedProject = null;
-            projectsGrid.classList.remove('has-selected');
-            if (spotlightBackdrop) spotlightBackdrop.classList.remove('active');
-
-            projectCards.forEach(c => {
-                c.classList.remove('is-selected', 'is-blurred');
+                projectCards.forEach(card => {
+                    const categories = (card.getAttribute('data-category') || '').split(' ');
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.style.display = 'flex';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             });
-        } else {
-            // Select this project card
-            selectedProject = card;
-            projectsGrid.classList.add('has-selected');
-            if (spotlightBackdrop) spotlightBackdrop.classList.add('active');
-
-            projectCards.forEach(c => {
-                if (c === card) {
-                    c.classList.add('is-selected');
-                    c.classList.remove('is-blurred');
-                } else {
-                    c.classList.remove('is-selected');
-                    c.classList.add('is-blurred');
-                }
-            });
-
-            if (scrollIntoFocus) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
+        });
     }
 
     projectCards.forEach(card => {
         card.setAttribute('tabindex', '0');
         card.setAttribute('role', 'button');
         const title = card.querySelector('.project-title')?.textContent?.trim() || 'project';
-        card.setAttribute('aria-label', `Select ${title} project`);
-
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.project-modal-trigger')) {
-                return;
-            }
-            setProjectFocus(card);
-        });
+        card.setAttribute('aria-label', `View architecture details for ${title}`);
 
         card.addEventListener('keydown', (e) => {
-            if (e.target.closest('.project-modal-trigger')) {
-                return;
-            }
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                setProjectFocus(card, true);
+                const projectId = card.getAttribute('data-project') || card.querySelector('[data-project]')?.getAttribute('data-project');
+                if (projectId && typeof window.openProjectModal === 'function') {
+                    window.openProjectModal(projectId);
+                }
             }
         });
     });
 
-    // Clicking the backdrop closes spotlight and unblurs
     if (spotlightBackdrop) {
         spotlightBackdrop.addEventListener('click', () => {
-            if (selectedProject) {
-                setProjectFocus(null);
-            }
+            spotlightBackdrop.classList.remove('active');
+            projectsGrid.classList.remove('has-selected');
+            projectCards.forEach(c => c.classList.remove('is-selected', 'is-blurred'));
         });
     }
-
-    // Press Escape to dismiss spotlight if modal isn't open
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && selectedProject) {
-            const modalBackdrop = document.getElementById('projectModal');
-            if (!modalBackdrop || !modalBackdrop.classList.contains('open')) {
-                setProjectFocus(null);
-            }
-        }
-    });
 }
 
 /* ==========================================================================
@@ -857,6 +828,7 @@ function initProjectModals() {
     const modalBackdrop = document.getElementById('projectModal');
     const modalContent = document.getElementById('projectModalBody');
     const closeBtn = document.getElementById('projectModalClose');
+    const modalDialog = modalBackdrop?.querySelector('.modal-dialog');
     const triggerButtons = document.querySelectorAll('.project-modal-trigger');
 
     if (!modalBackdrop || !modalContent) return;
@@ -869,26 +841,26 @@ function initProjectModals() {
         const bullets = data.highlights.map(h => `<li>${h}</li>`).join('');
 
         modalContent.innerHTML = `
-            <div style="margin-bottom: 1.5rem;">
-                <span class="project-role-badge" style="display: inline-block; margin-bottom: 0.75rem;">${data.role}</span>
-                <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.75rem; letter-spacing: -0.02em;">${data.title}</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.25rem;">
+            <div style="margin-bottom: 1.25rem;">
+                <span class="project-role-badge" style="display: inline-block; margin-bottom: 0.5rem; font-size: 12px;">${data.role}</span>
+                <h2 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; letter-spacing: -0.01em; line-height: 1.3;">${data.title}</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
                     ${techPills}
                 </div>
                 ${data.image ? `
-                    <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); background-color: #000000; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); margin-bottom: 1.25rem;">
+                    <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); background-color: #000000; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); margin-bottom: 1.15rem;">
                         <img src="${data.image}" alt="${data.title} Interface Preview" style="width: 100%; height: auto; display: block; object-fit: contain;">
                     </div>
                 ` : ''}
             </div>
             
-            <div style="margin-bottom: 1.5rem;">
-                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); margin-bottom: 0.5rem; color: var(--accent);">Architectural Overview</h4>
-                <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">${data.overview}</p>
+            <div style="margin-bottom: 1.25rem;">
+                <h4 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); margin-bottom: 0.45rem; color: var(--accent);">Architectural Overview</h4>
+                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">${data.overview}</p>
             </div>
 
             <div>
-                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); margin-bottom: 0.75rem; color: var(--accent);">Key Engineering Contributions</h4>
+                <h4 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); margin-bottom: 0.55rem; color: var(--accent);">Key Engineering Contributions</h4>
                 <ul class="project-bullets">
                     ${bullets}
                 </ul>
@@ -897,11 +869,20 @@ function initProjectModals() {
 
         modalBackdrop.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (modalDialog) {
+            modalDialog.scrollTop = 0;
+            modalDialog.style.transform = '';
+            modalDialog.style.transition = '';
+        }
     }
 
     function closeModal() {
         modalBackdrop.classList.remove('open');
         document.body.style.overflow = '';
+        if (modalDialog) {
+            modalDialog.style.transform = '';
+            modalDialog.style.transition = '';
+        }
     }
 
     window.openProjectModal = openModal;
@@ -909,8 +890,10 @@ function initProjectModals() {
     triggerButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const projectId = btn.getAttribute('data-project');
-            openModal(projectId);
+            const projectId = btn.getAttribute('data-project') || btn.closest('[data-project]')?.getAttribute('data-project');
+            if (projectId) {
+                openModal(projectId);
+            }
         });
     });
 
@@ -929,6 +912,44 @@ function initProjectModals() {
             closeModal();
         }
     });
+
+    // Mobile Touch Gesture: Swipe Down on Dialog to Dismiss Modal
+    if (modalDialog) {
+        let touchStartY = 0;
+        let touchCurrentY = 0;
+        let isSwiping = false;
+
+        modalDialog.addEventListener('touchstart', (e) => {
+            if (modalDialog.scrollTop <= 5) {
+                touchStartY = e.touches[0].clientY;
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        modalDialog.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            touchCurrentY = e.touches[0].clientY;
+            const diffY = touchCurrentY - touchStartY;
+            if (diffY > 0) {
+                modalDialog.style.transform = `translateY(${Math.min(diffY, 130)}px) scale(${1 - Math.min(diffY / 1200, 0.04)})`;
+                modalDialog.style.transition = 'none';
+            }
+        }, { passive: true });
+
+        modalDialog.addEventListener('touchend', () => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            const diffY = touchCurrentY - touchStartY;
+            modalDialog.style.transition = 'transform 0.22s ease';
+            if (diffY > 75) {
+                closeModal();
+            } else {
+                modalDialog.style.transform = '';
+            }
+            touchStartY = 0;
+            touchCurrentY = 0;
+        }, { passive: true });
+    }
 }
 
 

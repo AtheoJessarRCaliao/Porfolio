@@ -28,6 +28,8 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=4.6">
+    <link rel="stylesheet" href="css/services.css?v=4.7">
+    <link rel="stylesheet" href="css/pipeline.css?v=4.9">
 </head>
 
 <body>
@@ -277,95 +279,291 @@
                         </div>
                     </div>
 
-                    <!-- Core Engineering Focus & Value Propositions -->
-                    <div class="about-pillars-section">
-                        <div class="about-pillars-header">
-                            <h2 class="about-pillars-title">
-                                <i class="fas fa-terminal"></i> Technical Focus & Engineering Principles
-                            </h2>
-                            <p class="about-pillars-desc">
-                                Specialized domains, system architecture priorities, and production philosophies.
-                            </p>
+                    <!-- Services -->
+                    <section class="services-section" aria-labelledby="servicesTitle">
+                        <div class="services-heading-row">
+                            <div>
+                                <span class="services-eyebrow">What I can help you build</span>
+                                <h2 class="services-title" id="servicesTitle">Services &amp; Solutions</h2>
+                                <p class="services-intro">From your first idea to a working product. Explore the areas I work in and the tools I use to bring each project to life.</p>
+                            </div>
+                            <a href="#contact" class="services-contact-link">Let's discuss your project <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
-
-                        <div class="about-pillars-grid">
-                            <!-- Card 1 -->
-                            <div class="about-pillar-card">
-                                <div class="about-pillar-icon">
-                                    <i class="fas fa-laptop-code"></i>
+                        <div class="services-grid">
+                            <article class="service-card" aria-labelledby="service-title-1">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
+                                    <span class="service-number" aria-hidden="true">01 / 08</span>
                                 </div>
-                                <h3 class="about-pillar-name">Full-Stack Web & Mobile Engineering</h3>
-                                <p class="about-pillar-text">
-                                    Developing responsive, accessible, and high-performance digital platforms using
-                                    modular vanilla JavaScript, CSS architectures, PHP/Laravel, and modern API-driven
-                                    client frameworks.
-                                </p>
-                                <div class="about-pillar-tags">
-                                    <span class="about-pillar-pill">JavaScript</span>
-                                    <span class="about-pillar-pill">PHP / Laravel</span>
-                                    <span class="about-pillar-pill">HTML5 / CSS3</span>
-                                    <span class="about-pillar-pill">Flutter</span>
+                                <h3 id="service-title-1">Web Applications</h3>
+                                <p class="service-description">Custom web platforms that turn everyday workflows into useful digital tools.</p>
+                                <ul class="service-areas" aria-label="Web Applications areas">
+                                    <li>Business dashboards &amp; admin portals</li>
+                                    <li>Booking, inventory &amp; management systems</li>
+                                    <li>REST APIs &amp; third-party integrations</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="Web Applications tools">
+                                        <li><img src="assets/icons/skills/javascript.svg" alt="" width="16" height="16" loading="lazy"><span>JavaScript</span></li>
+                                        <li><img src="assets/icons/skills/react.svg" alt="" width="16" height="16" loading="lazy"><span>React</span></li>
+                                        <li><img src="assets/icons/skills/laravel.svg" alt="" width="16" height="16" loading="lazy"><span>Laravel</span></li>
+                                        <li><img src="assets/icons/skills/mysql.svg" alt="" width="16" height="16" loading="lazy"><span>MySQL</span></li>
+                                    </ul>
                                 </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-2">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-mobile-screen-button"></i></span>
+                                    <span class="service-number" aria-hidden="true">02 / 08</span>
+                                </div>
+                                <h3 id="service-title-2">App Development</h3>
+                                <p class="service-description">Practical mobile experiences designed around how people work on the go.</p>
+                                <ul class="service-areas" aria-label="App Development areas">
+                                    <li>Android &amp; cross-platform applications</li>
+                                    <li>User accounts, notifications &amp; profiles</li>
+                                    <li>Offline storage &amp; cloud synchronization</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="App Development tools">
+                                        <li><img src="assets/icons/skills/flutter.svg" alt="" width="16" height="16" loading="lazy"><span>Flutter</span></li>
+                                        <li><img src="assets/icons/skills/dart.svg" alt="" width="16" height="16" loading="lazy"><span>Dart</span></li>
+                                        <li><img src="assets/icons/skills/firebase.svg" alt="" width="16" height="16" loading="lazy"><span>Firebase</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-3">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-network-wired"></i></span>
+                                    <span class="service-number" aria-hidden="true">03 / 08</span>
+                                </div>
+                                <h3 id="service-title-3">Networking</h3>
+                                <p class="service-description">Network planning, configuration, and troubleshooting for connected workplaces.</p>
+                                <ul class="service-areas" aria-label="Networking areas">
+                                    <li>LAN / WAN topology &amp; network setup</li>
+                                    <li>Routing, switching &amp; VLAN configuration</li>
+                                    <li>Connectivity diagnostics &amp; traffic analysis</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="Networking tools">
+                                        <li><img src="assets/icons/skills/cisco.svg" alt="" width="16" height="16" loading="lazy"><span>Cisco</span></li>
+                                        <li><img src="assets/icons/skills/linux.svg" alt="" width="16" height="16" loading="lazy" class="logo-backed"><span>Linux</span></li>
+                                        <li><img src="assets/icons/skills/wireshark.svg" alt="" width="16" height="16" loading="lazy"><span>Wireshark</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-4">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-cart-shopping"></i></span>
+                                    <span class="service-number" aria-hidden="true">04 / 08</span>
+                                </div>
+                                <h3 id="service-title-4">E-commerce Websites</h3>
+                                <p class="service-description">Online stores that make products easy to discover, purchase, and manage.</p>
+                                <ul class="service-areas" aria-label="E-commerce Websites areas">
+                                    <li>Product catalogs, search &amp; shopping carts</li>
+                                    <li>Checkout integration &amp; order tracking</li>
+                                    <li>Inventory &amp; store administration</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="E-commerce Websites tools">
+                                        <li><img src="assets/icons/skills/wordpress.svg" alt="" width="16" height="16" loading="lazy"><span>WordPress</span></li>
+                                        <li><img src="assets/icons/skills/php.svg" alt="" width="16" height="16" loading="lazy"><span>PHP</span></li>
+                                        <li><img src="assets/icons/skills/javascript.svg" alt="" width="16" height="16" loading="lazy"><span>JavaScript</span></li>
+                                        <li><img src="assets/icons/skills/mysql.svg" alt="" width="16" height="16" loading="lazy"><span>MySQL</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-5">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-cloud"></i></span>
+                                    <span class="service-number" aria-hidden="true">05 / 08</span>
+                                </div>
+                                <h3 id="service-title-5">SaaS Development</h3>
+                                <p class="service-description">Cloud-based software built around a focused product idea and its users.</p>
+                                <ul class="service-areas" aria-label="SaaS Development areas">
+                                    <li>MVPs &amp; customer dashboards</li>
+                                    <li>User roles &amp; multi-tenant architecture</li>
+                                    <li>Subscriptions &amp; API integrations</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="SaaS Development tools">
+                                        <li><img src="assets/icons/skills/react.svg" alt="" width="16" height="16" loading="lazy"><span>React</span></li>
+                                        <li><img src="assets/icons/skills/laravel.svg" alt="" width="16" height="16" loading="lazy"><span>Laravel</span></li>
+                                        <li><img src="assets/icons/skills/mysql.svg" alt="" width="16" height="16" loading="lazy"><span>MySQL</span></li>
+                                        <li><img src="assets/icons/skills/postman.svg" alt="" width="16" height="16" loading="lazy"><span>Postman</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-6">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span>
+                                    <span class="service-number" aria-hidden="true">06 / 08</span>
+                                </div>
+                                <h3 id="service-title-6">Capstone Project Systems</h3>
+                                <p class="service-description">Development support that connects a research problem to a working prototype.</p>
+                                <ul class="service-areas" aria-label="Capstone Project Systems areas">
+                                    <li>Research-based web &amp; mobile systems</li>
+                                    <li>Database design &amp; system documentation</li>
+                                    <li>Testing, refinement &amp; demo preparation</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="Capstone Project Systems tools">
+                                        <li><img src="assets/icons/skills/laravel.svg" alt="" width="16" height="16" loading="lazy"><span>Laravel</span></li>
+                                        <li><img src="assets/icons/skills/python.svg" alt="" width="16" height="16" loading="lazy"><span>Python</span></li>
+                                        <li><img src="assets/icons/skills/mysql.svg" alt="" width="16" height="16" loading="lazy"><span>MySQL</span></li>
+                                        <li><img src="assets/icons/skills/git.svg" alt="" width="16" height="16" loading="lazy"><span>Git</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-7">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-pen-ruler"></i></span>
+                                    <span class="service-number" aria-hidden="true">07 / 08</span>
+                                </div>
+                                <h3 id="service-title-7">UI &amp; UX Design</h3>
+                                <p class="service-description">Thoughtful interfaces that make complex tasks feel clear and approachable.</p>
+                                <ul class="service-areas" aria-label="UI &amp; UX Design areas">
+                                    <li>User flows, wireframes &amp; screen layouts</li>
+                                    <li>Interactive prototypes &amp; usability reviews</li>
+                                    <li>Responsive interfaces &amp; design systems</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="UI &amp; UX Design tools">
+                                        <li><img src="assets/icons/skills/figma.svg" alt="" width="16" height="16" loading="lazy"><span>Figma</span></li>
+                                        <li><img src="assets/icons/skills/html5.svg" alt="" width="16" height="16" loading="lazy"><span>HTML5</span></li>
+                                        <li><img src="assets/icons/skills/css3.svg" alt="" width="16" height="16" loading="lazy"><span>CSS3</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <article class="service-card" aria-labelledby="service-title-8">
+                                <div class="service-card-top">
+                                    <span class="service-symbol" aria-hidden="true"><i class="fas fa-chart-line"></i></span>
+                                    <span class="service-number" aria-hidden="true">08 / 08</span>
+                                </div>
+                                <h3 id="service-title-8">Data Analytics</h3>
+                                <p class="service-description">Organize and explore raw data to uncover patterns and support better decisions.</p>
+                                <ul class="service-areas" aria-label="Data Analytics areas">
+                                    <li>Data cleaning, preparation &amp; validation</li>
+                                    <li>Exploratory analysis &amp; SQL reporting</li>
+                                    <li>Visual dashboards &amp; actionable insights</li>
+                                </ul>
+                                <div class="service-toolbox">
+                                    <span class="service-tool-label">Languages &amp; tools</span>
+                                    <ul class="service-tools" aria-label="Data Analytics tools">
+                                        <li><img src="assets/icons/skills/python.svg" alt="" width="16" height="16" loading="lazy"><span>Python</span></li>
+                                        <li><img src="assets/icons/skills/pandas.svg" alt="" width="16" height="16" loading="lazy" class="logo-backed"><span>pandas</span></li>
+                                        <li><img src="assets/icons/skills/mysql.svg" alt="" width="16" height="16" loading="lazy"><span>MySQL</span></li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                    <!-- Development pipeline -->
+                    <section class="project-pipeline" data-project-pipeline aria-labelledby="pipeline-heading">
+                        <div class="pipeline-heading-row">
+                            <div>
+                                <span class="pipeline-eyebrow">THE PROCESS / 01—09</span>
+                                <h2 id="pipeline-heading">From a problem to a working solution.</h2>
+                                <p class="pipeline-intro">A practical development workflow, with feedback built into every new iteration.</p>
                             </div>
-
-                            <!-- Card 2 -->
-                            <div class="about-pillar-card">
-                                <div class="about-pillar-icon">
-                                    <i class="fas fa-server"></i>
-                                </div>
-                                <h3 class="about-pillar-name">Decoupled APIs & Data Modeling</h3>
-                                <p class="about-pillar-text">
-                                    Structuring normalized relational schemas and document databases with MySQL and
-                                    MongoDB. Architecting RESTful API endpoints with secure session management, input
-                                    validation, and high query efficiency.
-                                </p>
-                                <div class="about-pillar-tags">
-                                    <span class="about-pillar-pill">RESTful APIs</span>
-                                    <span class="about-pillar-pill">MySQL</span>
-                                    <span class="about-pillar-pill">Database Normalization</span>
-                                    <span class="about-pillar-pill">Security</span>
-                                </div>
-                            </div>
-
-                            <!-- Card 3 -->
-                            <div class="about-pillar-card">
-                                <div class="about-pillar-icon">
-                                    <i class="fas fa-building-columns"></i>
-                                </div>
-                                <h3 class="about-pillar-name">Institutional & Municipal Systems</h3>
-                                <p class="about-pillar-text">
-                                    Direct experience translating complex organizational and municipal workflows into
-                                    practical digital platforms—including asset tracking for LGU Impasugong and clinical
-                                    healthcare portals.
-                                </p>
-                                <div class="about-pillar-tags">
-                                    <span class="about-pillar-pill">LGU Systems</span>
-                                    <span class="about-pillar-pill">Real-Time Tracking</span>
-                                    <span class="about-pillar-pill">Data Integrity</span>
-                                    <span class="about-pillar-pill">Process Automation</span>
-                                </div>
-                            </div>
-
-                            <!-- Card 4 -->
-                            <div class="about-pillar-card">
-                                <div class="about-pillar-icon">
-                                    <i class="fas fa-compass-drafting"></i>
-                                </div>
-                                <h3 class="about-pillar-name">Quality, Scalability & Continuous Learning</h3>
-                                <p class="about-pillar-text">
-                                    Upholding maintainable codebase structures, comprehensive documentation, and
-                                    proactive technical research. Continuously refining engineering approaches to build
-                                    reliable, long-lasting software.
-                                </p>
-                                <div class="about-pillar-tags">
-                                    <span class="about-pillar-pill">Clean Code</span>
-                                    <span class="about-pillar-pill">System Documentation</span>
-                                    <span class="about-pillar-pill">UI/UX Empathy</span>
-                                    <span class="about-pillar-pill">Fast Execution</span>
-                                </div>
+                            <div class="pipeline-controls" hidden>
+                                <span class="pipeline-demo-status"><span class="pipeline-status-dot" aria-hidden="true"></span><span data-pipeline-status>Animation paused</span></span>
+                                <button class="pipeline-play" type="button" data-pipeline-play aria-controls="pipeline-steps pipeline-detail"><i class="fas fa-play" aria-hidden="true"></i><span>Play animation</span></button>
                             </div>
                         </div>
-                    </div>
+                        <div class="pipeline-canvas">
+                            <div class="pipeline-canvas-label"><span><i class="fas fa-diagram-project" aria-hidden="true"></i> DEVELOPMENT PIPELINE</span><span>Interactive walkthrough</span></div>
+                            <div class="pipeline-flow">
+                            <ol class="pipeline-steps" id="pipeline-steps" aria-label="Nine stages of project development">
+                                <li class="pipeline-step" data-output="A clear problem statement and an opportunity worth solving.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">01</span><i class="fas fa-lightbulb" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Identify a problem</span>
+                                        <span class="pipeline-node-description">Find a need that technology could help solve.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="Defined users, key use cases, and an agreed set of requirements.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">02</span><i class="fas fa-users" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Define users &amp; requirements</span>
+                                        <span class="pipeline-node-description">Determine who will use the project and what they need it to do.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="A prioritized feature list, a first release scope, and measurable success criteria.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">03</span><i class="fas fa-list-check" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Plan features &amp; success criteria</span>
+                                        <span class="pipeline-node-description">Decide what to build first and how to tell whether it works.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="A suitable stack of languages, frameworks, databases, and hosting.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">04</span><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Choose suitable technology</span>
+                                        <span class="pipeline-node-description">Select languages, frameworks, databases, and hosting based on the project's needs, budget, skills, and platform.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="Interface designs, a data model, role permissions, and a system blueprint.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">05</span><i class="fas fa-pen-ruler" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Design the system</span>
+                                        <span class="pipeline-node-description">Plan the interface, data structure, user roles, and how the parts will work together.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="An integrated, working version of the project's core features.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">06</span><i class="fas fa-code" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Build the project</span>
+                                        <span class="pipeline-node-description">Develop the frontend, backend, database, and integrations.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="Verified features, resolved defects, and improvements to usability and security.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">07</span><i class="fas fa-vial-circle-check" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Test &amp; improve</span>
+                                        <span class="pipeline-node-description">Check that features work, fix bugs, and improve usability and security.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="A released project that users can access, with deployment checks in place.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">08</span><i class="fas fa-rocket" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Deploy for users</span>
+                                        <span class="pipeline-node-description">Publish the project so people can access it.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                                <li class="pipeline-step" data-output="Ongoing fixes, useful feedback, and new priorities that return to the planning stage.">
+                                    <button class="pipeline-node" type="button" aria-controls="pipeline-detail">
+                                        <span class="pipeline-node-top"><span class="pipeline-number">09</span><i class="fas fa-arrows-rotate" aria-hidden="true"></i></span>
+                                        <span class="pipeline-node-title">Maintain &amp; update</span>
+                                        <span class="pipeline-node-description">Monitor the project, respond to feedback, and add improvements.</span>
+                                        <span class="pipeline-node-progress" aria-hidden="true"></span>
+                                    </button>
+                                </li>
+                            </ol>
+                            <div class="pipeline-feedback"><span class="pipeline-feedback-line" aria-hidden="true"></span><i class="fas fa-arrow-rotate-left" aria-hidden="true"></i><span>09 → 03 <strong>Feedback returns to planning</strong></span><span class="pipeline-feedback-line" aria-hidden="true"></span></div>
+                            </div>
+                            <div class="pipeline-detail" id="pipeline-detail" hidden>
+                                <div class="pipeline-detail-main"><span class="pipeline-eyebrow" data-pipeline-position>EXPLORING STEP 01 / 09</span><h3 data-pipeline-title>Identify a problem</h3><p data-pipeline-description>Find a need that technology could help solve.</p></div>
+                                <div class="pipeline-detail-output"><span class="pipeline-eyebrow">THE OUTPUT</span><p data-pipeline-output>A clear problem statement and an opportunity worth solving.</p></div>
+                            </div>
+                            <p class="pipeline-footnote">Follow the live workflow animation or select any step to jump ahead. Pause the animation to take a closer look.</p>
+                            <span class="pipeline-sr-only" data-pipeline-announcement aria-live="polite" aria-atomic="true"></span>
+                        </div>
+                    </section>
                 </div>
             </section>
 
@@ -1404,6 +1602,7 @@
 
     <!-- Main JavaScript Bundle -->
     <script src="js/main.js?v=4.6"></script>
+    <script src="js/pipeline.js?v=4.9"></script>
 </body>
 
 </html>

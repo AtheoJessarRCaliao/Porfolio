@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/style.css?v=4.6">
     <link rel="stylesheet" href="css/services.css?v=4.7">
     <link rel="stylesheet" href="css/pipeline.css?v=4.9">
+    <link rel="stylesheet" href="css/ai-assistant.css?v=5.0">
 </head>
 
 <body>
@@ -1600,9 +1601,61 @@
         </div>
     </div>
 
+    <!-- Floating AI button and local portfolio guide -->
+    <aside class="ai-assistant" id="aiAssistant" aria-label="Portfolio guide" hidden>
+        <section class="ai-panel" id="aiAssistantPanel" role="dialog" aria-modal="false"
+            aria-labelledby="aiAssistantTitle" hidden>
+            <header class="ai-panel-header">
+                <span class="ai-panel-avatar" aria-hidden="true">AI</span>
+                <div>
+                    <h2 id="aiAssistantTitle">Portfolio guide</h2>
+                    <p>Explore Atheo's work</p>
+                </div>
+                <button class="ai-panel-close" type="button" data-ai-close aria-label="Close portfolio guide">
+                    <i class="fas fa-xmark" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="ai-panel-body">
+                <h3 class="ai-panel-greeting">What would you like to explore?</h3>
+                <p class="ai-panel-intro">Get a quick answer, then jump to the details.</p>
+                <div class="ai-suggestions" aria-label="Suggested questions">
+                    <button class="ai-suggestion" type="button" data-ai-question="services" aria-pressed="false">
+                        <i class="fas fa-layer-group" aria-hidden="true"></i><span>What can you build?</span>
+                    </button>
+                    <button class="ai-suggestion" type="button" data-ai-question="projects" aria-pressed="false">
+                        <i class="fas fa-laptop-code" aria-hidden="true"></i><span>Show me your projects</span>
+                    </button>
+                    <button class="ai-suggestion" type="button" data-ai-question="process" aria-pressed="false">
+                        <i class="fas fa-diagram-project" aria-hidden="true"></i><span>How do you work?</span>
+                    </button>
+                    <button class="ai-suggestion" type="button" data-ai-question="contact" aria-pressed="false">
+                        <i class="fas fa-comment-dots" aria-hidden="true"></i><span>How can I reach you?</span>
+                    </button>
+                </div>
+                <div class="ai-answer" hidden>
+                    <h3 data-ai-answer-title></h3>
+                    <p data-ai-answer-text></p>
+                    <a class="ai-answer-link" data-ai-answer-link href="#about"><span>Explore</span><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <span class="ai-announcement" data-ai-announcement aria-live="polite" aria-atomic="true"></span>
+            </div>
+            <footer class="ai-panel-footer">Curated answers from this portfolio.</footer>
+        </section>
+        <button class="ai-launcher" id="aiAssistantToggle" type="button" aria-label="Open AI portfolio guide"
+            aria-expanded="false" aria-controls="aiAssistantPanel" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3Z"/>
+                <path d="M20 2v4M18 4h4M4 18v4M2 20h4"/>
+            </svg>
+            <span aria-hidden="true">AI</span>
+            <span class="ai-launcher-hint" aria-hidden="true">Explore my portfolio</span>
+        </button>
+    </aside>
+
     <!-- Main JavaScript Bundle -->
     <script src="js/main.js?v=4.6"></script>
     <script src="js/pipeline.js?v=4.9"></script>
+    <script src="js/ai-assistant.js?v=5.0"></script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSkillsFilter();
     initMilestonesFilter();
     initProjectModals();
+    initCvModal();
     initClipboardCopy();
     initContactForm();
     initSiteLiveMatrixBackground();
@@ -1285,4 +1286,86 @@ function initSiteLiveMatrixBackground() {
         resizeAll();
         render();
     }, 40);
+}
+
+/* ==========================================================================
+   CV / Resume PDF Modal
+   ========================================================================== */
+function initCvModal() {
+    const backdrop   = document.getElementById('cvModal');
+    const openBtn    = document.getElementById('cvModalOpenBtn');
+    const closeBtn   = document.getElementById('cvModalClose');
+    const dialog     = backdrop?.querySelector('.cv-modal-dialog');
+
+    if (!backdrop || !openBtn) return;
+
+    function openModal() {
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        if (dialog) {
+            dialog.style.transform = '';
+            dialog.style.transition = '';
+        }
+    }
+
+    function closeModal() {
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+        if (dialog) {
+            dialog.style.transform = '';
+            dialog.style.transition = '';
+        }
+    }
+
+    openBtn.addEventListener('click', openModal);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+            closeModal();
+        }
+    });
+
+    // Mobile swipe-down to dismiss
+    if (dialog) {
+        let touchStartY = 0, touchCurrentY = 0, isSwiping = false;
+
+        dialog.addEventListener('touchstart', (e) => {
+            if (dialog.scrollTop <= 5) {
+                touchStartY = e.touches[0].clientY;
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        dialog.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            touchCurrentY = e.touches[0].clientY;
+            const diffY = touchCurrentY - touchStartY;
+            if (diffY > 0) {
+                dialog.style.transform = `translateY(${Math.min(diffY, 130)}px) scale(${1 - Math.min(diffY / 1200, 0.04)})`;
+                dialog.style.transition = 'none';
+            }
+        }, { passive: true });
+
+        dialog.addEventListener('touchend', () => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            const diffY = touchCurrentY - touchStartY;
+            dialog.style.transition = 'transform 0.22s ease';
+            if (diffY > 75) {
+                closeModal();
+            } else {
+                dialog.style.transform = '';
+            }
+            touchStartY = 0;
+            touchCurrentY = 0;
+        }, { passive: true });
+    }
 }

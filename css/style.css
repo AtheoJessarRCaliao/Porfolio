@@ -3112,6 +3112,163 @@ html.theme-transitioning *::after {
     background-color: var(--bg-surface-hover);
 }
 
+/* ─── CV Button (Hero About Page) ─────────────────────────────── */
+.hero-cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    background-color: var(--bg-surface-raised);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.hero-cv-btn:hover {
+    color: var(--bg-main);
+    background-color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 4px 18px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.hero-cv-btn:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.hero-cv-btn-icon {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* ─── CV Modal ─────────────────────────────────────────────────── */
+.cv-modal-backdrop {
+    z-index: 1600;
+    align-items: center;
+}
+
+.cv-modal-dialog {
+    max-width: 900px;
+    width: 95vw;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.75rem 1.25rem;
+    overflow: hidden;
+}
+
+.cv-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+    flex-shrink: 0;
+}
+
+.cv-modal-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.cv-modal-icon {
+    font-size: 1.4rem;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.cv-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.cv-modal-subtitle {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0.2rem 0 0;
+}
+
+.cv-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+}
+
+.cv-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.cv-download-btn:hover {
+    color: var(--bg-main);
+    background-color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 3px 12px var(--accent-glow);
+}
+
+.cv-embed-container {
+    flex: 1;
+    min-height: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background-color: #000;
+}
+
+.cv-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    border: none;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .cv-modal-dialog {
+        width: 95vw;
+        max-height: 90vh;
+        padding: 1.1rem 1rem 1rem;
+    }
+
+    .cv-modal-header {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .cv-iframe {
+        min-height: 380px;
+    }
+}
+
 
 /* Footer (Hidden on desktop as sidebar contains credits, visible on mobile) */
 .site-footer {

@@ -68,13 +68,12 @@
     padding: 1.4rem;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    background: var(--bg-surface);
-    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    background: transparent;
+    transition: border-color var(--transition-fast);
 }
 
 .service-card:hover {
     border-color: var(--border-accent);
-    background: var(--bg-surface-raised);
 }
 
 .service-card-top {

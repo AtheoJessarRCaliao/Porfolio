@@ -2313,7 +2313,7 @@ html.theme-transitioning *::after {
 }
 
 .category-title {
-    font-size: 0.88rem;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-primary);
 }
@@ -2355,7 +2355,7 @@ html.theme-transitioning *::after {
     gap: 0.4rem;
     max-width: 100%;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 12px;
     line-height: 1.4;
     padding: 0.25rem 0.45rem 0.25rem 0.3rem;
     background-color: var(--bg-surface-raised);

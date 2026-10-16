@@ -4,6 +4,9 @@
 
 /* Design Tokens & CSS Variables */
 :root {
+    color-scheme: dark;
+    --theme-transition-duration: 500ms;
+    --theme-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
     /* Color Palette - Pure Monochrome Dark Theme (Default) */
     --bg-main: #000000;
     --bg-surface: #0a0a0a;
@@ -47,6 +50,7 @@
 
 /* Pure Monochrome Light Theme Variables */
 [data-theme="light"] {
+    color-scheme: light;
     --bg-main: #ffffff;
     --bg-surface: #f7f7f7;
     --bg-surface-raised: #eeeeee;
@@ -1181,40 +1185,70 @@ body.sidebar-closed .site-sidebar {
     }
 }
 
-/* Silky Universal CSS Transition during theme switch */
+/* Older browsers interpolate colors; modern browsers use only the snapshot fade. */
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
-    transition: background-color 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-                color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-                fill 0.38s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: background-color var(--theme-transition-duration) var(--theme-transition-ease),
+                border-color var(--theme-transition-duration) var(--theme-transition-ease),
+                color var(--theme-transition-duration) var(--theme-transition-ease),
+                box-shadow var(--theme-transition-duration) var(--theme-transition-ease),
+                fill var(--theme-transition-duration) var(--theme-transition-ease),
+                stroke var(--theme-transition-duration) var(--theme-transition-ease),
+                outline-color var(--theme-transition-duration) var(--theme-transition-ease),
+                opacity var(--transition-normal),
+                transform var(--transition-normal) !important;
     transition-delay: 0s !important;
 }
 
-/* Modern Circular Ripple View Transitions API (Chrome / Edge / Safari 18+) */
-::view-transition-old(root),
-::view-transition-new(root) {
+html.theme-snapshotting,
+html.theme-snapshotting *,
+html.theme-snapshotting *::before,
+html.theme-snapshotting *::after,
+html.theme-instant,
+html.theme-instant *,
+html.theme-instant *::before,
+html.theme-instant *::after {
+    transition: none !important;
+}
+
+html.theme-snapshotting::view-transition { pointer-events: none; }
+html.theme-snapshotting::view-transition-group(root) {
+    animation-duration: var(--theme-transition-duration);
+    animation-timing-function: var(--theme-transition-ease);
+}
+html.theme-snapshotting::view-transition-old(root),
+html.theme-snapshotting::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
 }
-
-::view-transition-old(root) {
+html.theme-snapshotting::view-transition-old(root) {
+    opacity: 1;
     z-index: 1;
 }
-
-::view-transition-new(root) {
-    z-index: 9999;
+html.theme-snapshotting::view-transition-new(root) {
+    z-index: 2;
+    animation: themePageFade var(--theme-transition-duration) var(--theme-transition-ease) both;
 }
-
-[data-theme="dark"]::view-transition-old(root) {
-    z-index: 9999;
+@keyframes themePageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-
-[data-theme="dark"]::view-transition-new(root) {
-    z-index: 1;
+@media (prefers-reduced-motion: reduce) {
+    html.theme-transitioning,
+    html.theme-transitioning *,
+    html.theme-transitioning *::before,
+    html.theme-transitioning *::after {
+        transition: none !important;
+    }
+    html.theme-snapshotting::view-transition-group(root),
+    html.theme-snapshotting::view-transition-old(root),
+    html.theme-snapshotting::view-transition-new(root),
+    .theme-icon-spin,
+    .theme-toggle-btn.btn-pulse {
+        animation: none !important;
+    }
 }
 
 /* ==========================================================================

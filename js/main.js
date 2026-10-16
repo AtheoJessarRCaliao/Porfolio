@@ -17,143 +17,161 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. Theme Management (Dark / Light Mode) with Circular Ripple & Micro-Interactions
+   1. Theme Management: one complete crossfade, with a color-transition fallback
    ========================================================================== */
+const THEME_TRANSITION_DURATION = 500;
 let themeTransitionTimer = null;
+let activeThemeTransition = null;
+let desiredTheme = null;
+let themeRequestId = 0;
+let hasExplicitThemePreference = false;
 
-function enableThemeTransitionClass() {
-    document.documentElement.classList.add('theme-transitioning');
-    if (themeTransitionTimer) clearTimeout(themeTransitionTimer);
-    themeTransitionTimer = setTimeout(() => {
-        document.documentElement.classList.remove('theme-transitioning');
-    }, 450);
+function readSavedTheme() {
+    try {
+        const theme = localStorage.getItem('theo-portfolio-theme');
+        return theme === 'dark' || theme === 'light' ? theme : null;
+    } catch {
+        return null;
+    }
 }
 
 function initTheme() {
-    const themeButtons = document.querySelectorAll('.theme-toggle-btn');
-    if (!themeButtons.length) return;
+    const savedTheme = readSavedTheme();
+    hasExplicitThemePreference = savedTheme !== null;
+    desiredTheme = savedTheme || 'dark';
+    applyTheme(desiredTheme);
 
-    // Check localStorage or system preference
-    const savedTheme = localStorage.getItem('theo-portfolio-theme');
-    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Default to dark mode if no preference stored
-    const activeTheme = savedTheme || (systemPrefersDark ? 'dark' : 'dark');
-    applyTheme(activeTheme, false);
-
-    themeButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            toggleThemeWithTransition(e, newTheme, btn);
+    document.querySelectorAll('.theme-toggle-btn').forEach(button => {
+        button.addEventListener('click', event => {
+            // Track intent separately: a snapshot update may not have run yet.
+            const nextTheme = desiredTheme === 'dark' ? 'light' : 'dark';
+            toggleThemeWithTransition(event, nextTheme, button);
         });
     });
 
-    // Listen for OS preference changes if not explicitly set
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theo-portfolio-theme')) {
-            applyTheme(e.matches ? 'dark' : 'light', true);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (!hasExplicitThemePreference) {
+            toggleThemeWithTransition(null, event.matches ? 'dark' : 'light', null, false);
         }
+    });
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', event => {
+        if (!event.matches) return;
+        // Invalidate callbacks from an interrupted snapshot before settling the theme.
+        themeRequestId++;
+        if (activeThemeTransition) activeThemeTransition.skipTransition();
+        activeThemeTransition = null;
+        clearTimeout(themeTransitionTimer);
+        document.documentElement.classList.remove('theme-transitioning', 'theme-snapshotting');
+        applyThemeWithoutMotion(desiredTheme);
     });
 }
 
-function toggleThemeWithTransition(event, newTheme, triggerBtn) {
-    // 1. Play button tactile pulse ring animation
-    if (triggerBtn) {
-        triggerBtn.classList.remove('btn-pulse');
-        void triggerBtn.offsetWidth; // force reflow
-        triggerBtn.classList.add('btn-pulse');
+function toggleThemeWithTransition(event, newTheme, triggerBtn, persist = true) {
+    const root = document.documentElement;
+    desiredTheme = newTheme;
+    if (persist) {
+        hasExplicitThemePreference = true;
+        try { localStorage.setItem('theo-portfolio-theme', newTheme); } catch { /* Session switching still works. */ }
     }
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Let the current fade finish; cancelling it would expose its final palette.
+    // Repeated clicks update only the desired theme and coalesce into one next fade.
+    if (activeThemeTransition && !reducedMotion) return;
 
-    // 2. Global smooth CSS transition on colors & surfaces
-    enableThemeTransitionClass();
+    const request = ++themeRequestId;
+    if (activeThemeTransition) activeThemeTransition.skipTransition();
+    activeThemeTransition = null;
+    clearTimeout(themeTransitionTimer);
+    root.classList.remove('theme-transitioning', 'theme-snapshotting');
 
-    // 3. Modern Circular Ripple expansion via View Transitions API
-    const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (document.startViewTransition && !isReducedMotion) {
-        // Calculate origin center of the clicked button
-        let x = window.innerWidth / 2;
-        let y = 0;
-        
-        if (triggerBtn) {
-            const rect = triggerBtn.getBoundingClientRect();
-            x = rect.left + rect.width / 2;
-            y = rect.top + rect.height / 2;
-        } else if (event) {
-            x = event.clientX;
-            y = event.clientY;
+    let usedFallback = false;
+    function cleanup() {
+        if (request !== themeRequestId) return;
+        root.classList.remove('theme-transitioning', 'theme-snapshotting');
+        activeThemeTransition = null;
+        if (desiredTheme !== root.getAttribute('data-theme')) {
+            toggleThemeWithTransition(null, desiredTheme, null, false);
         }
-
-        const endRadius = Math.hypot(
-            Math.max(x, window.innerWidth - x),
-            Math.max(y, window.innerHeight - y)
-        );
-
-        const transition = document.startViewTransition(() => {
-            applyTheme(newTheme, true);
-            localStorage.setItem('theo-portfolio-theme', newTheme);
-        });
-
-        transition.ready.then(() => {
-            const isDark = newTheme === 'dark';
-            const clipPath = [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${endRadius}px at ${x}px ${y}px)`
-            ];
-
-            document.documentElement.animate(
-                {
-                    clipPath: isDark ? [...clipPath].reverse() : clipPath
-                },
-                {
-                    duration: 480,
-                    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-                    pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)'
-                }
-            );
-        }).catch(() => {
-            applyTheme(newTheme, true);
-            localStorage.setItem('theo-portfolio-theme', newTheme);
-        });
-    } else {
-        // Fallback for browsers without View Transitions
-        applyTheme(newTheme, true);
-        localStorage.setItem('theo-portfolio-theme', newTheme);
     }
+    function fallback() {
+        if (request !== themeRequestId) return;
+        usedFallback = true;
+        activeThemeTransition = null;
+        root.classList.remove('theme-snapshotting');
+        if (!reducedMotion) {
+            root.classList.add('theme-transitioning');
+            // Commit the previous colors before changing the theme in the same frame.
+            void getComputedStyle(document.body).backgroundColor;
+        }
+        applyTheme(desiredTheme, !reducedMotion);
+        if (!reducedMotion) {
+            themeTransitionTimer = setTimeout(cleanup, THEME_TRANSITION_DURATION + 80);
+        } else cleanup();
+    }
+
+    if (reducedMotion) {
+        applyThemeWithoutMotion(newTheme);
+        return;
+    }
+    if (typeof document.startViewTransition !== 'function') {
+        fallback();
+        return;
+    }
+
+    // Capture settled palettes. Never run per-element fades under the snapshots.
+    root.classList.add('theme-snapshotting');
+    try {
+        const transition = document.startViewTransition(() => {
+            if (request === themeRequestId && !usedFallback) applyTheme(newTheme);
+        });
+        activeThemeTransition = transition;
+        transition.ready.catch(() => {
+            if (request !== themeRequestId) return;
+            if (root.getAttribute('data-theme') !== newTheme) fallback();
+        });
+        transition.finished.then(() => {
+            if (!usedFallback) cleanup();
+        }, () => {
+            if (request !== themeRequestId || usedFallback) return;
+            if (root.getAttribute('data-theme') !== newTheme) fallback();
+            else cleanup();
+        });
+    } catch {
+        fallback();
+    }
+}
+
+function applyThemeWithoutMotion(theme) {
+    const root = document.documentElement;
+    root.classList.add('theme-instant');
+    applyTheme(theme);
+    // Settle existing component transitions before restoring normal hover motion.
+    void getComputedStyle(document.body).backgroundColor;
+    root.classList.remove('theme-instant');
 }
 
 function applyTheme(theme, animateIcon = false) {
     document.documentElement.setAttribute('data-theme', theme);
-    const themeButtons = document.querySelectorAll('.theme-toggle-btn');
-    
-    themeButtons.forEach(btn => {
-        const icon = btn.querySelector('i');
-        const label = btn.querySelector('.theme-label-text, .theme-btn-label');
-        
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
+
+    document.querySelectorAll('.theme-toggle-btn').forEach(button => {
+        const icon = button.querySelector('i');
+        const label = button.querySelector('.theme-label-text, .theme-btn-label');
         if (icon) {
-            if (theme === 'light') {
-                icon.className = 'fas fa-moon';
-            } else {
-                icon.className = 'fas fa-sun';
-            }
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
             if (animateIcon) {
-                icon.classList.remove('theme-icon-spin');
-                void icon.offsetWidth; // trigger reflow
+                void icon.offsetWidth;
                 icon.classList.add('theme-icon-spin');
             }
         }
-
-        if (theme === 'light') {
-            btn.setAttribute('title', 'Switch to dark theme');
-            btn.setAttribute('aria-label', 'Switch to dark theme');
-            if (label) label.textContent = 'Dark';
-        } else {
-            btn.setAttribute('title', 'Switch to light theme');
-            btn.setAttribute('aria-label', 'Switch to light theme');
-            if (label) label.textContent = 'Light';
-        }
+        const nextTheme = theme === 'light' ? 'dark' : 'light';
+        button.setAttribute('title', 'Switch to ' + nextTheme + ' theme');
+        button.setAttribute('aria-label', 'Switch to ' + nextTheme + ' theme');
+        if (label) label.textContent = theme === 'light' ? 'Dark' : 'Light';
     });
+    // Refresh canvas colors before a View Transition captures the new page.
+    document.dispatchEvent(new CustomEvent('portfolio:themechange'));
 }
 
 /* ==========================================================================
@@ -1173,7 +1191,8 @@ function initSiteLiveMatrixBackground() {
 
     // Track sidebar expansion/collapse transitions and scrolling
     if (sidebar) {
-        sidebar.addEventListener('transitionend', () => {
+        sidebar.addEventListener('transitionend', event => {
+            if (event.target !== sidebar || !['width', 'transform'].includes(event.propertyName)) return;
             const sbInst = instances.find(i => i.isSidebar);
             if (sbInst) resizeInstance(sbInst);
         });
@@ -1182,12 +1201,7 @@ function initSiteLiveMatrixBackground() {
         }, { passive: true });
     }
 
-    function render() {
-        if (!isVisible) {
-            animationFrameId = requestAnimationFrame(render);
-            return;
-        }
-
+    function draw() {
         time += 0.022;
 
         // Smooth mouse damping
@@ -1195,7 +1209,12 @@ function initSiteLiveMatrixBackground() {
         mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const baseRgb = isLight ? '0, 0, 0' : '255, 255, 255';
+        let baseRgb = isLight ? '0, 0, 0' : '255, 255, 255';
+        if (document.documentElement.classList.contains('theme-transitioning')) {
+            // Follow the same interpolated text color in the CSS-only fallback.
+            const channels = getComputedStyle(document.body).color.match(/[\d.]+/g);
+            if (channels && channels.length >= 3) baseRgb = channels.slice(0, 3).join(', ');
+        }
 
         const instCount = instances.length;
         for (let k = 0; k < instCount; k++) {
@@ -1274,8 +1293,14 @@ function initSiteLiveMatrixBackground() {
             }
         }
 
+    }
+
+    function render() {
+        if (isVisible) draw();
         animationFrameId = requestAnimationFrame(render);
     }
+
+    document.addEventListener('portfolio:themechange', draw);
 
     // Battery-friendly pause when tab is minimized or hidden
     document.addEventListener('visibilitychange', () => {

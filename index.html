@@ -25,9 +25,19 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="theme-color" content="#000000">
+    <script>
+        // Restore the chosen palette before the first paint.
+        try {
+            const savedTheme = localStorage.getItem('theo-portfolio-theme');
+            if (savedTheme === 'light' || savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', savedTheme === 'light' ? '#ffffff' : '#000000');
+            }
+        } catch { /* Keep the default palette when browser storage is unavailable. */ }
+    </script>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=4.6">
+    <link rel="stylesheet" href="css/style.css?v=5.2">
     <link rel="stylesheet" href="css/services.css?v=5.1">
     <link rel="stylesheet" href="css/pipeline.css?v=5.1">
     <link rel="stylesheet" href="css/ai-assistant.css?v=5.0">
@@ -1653,7 +1663,7 @@
     </aside>
 
     <!-- Main JavaScript Bundle -->
-    <script src="js/main.js?v=4.6"></script>
+    <script src="js/main.js?v=5.2"></script>
     <script src="js/pipeline.js?v=4.9"></script>
     <script src="js/ai-assistant.js?v=5.0"></script>
 </body>
